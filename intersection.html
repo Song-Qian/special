@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>测试路口</title>
+        <script src="./scripts/jquery-1.9.1.js"></script>
+        <script src="./scripts/vue.min.js"></script>
+		<style>
+			html,body, #app { width: 100%; height: 100%; margin:0px; padding: 0px; background-color: #7b7b7b; }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <intersection 
+                :roads="Roads" 
+                :road-mode='RoadMode' 
+                :road-width='RoadWidth' 
+                :angle.sync='Angle'
+                @cross-stay-click='onCrossStayClick'
+                @cross-road-boundary-click='onCrossRoadBoundaryClick'
+                @cross-road-pedestrian-click='onCrossRoadPedestrianClick'
+                @cross-road-stopline-click='onCrossRoadStopLineClick'
+                @cross-road-pavement-click='onCrossRoadPavementClick'
+                @cross-solid-line-click='onCrossSolidLineClick'
+                @cross-dotted-line-click='onCrossDottedLineClick'
+                @cross-parterre-boundary-line-click='onCrossParterreBoundaryLineClick'
+                @cross-y-dotted-line-click='onCrossYDottedLineClick'
+                @cross-y-solid-line-click='onCrossYSolidLineClick'
+                @cross-y-double-solid-line-click='onCrossYDoubleSolidLineClick'
+                @cross-y-double-dashed-line-click='onCrossYDoubleDashedLineClick'
+                @cross-y-area-click='onCrossYAreaClick'
+                @cross-parterre-click='onCrossParterreClick'
+                @cross-parterre-line-click='onCrossParterreLineClick'
+                @cross-parterre-safearea-click='onCrossParterreSafeAreaClick'
+                @cross-lane-mark-click='onCrossLaneMarkClick'
+            ></intersection>
+        </div>
+    </body>
+    <script>
+        $(document).ready(function() {
+            s = document.createElement("script");
+            s.setAttribute("src", "./scripts/intersection.js?noCache=" + new Date().getTime());
+            c = document.createElement("link");
+            c.setAttribute("rel", "stylesheet");
+            c.setAttribute("href", "./assets/css/intersection.css?noCache=" + new Date().getTime());
+            document.head.appendChild(s);
+            document.head.appendChild(c);
+            s.onload = function() {
+
+                Vue.use(intersection);
+                var app = new Vue({
+                    el : "#app",
+                    data: function() {
+                        return {
+                            Roads : [
+                                { 
+                                    boundary : { left: { has: true }, right: { has: true } },
+                                    stayArea: true,
+                                    pedestrian: true,
+                                    stopLine: true,
+                                    Lane: [
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: []},
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
+                                        { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
+                                    ]
+                                },
+                                { 
+                                    boundary : { left: { has: true }, right: { has: true } },
+                                    stayArea: true,
+                                    pedestrian: true,
+                                    stopLine: true,
+                                    Lane: [
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'parterre', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
+                                        { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
+                                    ]
+                                },
+                                { 
+                                    boundary : { left: { has: true }, right: { has: true } },
+                                    stayArea: true,
+                                    pedestrian: true,
+                                    stopLine: true,
+                                    Lane: [
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '1' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '1' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight-right'}, { seq: '1' , mark: 'straight-right'}, { seq: '2' , mark: 'straight-right'} ]},
+                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-left'}, { seq: '1' , mark: 'straight-left'}, { seq: '2' , mark: 'straight-left'} ] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'uturn'}, { seq: '1' , mark: 'uturn'}, { seq: '2' , mark: 'uturn'} ] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-uturn'}, { seq: '1' , mark: 'straight-uturn'}, { seq: '2' , mark: 'straight-uturn'} ] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'left-uturn'}, { seq: '1' , mark: 'left-uturn'}, { seq: '2' , mark: 'left-uturn'} ] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [{ seq: '0' , mark: 'left-right'}, { seq: '1' , mark: 'left-right'}, { seq: '2' , mark: 'left-right'} ] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: false, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ] }
+                                    ]
+                                },
+                                { 
+                                    boundary : { left: { has: true }, right: { has: true } },
+                                    stayArea: true,
+                                    pedestrian: true,
+                                    stopLine: true,
+                                    Lane: [
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'parterre', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
+                                        { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
+                                    ]
+                                }
+                            ],
+                            RoadMode : 'K',
+                            RoadWidth: 500,
+                            Angle: 0,
+                        }
+                    },
+                    methods: {
+                        //十字路口行人暂留区域点击事件
+                        onCrossStayClick: function(e, i) {
+                            //e 事件对象， i 路口索引下标
+                            alert("第"+ (i + 1) + "个路口行人暂留区被点击");
+                        },
+                        //十字路口公路边界线的点击事件
+                        onCrossRoadBoundaryClick: function(e, i, flag) {
+                            // e 事件对象, i 路口索引下标, flag === 'left' 左边边界线， flag === 'right' 右边边界线
+                            if (flag === 'left') {
+                                alert("第"+ (i + 1) + "个路口,左边边界线被点击");
+                            } else if(flag === 'right') {
+                                alert("第"+ (i + 1) + "个路口,右边边界线被点击");
+                            }
+                        },
+                        //十字路口行人斑马线的点击事件
+                        onCrossRoadPedestrianClick: function(e, i, isStay) {
+                            // e 事件对象, i 路口索引下标, isStay 是否暂留区域的行人斑马线
+                            if (isStay) {
+                                alert("第"+ (i + 1) + "个路口,行人暂留区斑马线被点击");
+                            } else  {
+                                alert("第"+ (i + 1) + "个路口,斑马线被点击");
+                            }
+                        },
+                        //机动车停止线点击事件
+                        onCrossRoadStopLineClick: function(e, i) {
+                            // e 事件对象, i 路口索引下标
+                            alert("第"+ (i + 1) + "个路口机动车停止线被点击");
+                        },
+                        //机动车道路点击事件
+                        onCrossRoadPavementClick: function(e, i, lane) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
+                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路被点击");
+                        },
+                        //机动车道路白色实线点击事件
+                        onCrossSolidLineClick: function(e, i, lane) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
+                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路白色实线被点击");
+                        },
+                        //机动车道路白色虚线点击事件
+                        onCrossDottedLineClick: function(e, i, lane) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
+                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路白色虚线被点击");
+                        },
+                        //花坛边界线点击事件
+                        onCrossParterreBoundaryLineClick: function(e, i, lane) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
+                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路花坛边界线被点击");
+                        },
+                        //机动车黄色虚线点击事件
+                        onCrossYDottedLineClick: function(e, i, lane) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
+                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路机动车黄色虚线被点击");
+                        },
+                        //机动车黄色实线点击事件
+                        onCrossYSolidLineClick: function(e, i, lane) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
+                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路机动车黄色实线被点击");
+                        },
+                        //机动车双黄色实线点击事件
+                        onCrossYDoubleSolidLineClick: function(e, i, lane, side) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标, side === 'left' 左边黄线, side === 'right' 右边黄线
+                            if (side === 'left') {
+                                alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路机动车左边双黄色实线被点击");
+                            } else if (side === 'right') {
+                                alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路机动车右边双黄色实线被点击");
+                            }
+                        },
+                        //机动车双黄色虚线点击事件
+                        onCrossYDoubleDashedLineClick: function(e, i, lane, side) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标, side === 'left' 左边黄线, side === 'right' 右边黄线
+                            if (side === 'left') {
+                                alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路机动车左边双黄色虚线被点击");
+                            } else if (side === 'right') {
+                                alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路机动车右边双黄色虚线被点击");
+                            }
+                        },
+                        //机动车黄色禁停区域点击事件
+                        onCrossYAreaClick: function(e, i, lane) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
+                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路机动车双禁停区域被点击");
+                        },
+                        //花坛绿色区域点击事件
+                        onCrossParterreClick: function(e, i, lane) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
+                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "花坛绿色区域被点击");
+                        },
+                        //花坛内部白线点击事件
+                        onCrossParterreLineClick: function(e, i, lane, side) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标, side === 'left' 左边黄线, side === 'right' 右边黄线
+                            if (side === 'left') {
+                                alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "花坛左侧白线被点击");
+                            } else if (side === 'right') {
+                                alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "花坛右侧白线被点击");
+                            }
+                        },
+                        //安全岛点击事件
+                        onCrossParterreSafeAreaClick: function(e, i, lane) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
+                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "安全岛被点击");
+                        },
+                        //道路路标点击事件
+                        onCrossLaneMarkClick: function(e, i, lane, seq, mark) {
+                            var me = this;
+                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "个车道, 第" + (Number(seq) + 1) + "路标" + mark + "被点击");
+                        }
+                    }
+                })
+                
+            
+            }
+        })
+    </script>
+</html>

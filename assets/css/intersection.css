@@ -1,0 +1,13 @@
+﻿.ivsom-road {
+    width: 100%;
+    height: 100%;
+    background-color: #111;
+}
+
+.ivsom-road > .cross-road,
+.ivsom-road > .y-road,
+.ivsom-road > .t-road
+.ivsom-road > .k-road {
+    width: 100%;
+    height: 100%;
+}
