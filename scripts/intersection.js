@@ -317,7 +317,7 @@
     //十字路口Vue对象
     function crossRender() {
         var template = [
-            "<g class='cross-road'>",
+            "<g class='cross-road' clip-path='url(#clip)'>",
                 "<defs>",
                     "<g :id=\"'stayArea_' + uuid \"><path d='M200,0 V180 C200,200 200,200 180,200 L0,200 C100,200 200,100 200,0 z' fill='#0075c5' stroke='#fff' stroke-width='3' /></g>",
                 "</defs>",
@@ -471,10 +471,10 @@
                 "</g>",
                 "<g>",
                     //行人安全暂留区斑马线
-                    "<line v-show='RoadTop.pedestrian && RoadTop.stayArea' :x1='calcPedestrianRoadTop.p1.x' :x2='calcPedestrianRoadTop.p2.x' :y1='calcPedestrianRoadTop.p1.y' :y2='calcPedestrianRoadTop.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, true)'/>",
-                    "<line v-show='RoadRight.pedestrian && RoadRight.stayArea' :x1='calcPedestrianRoadRight.p1.x' :x2='calcPedestrianRoadRight.p2.x' :y1='calcPedestrianRoadRight.p1.y' :y2='calcPedestrianRoadRight.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, true)'/>",
-                    "<line v-show='RoadBottom.pedestrian && RoadBottom.stayArea' :x1='calcPedestrianRoadBottom.p1.x' :x2='calcPedestrianRoadBottom.p2.x' :y1='calcPedestrianRoadBottom.p1.y' :y2='calcPedestrianRoadBottom.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, true)'/>",
-                    "<line v-show='RoadLeft.pedestrian && RoadLeft.stayArea' :x1='calcPedestrianRoadLeft.p1.x' :x2='calcPedestrianRoadLeft.p2.x' :y1='calcPedestrianRoadLeft.p1.y' :y2='calcPedestrianRoadLeft.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, true)'/>",
+                    "<line v-show='RoadTop.pedestrian && RoadTop.stayArea && RoadTop.stayPedestrian' :x1='calcPedestrianRoadTop.p1.x' :x2='calcPedestrianRoadTop.p2.x' :y1='calcPedestrianRoadTop.p1.y' :y2='calcPedestrianRoadTop.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, true)'/>",
+                    "<line v-show='RoadRight.pedestrian && RoadRight.stayArea && RoadRight.stayPedestrian' :x1='calcPedestrianRoadRight.p1.x' :x2='calcPedestrianRoadRight.p2.x' :y1='calcPedestrianRoadRight.p1.y' :y2='calcPedestrianRoadRight.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, true)'/>",
+                    "<line v-show='RoadBottom.pedestrian && RoadBottom.stayArea && RoadBottom.stayPedestrian' :x1='calcPedestrianRoadBottom.p1.x' :x2='calcPedestrianRoadBottom.p2.x' :y1='calcPedestrianRoadBottom.p1.y' :y2='calcPedestrianRoadBottom.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, true)'/>",
+                    "<line v-show='RoadLeft.pedestrian && RoadLeft.stayArea && RoadLeft.stayPedestrian' :x1='calcPedestrianRoadLeft.p1.x' :x2='calcPedestrianRoadLeft.p2.x' :y1='calcPedestrianRoadLeft.p1.y' :y2='calcPedestrianRoadLeft.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, true)'/>",
                 "</g>",
                 "<stay-pedestrian v-show='RoadTop.stayArea && RoadTop.pedestrian' :width='calcRoadTopStay.width' :height='calcRoadTopStay.height' :angle='0' :x='calcRoadTopStay.left' :y='calcRoadTopStay.top' :defs='uuid' @on-stay-area-click='onCrossStayAreaClick($event, 0)' ></stay-pedestrian>",
                 "<stay-pedestrian v-show='RoadRight.stayArea && RoadRight.pedestrian' :width='calcRoadRightStay.width' :height='calcRoadRightStay.height' :angle='90' :x='calcRoadRightStay.left' :y='calcRoadRightStay.top' :defs='uuid' @on-stay-area-click='onCrossStayAreaClick($event, 1)'></stay-pedestrian>",
@@ -509,6 +509,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -537,6 +539,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -565,6 +569,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -593,6 +599,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -1076,7 +1084,7 @@
     //Y 字路口
     var YRender = function() {
         var template = [
-            "<g class='y-road'>",
+            "<g class='y-road' clip-path='url(#clip)'>",
                 "<g>",
                     "<rect :x='1920 / 2 - RoadWidth / 2' :y='1080 / 2' :width='RoadWidth' height='499999.5' fill='#333' style='transform:rotate(-120deg); transform-origin: center center;' />",
                     "<rect :x='1920 / 2 - RoadWidth / 2' :y='1080 / 2' :width='RoadWidth' height='499999.5' fill='#333' style='transform:rotate(120deg); transform-origin: center center;' />",
@@ -1190,9 +1198,9 @@
                 "</g>",
                 "<g>",
                     //行人安全暂留区斑马线
-                    "<line v-show='RoadLeft.pedestrian && RoadLeft.stayArea' :x1='calcLeftPedestrian.p3.x' :x2='calcLeftPedestrian.p4.x' :y1='calcLeftPedestrian.p3.y' :y2='calcLeftPedestrian.p4.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, true)'/>",
-                    "<line v-show='RoadRight.pedestrian && RoadRight.stayArea' :x1='calcRightPedestrian.p3.x' :x2='calcRightPedestrian.p4.x' :y1='calcRightPedestrian.p3.y' :y2='calcRightPedestrian.p4.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, true)'/>",
-                    "<line v-show='RoadBottom.pedestrian && RoadBottom.stayArea' :x1='calcBottomPedestrian.p3.x' :x2='calcBottomPedestrian.p4.x' :y1='calcBottomPedestrian.p3.y' :y2='calcBottomPedestrian.p4.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, true)'/>",
+                    "<line v-show='RoadLeft.pedestrian && RoadLeft.stayArea && RoadLeft.stayPedestrian' :x1='calcLeftPedestrian.p3.x' :x2='calcLeftPedestrian.p4.x' :y1='calcLeftPedestrian.p3.y' :y2='calcLeftPedestrian.p4.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, true)'/>",
+                    "<line v-show='RoadRight.pedestrian && RoadRight.stayArea && RoadRight.stayPedestrian' :x1='calcRightPedestrian.p3.x' :x2='calcRightPedestrian.p4.x' :y1='calcRightPedestrian.p3.y' :y2='calcRightPedestrian.p4.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, true)'/>",
+                    "<line v-show='RoadBottom.pedestrian && RoadBottom.stayArea && RoadBottom.stayPedestrian' :x1='calcBottomPedestrian.p3.x' :x2='calcBottomPedestrian.p4.x' :y1='calcBottomPedestrian.p3.y' :y2='calcBottomPedestrian.p4.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, true)'/>",
                 "</g>",
                 "<g>",
                     "<path v-show='RoadLeft.stayArea && RoadLeft.pedestrian' :d='calcRoadLeftStay' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, 0)' />",
@@ -1229,6 +1237,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -1257,6 +1267,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -1285,6 +1297,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -1739,7 +1753,7 @@
 
     var TRender = function() {
         var template = [
-            "<g class='t-road'>",
+            "<g class='t-road' clip-path='url(#clip)'>",
                 "<defs>",
                     "<g :id=\"'stayArea_' + uuid \"><path d='M200,0 V180 C200,200 200,200 180,200 L0,200 C100,200 200,100 200,0 z' fill='#0075c5' stroke='#fff' stroke-width='3' /></g>",
                 "</defs>",
@@ -1856,6 +1870,11 @@
                     "<path v-show='RoadBottom.boundary.left.has' :d='calcRoadBottomBoundary.innerLeft' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
                     "<path v-show='RoadBottom.boundary.right.has' :d='calcRoadBottomBoundary.innerRight' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
                 "</g>",
+                "<g>",
+                    //行人安全暂留区斑马线
+                    "<line v-show='RoadLeft.pedestrian && RoadLeft.stayArea && RoadLeft.stayPedestrian' :x1='calcPedestrianRoadLeft.p1.x' :x2='calcPedestrianRoadLeft.p2.x' :y1='calcPedestrianRoadLeft.p1.y' :y2='calcPedestrianRoadLeft.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, true)'/>",
+                    "<line v-show='RoadBottom.pedestrian && RoadBottom.stayArea && RoadBottom.stayPedestrian' :x1='calcPedestrianRoadBottom.p1.x' :x2='calcPedestrianRoadBottom.p2.x' :y1='calcPedestrianRoadBottom.p1.y' :y2='calcPedestrianRoadBottom.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, true)'/>",
+                "</g>",
                 "<stay-pedestrian v-show='RoadLeft.stayArea && RoadLeft.pedestrian' :width='calcRoadLeftStay.width' :height='calcRoadLeftStay.height' :angle='-90' :x='calcRoadLeftStay.left' :y='calcRoadLeftStay.top' :defs='uuid'  @on-stay-area-click='onCrossStayAreaClick($event, 0)'></stay-pedestrian>",
                 "<stay-pedestrian v-show='RoadBottom.stayArea && RoadBottom.pedestrian' :width='calcRoadBottomStay.width' :height='calcRoadBottomStay.height' :angle='180' :x='calcRoadBottomStay.left' :y='calcRoadBottomStay.top' :defs='uuid' @on-stay-area-click='onCrossStayAreaClick($event, 2)'></stay-pedestrian>",
             "</g>"
@@ -1888,6 +1907,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -1916,6 +1937,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -1944,6 +1967,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -2126,6 +2151,32 @@
                 layout.top = rightLane <= 2 ? (1080 / 2 + me.RoadWidth / 2 - 50 + layout.height) : 1080 / 2 + me.RoadWidth / 2 - (me.RoadWidth / rightLane) + layout.height + 1;
                 return layout;
             },
+            calcPedestrianRoadBottom: function() {
+                var me = this;
+                var bottomLane = me.RoadBottom.Lane.length | 0;
+                var rightLane = me.RoadRight.Lane.length | 0;
+                var langW = bottomLane <= 2 ? 50 : me.RoadWidth / bottomLane; 
+                var langH = rightLane <= 2 ? 50 : me.RoadWidth / rightLane;
+                var s = Math.sqrt(langW * langW + langH * langH) / 2;
+                var ox = (1920 / 2) + (me.RoadWidth / 2) + 125;
+                var oy = (1080 / 2) + (me.RoadWidth / 2) + 125;
+                var p = utils.calcRadiusAnyPoint(ox, oy, 150, 225);
+                var p2 = utils.calcRadiusAnyPoint(ox, oy, 160 + s, 225);
+                return { p1: p, p2: p2 };
+            },
+            calcPedestrianRoadLeft: function() {
+                var me = this;
+                var leftLane = me.RoadLeft.Lane.length | 0;
+                var bottomLane = me.RoadBottom.Lane.length | 0;
+                var langW = bottomLane <= 2 ? 50 : me.RoadWidth / bottomLane; 
+                var langH = leftLane <= 2 ? 50 : me.RoadWidth / leftLane;
+                var s = Math.sqrt(langW * langW + langH * langH) / 2;
+                var ox = (1920 - me.RoadWidth) / 2 - 125;
+                var oy = (1080 / 2) + (me.RoadWidth / 2) + 125;
+                var p = utils.calcRadiusAnyPoint(ox, oy, 150, 315);
+                var p2 = utils.calcRadiusAnyPoint(ox, oy, 160 + s, 315);
+                return { p1: p, p2: p2 };
+            }
         },
         methods: {
             roadLeftMoveTo: function(n) {
@@ -2237,7 +2288,7 @@
 
     var KRender = function() {
         var template = [
-            "<g class='k-road'>",
+            "<g class='k-road' clip-path='url(#clip)'>",
                 "<g>",
                     "<rect :x='getCenterIntersection.x - RoadWidth' y='-499999.5' :width='RoadWidth' height='999999' fill='#333' />",
                     "<rect :x='getCenterIntersection.x' :y='getCenterIntersection.y - RoadWidth / 2' width='499999.5' :height='RoadWidth' style='transform:rotate(-45deg); transform-origin: center center;' fill='#333' />",
@@ -2385,9 +2436,9 @@
                 "</g>",
                 "<g>",
                     //行人安全暂留区斑马线
-                    "<line v-show='RoadRight.pedestrian && RoadRight.stayArea' :x1='calcRightPedestrian.p1.x' :x2='calcRightPedestrian.p2.x' :y1='calcRightPedestrian.p1.y' :y2='calcRightPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, true)'/>",
-                    "<line v-show='RoadLeft.pedestrian && RoadLeft.stayArea' :x1='calcLeftPedestrian.p1.x' :x2='calcLeftPedestrian.p2.x' :y1='calcLeftPedestrian.p1.y' :y2='calcLeftPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, true)'/>",
-                    "<line v-show='RoadBottom.pedestrian && RoadBottom.stayArea' :x1='calcBottomPedestrian.p1.x' :x2='calcBottomPedestrian.p2.x' :y1='calcBottomPedestrian.p1.y' :y2='calcBottomPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, true)'/>",
+                    "<line v-show='RoadRight.pedestrian && RoadRight.stayArea && RoadRight.stayPedestrian' :x1='calcRightPedestrian.p1.x' :x2='calcRightPedestrian.p2.x' :y1='calcRightPedestrian.p1.y' :y2='calcRightPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, true)'/>",
+                    "<line v-show='RoadLeft.pedestrian && RoadLeft.stayArea && RoadLeft.stayPedestrian' :x1='calcLeftPedestrian.p1.x' :x2='calcLeftPedestrian.p2.x' :y1='calcLeftPedestrian.p1.y' :y2='calcLeftPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, true)'/>",
+                    "<line v-show='RoadBottom.pedestrian && RoadBottom.stayArea && RoadBottom.stayPedestrian' :x1='calcBottomPedestrian.p1.x' :x2='calcBottomPedestrian.p2.x' :y1='calcBottomPedestrian.p1.y' :y2='calcBottomPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, true)'/>",
                 "</g>",
                 "<g>",
                     "<path v-show='RoadRight.stayArea && RoadRight.pedestrian' :d='calcRoadTopStay' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, 1)' />",
@@ -2424,6 +2475,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -2452,6 +2505,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -2480,6 +2535,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -2508,6 +2565,8 @@
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
                 stayArea: { default: true, type: Boolean },
+                //default: true, 是否具有暂留区斑马线
+                stayPedestrian: { default: true, type: Boolean },
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
@@ -3048,6 +3107,11 @@
                     "</linearGradient>",
                 "</defs>",
                 "<defs>",
+                    "<clipPath id='clip'>",
+                        "<path d='M-800,-800 -800,1880 2720,1880 2720,-800 -800,-800 z' />",
+                    "</clipPath>",
+                "</defs>",
+                "<defs>",
                     "<g id='compass'>",
                         "<image x='0' y='0' width='170' height='170' :transform=\"'rotate(' + Angle + ', 85 85)'\" xlink:href='data:image/png;base64,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' />",
                         "<path d='M85,10 L75,85 S85,75 95,85 85,10 z' fill='url(#orange_red)' />",
@@ -3058,7 +3122,7 @@
                 "<y-road v-if=\"RoadMode === 'Y'\" :road-width='RoadWidth' :road-left='Roads[0]' :road-right='Roads[1]' :road-bottom='Roads[2]' :style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ></y-road>",
                 "<t-road v-if=\"RoadMode === 'T'\" :road-width='RoadWidth' :road-left='Roads[0]' :road-right='Roads[1]' :road-bottom='Roads[2]' :style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ></t-road>",
                 "<k-road v-if=\"RoadMode === 'K'\" :road-top='Roads[0]' :road-width='RoadWidth' :road-right='Roads[1]' :road-left='Roads[2]' :road-bottom='Roads[3]'  :style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ></k-road>",
-                "<use x='20' y='890' xlink:href='#compass' />",
+                "<use x='20' y='20' xlink:href='#compass' />",
             "</svg>"
         ];
         return template.join('');
