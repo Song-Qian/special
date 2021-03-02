@@ -1,10 +1,10 @@
-# HTML5 ÌØÐ§×é¼þ
+# HTML5 ï¿½ï¿½Ð§ï¿½ï¿½ï¿½
 
 ------
 
-## Â·¿ÚÍ¼ÐÎ»æÖÆ×é¼þ
+## Â·ï¿½ï¿½Í¼ï¿½Î»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
-### Ê¹ÓÃ·½Ê½
+### Ê¹ï¿½Ã·ï¿½Ê½
 
 ``` html
 <intersection 
@@ -38,13 +38,14 @@
         boundary : { left: { has: true }, right: { has: true } },
         stayArea: true,
         pedestrian: true,
+        stayPedestrian: true,
         stopLine: true,
         Lane: [
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-            { type: 'parterre', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: []},
+            { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: []},
             { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
             { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
             { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
@@ -60,11 +61,11 @@
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-            { type: 'parterre', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [] },
+            { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
             { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
             { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-            { type: 'parterre', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+            { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
             { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
             { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
             { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
@@ -80,7 +81,7 @@
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '1' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '1' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight-right'}, { seq: '1' , mark: 'straight-right'}, { seq: '2' , mark: 'straight-right'} ]},
-            { type: 'parterre', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-left'}, { seq: '1' , mark: 'straight-left'}, { seq: '2' , mark: 'straight-left'} ] },
+            { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-left'}, { seq: '1' , mark: 'straight-left'}, { seq: '2' , mark: 'straight-left'} ] },
             { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'uturn'}, { seq: '1' , mark: 'uturn'}, { seq: '2' , mark: 'uturn'} ] },
             { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-uturn'}, { seq: '1' , mark: 'straight-uturn'}, { seq: '2' , mark: 'straight-uturn'} ] },
             { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'left-uturn'}, { seq: '1' , mark: 'left-uturn'}, { seq: '2' , mark: 'left-uturn'} ] },
@@ -97,11 +98,11 @@
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-            { type: 'parterre', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [] },
+            { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
             { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
             { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
             { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-            { type: 'parterre', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+            { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
             { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
             { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
             { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
@@ -113,64 +114,64 @@
 }
 ```
 
-### Api Ê¹ÓÃËµÃ÷
+### Api Ê¹ï¿½ï¿½Ëµï¿½ï¿½
 ``` javascript
 {
-	RoadMode : 'A' | 'Y' | 'K' | 'T' | 'O', //Â·¿ÚÄ£Ê½ A:Ê®×ÖÂ·¿Ú', Y:Y×ÖÂ·¿Ú, K:K×ÖÂ·¿Ú, T:T×ÖÂ·¿Ú, O: ×ªÅÌÂ·¿Ú (ÔÝÎ´ÊµÏÖ),
-	RoadWidth: number, //Â·Ãæ¿í
-	//Â·¿ÚË³Ðò£¬´Ó±±Ïò¿ªÊ¼¼ÆËã£¬Ë³Ê±Õë¶ÔÓ¦Â·¿Ú
+	RoadMode : 'A' | 'Y' | 'K' | 'T' | 'O', //Â·ï¿½ï¿½Ä£Ê½ A:Ê®ï¿½ï¿½Â·ï¿½ï¿½', Y:Yï¿½ï¿½Â·ï¿½ï¿½, K:Kï¿½ï¿½Â·ï¿½ï¿½, T:Tï¿½ï¿½Â·ï¿½ï¿½, O: ×ªï¿½ï¿½Â·ï¿½ï¿½ (ï¿½ï¿½Î´Êµï¿½ï¿½),
+	RoadWidth: number, //Â·ï¿½ï¿½ï¿½
+	//Â·ï¿½ï¿½Ë³ï¿½ò£¬´Ó±ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½ï¿½ã£¬Ë³Ê±ï¿½ï¿½ï¿½Ó¦Â·ï¿½ï¿½
 	Roads: [
-		//µÚÒ»¸öÂ·¿Ú (±±) (Â·¿ÚË÷ÒýÐòºÅ£º 0, 1, 2, 3...)
+		//ï¿½ï¿½Ò»ï¿½ï¿½Â·ï¿½ï¿½ (ï¿½ï¿½) (Â·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å£ï¿½ 0, 1, 2, 3...)
 		{
-            //Â·¿ÚÃû³Æ£¬Ç°¶ËÖ§³Ö´ËÊôÐÔ£¬µ«ÎÞUI±íÏÖ,½öÏÞÊý¾Ý½»»¥Ê¹ÓÃ¡£
+            //Â·ï¿½ï¿½ï¿½ï¿½ï¿½Æ£ï¿½Ç°ï¿½ï¿½Ö§ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¡ï¿½
             name : "",
-            //±ß½ç°×Ïß¿ØÖÆ
+            //ï¿½ß½ï¿½ï¿½ï¿½ß¿ï¿½ï¿½ï¿½
             boundary:  {
                 left: {
-                    length: number, //deafult: 0 ×ó²à±ß½ç°×ÏßµÄ³¤¶È£¬Ç°¶ËÖ§³Ö´ËÊôÐÔ£¬µ«ÎÞUI±íÏÖ,½öÏÞÊý¾Ý½»»¥Ê¹ÓÃ¡£
-                    has: boolean //deafult: true ÊÇ·ñ¾ßÓÐ×ó²à±ß½ç°×Ïß,
+                    length: number, //deafult: 0 ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½ßµÄ³ï¿½ï¿½È£ï¿½Ç°ï¿½ï¿½Ö§ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¡ï¿½
+                    has: boolean //deafult: true ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß½ï¿½ï¿½ï¿½ï¿½,
                 },
                 right: {
-                    length: number, //deafult: 0 ÓÒ²à±ß½ç°×ÏßµÄ³¤¶È£¬Ç°¶ËÖ§³Ö´ËÊôÐÔ£¬µ«ÎÞUI±íÏÖ,½öÏÞÊý¾Ý½»»¥Ê¹ÓÃ¡£
-                    has: boolean //deafult: true ÊÇ·ñ¾ßÓÐÓÒ²à±ß½ç°×Ïß,
+                    length: number, //deafult: 0 ï¿½Ò²ï¿½ß½ï¿½ï¿½ï¿½ßµÄ³ï¿½ï¿½È£ï¿½Ç°ï¿½ï¿½Ö§ï¿½Ö´ï¿½ï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½UIï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½Ê¹ï¿½Ã¡ï¿½
+                    has: boolean //deafult: true ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ß½ï¿½ï¿½ï¿½ï¿½,
                 }
             },
-			pedestrian: boolean, //deafult: true ÊÇ·ñ¾ßÓÐÈËÐÐ°àÂíÏß
-			stayArea: boolean, //default: true ÊÇ·ñ¾ßÓÐÈËÐÐÔÝÁôÇø
-			stopLine: boolean, //default: true ÊÇ·ñ¾ßÓÐ»ú¶¯³µÍ£Ö¹Ïß
-			//³µµÀ,×ÔÓÒÏò×ó»æÖÆ(Ë³Ê±Õë)
+			pedestrian: boolean, //deafult: true ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð°ï¿½ï¿½ï¿½ï¿½ï¿½
+			stayArea: boolean, //default: true ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			stopLine: boolean, //default: true ï¿½Ç·ï¿½ï¿½ï¿½Ð»ï¿½ï¿½ï¿½ï¿½ï¿½Í£Ö¹ï¿½ï¿½
+			//ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(Ë³Ê±ï¿½ï¿½)
 			lane : [
 				{
-					//»ú¶¯³µÏßÀàÐÍ£¬ solid: °×É«ÊµÏß, dotted: °×É«ÐéÏß, parterre: »¨Ì³, y_dotted: »ÆÉ«ÐéÏß, y_solid: »ÆÉ«ÊµÏß, y_double_solid: Ë«»ÆÊµÏß, y_double_dashed: Ë«»ÆÐéÊµÏß, y_solid_area »ÆÉ«½ûÖ¹ÇøÓò
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í£ï¿½ solid: ï¿½ï¿½É«Êµï¿½ï¿½, dotted: ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½, parterre: ï¿½ï¿½Ì³, y_dotted: ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½, y_solid: ï¿½ï¿½É«Êµï¿½ï¿½, y_double_solid: Ë«ï¿½ï¿½Êµï¿½ï¿½, y_double_dashed: Ë«ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½, y_solid_area ï¿½ï¿½É«ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½
 					type : 'solid' | 'dotted' | 'parterre' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed' | 'y_solid_area',
-                    assist: boolean, // default: false, ÊÇ·ñ¸¨µÀ
-                    reverse: boolean, // default: false, ÊÇ·ñÄæÏò³µµÀ
-                    markright: boolean, // default: true, ËùÓÐµÄmark±ê¼ÇÊÇ·ñÔÚÏßÂ·ÓÒ²à
-                    hasBoundary: boolean, // default: false, ÊÇ·ñ»æÖÆ±ßÏß
+                    assist: boolean, // default: false, ï¿½Ç·ñ¸¨µï¿½
+                    reverse: boolean, // default: false, ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ò³µµï¿½
+                    markright: boolean, // default: true, ï¿½ï¿½ï¿½Ðµï¿½markï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½Ò²ï¿½
+                    hasBoundary: boolean, // default: false, ï¿½Ç·ï¿½ï¿½ï¿½Æ±ï¿½ï¿½ï¿½
                     landmark: [
                         { 
-                            seq: 0,  // default: 0 »ú¶¯Â··½ÏòÂ·±êÎ»ÖÃ 0£ºµÚ1¸ö£¬ 1£ºµÚ2¸ö£¬ 2£º µÚ3¸ö
-                            // default: 'straight' »ú¶¯Â··½ÏòÂ·±ê£¬ left: ×ó×ª right: ÓÒ×ª straight: Ö±ÐÐ,straight-right: Ö±ÐÐÓÒ×ª, straight-left: Ö±ÐÐ×ó×ª, uturn :¡¡µ÷Í·, straight-uturn: Ö±ÐÐµ÷Í·, left-right: ×óÓÒ×ª, left-uturn£º ×ó²àµ÷Í·  
+                            seq: 0,  // default: 0 ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½Î»ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½1ï¿½ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½2ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½3ï¿½ï¿½
+                            // default: 'straight' ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½ï¿½Â·ï¿½ê£¬ left: ï¿½ï¿½×ª right: ï¿½ï¿½×ª straight: Ö±ï¿½ï¿½,straight-right: Ö±ï¿½ï¿½ï¿½ï¿½×ª, straight-left: Ö±ï¿½ï¿½ï¿½ï¿½×ª, uturn :ï¿½ï¿½ï¿½ï¿½Í·, straight-uturn: Ö±ï¿½Ðµï¿½Í·, left-right: ï¿½ï¿½ï¿½ï¿½×ª, left-uturnï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Í·  
                             mark: 'left' | 'straight' | 'right' | 'straight-right' | 'straight-left' | 'uturn' | 'straight-uturn' | 'left-right' | 'left-uturn'  
                         }
                     ]
 					// landmark: 'left' | 'straight' | 'right', 
-					// speedmark: number, // default : 0 »ú¶¯³µËÙ¶È±êÊ¶ÅÆ 0²»ÏÔÊ¾
-					// stopmark: boolean, default: false ÊÇ·ñÏÔÊ¾½ûÖ¹»ú¶¯³µ±êÊ¶ÅÆ false²»ÏÔÊ¾
-					// drivemark: boolean, default: false ÊÇ·ñÏÔÊ¾»ú¶¯³µ±êÊ¶ÅÆ false²»ÏÔÊ¾
-					// nondrivemark: boolean, default: false ÊÇ·ñÏÔÊ¾·Ç»ú¶¯³µ±êÊ¶ÅÆ false²»ÏÔÊ¾
-					// fastdrivemark: boolean, default: false ÊÇ·ñÏÔÊ¾¿ì³µµÀ±êÊ¶Æ¬ false ²»ÏÔÊ¾
-					// ´ýÀ©Õ¹...
+					// speedmark: number, // default : 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ù¶È±ï¿½Ê¶ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½Ê¾
+					// stopmark: boolean, default: false ï¿½Ç·ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½ï¿½ falseï¿½ï¿½ï¿½ï¿½Ê¾
+					// drivemark: boolean, default: false ï¿½Ç·ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½ï¿½ falseï¿½ï¿½ï¿½ï¿½Ê¾
+					// nondrivemark: boolean, default: false ï¿½Ç·ï¿½ï¿½ï¿½Ê¾ï¿½Ç»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¶ï¿½ï¿½ falseï¿½ï¿½ï¿½ï¿½Ê¾
+					// fastdrivemark: boolean, default: false ï¿½Ç·ï¿½ï¿½ï¿½Ê¾ï¿½ì³µï¿½ï¿½ï¿½ï¿½Ê¶Æ¬ false ï¿½ï¿½ï¿½ï¿½Ê¾
+					// ï¿½ï¿½ï¿½ï¿½Õ¹...
 				},
 				...
 			]
 		},
-		//µÚ¶þ¸öÂ·¿Ú (¶«)
-		{ Í¬ÉÏ... },
-		//µÚÈý¸öÂ·¿Ú (ÄÏ)
-		{ Í¬ÉÏ... },
-		//µÚËÄ¸öÂ·¿Ú (Î÷)
-		{ Í¬ÉÏ... }
+		//ï¿½Ú¶ï¿½ï¿½ï¿½Â·ï¿½ï¿½ (ï¿½ï¿½)
+		{ Í¬ï¿½ï¿½... },
+		//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ (ï¿½ï¿½)
+		{ Í¬ï¿½ï¿½... },
+		//ï¿½ï¿½ï¿½Ä¸ï¿½Â·ï¿½ï¿½ (ï¿½ï¿½)
+		{ Í¬ï¿½ï¿½... }
 	]
 }
 ```
