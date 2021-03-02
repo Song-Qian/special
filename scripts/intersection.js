@@ -2818,7 +2818,7 @@
                 var w = lane <= 2 ? me.RoadWidth - diff * 2 : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
                 var p1 = utils.calcRadiusAnyPoint(v1.x, v1.y, diff, 45);
                 var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, w, 45);
-                return { p1: p1, p2, p2 }
+                return { p1: p1, p2: p2 }
             },
             calcRoadLeftStopLine: function() {
                 var me = this;
