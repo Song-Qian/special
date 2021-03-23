@@ -1,0 +1,58 @@
+{
+	RoadMode : 'A' | 'Y' | 'K' | 'T' | 'O', //路口模式 A:十字路口', Y:Y字路口, K:K字路口, T:T字路口, O: 转盘路口,
+	RoadWidth: number, //路面宽
+	//路口顺序，从北向开始计算，顺时针对应路口
+	Roads: [
+		//第一个路口 (北) (路口索引序号： 0, 1, 2, 3...)
+		{
+            //路口名称，前端支持此属性，但无UI表现,仅限数据交互使用。
+            name : "",
+            //边界白线控制
+            boundary:  {
+                left: {
+                    length: number, //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
+                    has: boolean //deafult: true 是否具有左侧边界白线,
+                },
+                right: {
+                    length: number, //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
+                    has: boolean //deafult: true 是否具有右侧边界白线,
+                }
+            },
+			pedestrian: boolean, //deafult: true 是否具有人行班马线
+			stayArea: boolean, //default: true 是否具有人行暂留区
+			stopLine: boolean, //default: true 是否具有机动车停止线
+			//车道,自右向左绘制(顺时针)
+			lane : [
+				{
+					//机动车线类型， solid: 白色实线, dotted: 白色虚线, parterre: 花坛, y_dotted: 黄色虚线, y_solid: 黄色实线, y_double_solid: 双黄实线, y_double_dashed: 双黄虚实线, y_solid_area 黄色禁止区域
+					type : 'solid' | 'dotted' | 'parterre' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed' | 'y_solid_area',
+                    assist: boolean, // default: false, 是否辅道
+                    reverse: boolean, // default: false, 是否逆向车道
+                    markright: boolean, // default: true, 所有的mark标记是否在线路右侧
+                    hasBoundary: boolean, // default: false, 是否绘制边线
+                    landmark: [
+                        { 
+                            seq: 0,  // default: 0 机动路方向路标位置 0：第1个， 1：第2个， 2： 第3个
+                            // default: 'straight' 机动路方向路标， left: 左转 right: 右转 straight: 直行,straight-right: 直行右转, straight-left: 直行左转, uturn :　调头, straight-uturn: 直行调头, left-right: 左右转, left-uturn： 左侧调头  
+                            mark: 'left' | 'straight' | 'right' | 'straight-right' | 'straight-left' | 'uturn' | 'straight-uturn' | 'left-right' | 'left-uturn'
+                        }
+                    ]
+					// landmark: 'left' | 'straight' | 'right', 
+					// speedmark: number, // default : 0 机动车速度标识牌 0不显示
+					// stopmark: boolean, default: false 是否显示禁止机动车标识牌 false不显示
+					// drivemark: boolean, default: false 是否显示机动车标识牌 false不显示
+					// nondrivemark: boolean, default: false 是否显示非机动车标识牌 false不显示
+					// fastdrivemark: boolean, default: false 是否显示快车道标识片 false 不显示
+					// 待扩展...
+				},
+				...
+			]
+		},
+		//第二个路口 (东)
+		{ 同上... },
+		//第三个路口 (南)
+		{ 同上... },
+		//第四个路口 (西)
+		{ 同上... }
+	]
+}

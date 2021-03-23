@@ -11,3 +11,17 @@
     width: 100%;
     height: 100%;
 }
+
+.ivsom-road .ivsom-lane {
+    position: relative;
+}
+
+.ivsom-road .ivsom-lane .ivsom-lane-mark {
+    cursor: pointer;
+    position: absolute;
+    z-index: 999;
+}
+
+.ivsom-road .ivsom-lane .ivsom-lane-mark:hover {
+    fill: rgba(51, 153, 255, .5);
+}

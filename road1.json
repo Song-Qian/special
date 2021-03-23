@@ -1,0 +1,193 @@
+{
+	name : string, //路段名称
+	id : string, //路段编号
+	roadWidth: number, //路面宽
+	angle: number, //角度
+	//路段斑马线
+	pedestrian: [
+		{ 
+			id : string, //斑马线id
+			x : number, //坐标x (数据交互,无UI效果)
+			y : number, //坐标y (数据交互,无UI效果)
+			len : number, //斑马线长度 (数据交互,无UI效果)
+			width: number, //斑马线宽度 (数据交互,无UI效果)
+			area : number, //斑马线面积 (数据交互,无UI效果)
+			isShow: boolean, //是否显示
+		},
+		... 同上，斑马线数量会影响小路段数量
+	],
+    //小路段
+	roads: [
+		{
+			//上行车道
+			upward: {
+				//框架
+				frame: {
+					//边界
+					boundary: {
+						id: string, //边界线id
+						type: 'prohibit' | 'stay', //边界线的样式，prohibit 禁止停车 stay 暂停
+						len : number, //边界线长度 (数据交互,无UI效果)
+						isShow: boolean, //是否显示
+					},
+					//边线
+					line: {
+						id: string, //边线id
+						len: number, //边线长度 (数据交互,无UI效果)
+						isShow: boolean, //是否显示
+					},
+					//禁区
+					penalty: {
+						id: string, //禁区id
+						occupy: number, //占用车道数量
+						isShow: boolean, //是否显示
+					},
+					//减速丘标线
+					slow: {
+						id: string, //减速丘id
+						isShow: boolean, //是否显示
+						total: number, //减速丘数量,最大值是3
+					},
+					//上行与下行车道隔离带
+					separation: {
+						id: string,  //隔离栏id
+						len: number, //隔离栏长度 (数据交互,无UI效果)
+						//隔离栏样式， 依次是：双黄实线，双黄实虚线，双黄实线+护栏，双黄实虚线+护栏, 花坛
+						type: 'y_double_solid' | 'y_double_dashed' | 'y_barrier_solid' | 'y_barrier_dashed' | 'parterre'
+						isShow: boolean, //是否显示
+						data：[], // 隔离带的数据 (数据交互,无UI效果)
+					}
+				},
+				//上行车道列表
+				lane: [
+					{
+						id: string, //车道序号
+						//机动车线类型， solid: 白色实线, dotted: 白色虚线, barrier: 护栏, y_dotted: 黄色虚线, y_solid: 黄色实线, y_double_solid: 双黄实线, y_double_dotted: 双黄虚线, parterre 花坛+白线, parterre_dotted 花坛+虚线, y_parterre_solid 花坛+黄线, y_parterre_dotted 花坛+黄虚线
+						// 依次是：白色实线,白色虚线,黄色实线,黄色虚线,双黄实线,双黄实虚线,黄色实线+白色虚线,黄色虚线+白色实线,黄白双实线,黄白双虚线,白色实线+黄色虚线,
+						// 白色虚线+黄色实线,白黄双实线,白黄双虚线,白线护栏,黄线护栏,白虚线+护栏,黄虚线+护栏,花坛+白线,花坛+虚线,花坛+黄线,花坛+黄虚线
+						// 'solid' | 'dashed' | 'y_solid' | 'y_dashed' | 'y_double_solid' | 'y_double_dashed' | 'y_w_dashed' | 'y_w_dotted'
+						// 'y_w_double_solid' | 'y_w_double_dashed' | 'w_y_dashed' | 'w_y_dotted' | 'w_y_double_solid' | 'w_y_double_dashed'
+						// 'barrier' | 'y_barrier' | 'barrier_dashed' | 'y_barrier_dashed' | 'parterre' | 'parterre_dashed' | 'y_parterre_solid' | 'y_parterre_dashed'
+						type: 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dotted' | 'barrier' | 'parterre' | 'parterre_dotted' | 'y_parterre_solid' | 'y_parterre_dotted',
+						laneType: 'primary' | 'assist' | 'non-motorized', // default: false, 是否主道、辅道、非机动车道
+						hasBoundary: boolean, // default: true, 是否绘制边线
+						park: boolean, // default: false, 是否有停车位
+						bus: boolean // default: false, 是否有公交
+						privileged: boolean // default: false, 是否专用车道
+						text: string, //道路文字
+						//车道中的地标
+						landmark: [
+							{
+								id : string, //标记id
+								seq : number, //第n个标记，从左向右数，起始值为1
+								//default: 
+								//	'straight' 机动路方向路标， 
+								//  left: 左转 
+								//  right: 右转 
+								//  straight: 直行
+								//  straight-right: 直行右转
+								//  straight-left: 直行左转
+								//  uturn :　调头
+								//  straight-uturn: 直行调头
+								//  left-right: 左右转
+								//  left-uturn：左侧调头
+								//  pedestrian 斑马预告线
+								//  slow 减速让行线
+								//  distance 车距确认
+								//  non-motorized 非机动车
+								mark: 'left' | 'straight' | 'right' | 'straight-right' | 'straight-left' | 'uturn' | 'straight-uturn' | 'left-right' | 'left-uturn' | 'pedestrian' | 'slow' | 'distance' | 'non-motorized'
+							},
+							//... 同上，其它标记
+						]
+					}
+				]
+			},
+            //下行车道
+			down: {
+				//框架
+				frame: {
+					//边界
+					boundary: {
+						id: string, //边界线id
+						type: 'prohibit' | 'stay', //边界线的样式，prohibit 禁止停车 stay 暂停
+						len : number, //边界线长度 (数据交互,无UI效果)
+						isShow: boolean, //是否显示
+					},
+					//边线
+					line: {
+						id: string, //边线id
+						len: number, //边线长度 (数据交互,无UI效果)
+						isShow: boolean, //是否显示
+					},
+					//禁区
+					penalty: {
+						id: string, //禁区id
+						occupy: number, //占用车道数量
+						isShow: boolean, //是否显示
+					},
+					//减速丘标线
+					slow: {
+						id: string, //减速丘id
+						isShow: boolean, //是否显示
+						total: number //减速丘数量,最大值是3
+					}
+				},
+				//上行车道列表
+				lane: [
+					{
+						id: string, //车道序号
+						//机动车线类型， solid: 白色实线, dotted: 白色虚线, barrier: 护栏, y_dotted: 黄色虚线, y_solid: 黄色实线, y_double_solid: 双黄实线, y_double_dotted: 双黄虚线, parterre 花坛+白线, parterre_dotted 花坛+虚线, y_parterre_solid 花坛+黄线, y_parterre_dotted 花坛+黄虚线
+						// 依次是：白色实线,白色虚线,黄色实线,黄色虚线,双黄实线,双黄实虚线,黄色实线+白色虚线,黄色虚线+白色实线,黄白双实线,黄白双虚线,白色实线+黄色虚线,
+						// 白色虚线+黄色实线,白黄双实线,白黄双虚线,白线护栏,黄线护栏,白虚线+护栏,黄虚线+护栏,花坛+白线,花坛+虚线,花坛+黄线,花坛+黄虚线
+						// 'solid' | 'dashed' | 'y_solid' | 'y_dashed' | 'y_double_solid' | 'y_double_dashed' | 'y_w_dashed' | 'y_w_dotted'
+						// 'y_w_double_solid' | 'y_w_double_dashed' | 'w_y_dashed' | 'w_y_dotted' | 'w_y_double_solid' | 'w_y_double_dashed'
+						// 'barrier' | 'y_barrier' | 'barrier_dashed' | 'y_barrier_dashed' | 'parterre' | 'parterre_dashed' | 'y_parterre_solid' | 'y_parterre_dashed'
+						type: 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dotted' | 'barrier' | 'parterre' | 'parterre_dotted' | 'y_parterre_solid' | 'y_parterre_dotted',
+						laneType: 'primary' | 'non-motorized' | 'assist', // default: false, 是否主道、辅道、非机动车道
+						hasBoundary: boolean, // default: true, 是否绘制边线
+						park: boolean, // default: false, 是否有停车位
+						bus: boolean // default: false, 是否有公交
+						privileged: boolean // default: false, 是否专用车道
+						text: string, //道路文字
+						//车道中的地标
+						landmark: [
+							{
+								id : string, //标记id
+								text: string, //文字
+								//default: 
+								//	'straight' 机动路方向路标， 
+								//  left: 左转 
+								//  right: 右转 
+								//  straight: 直行
+								//  straight-right: 直行右转
+								//  straight-left: 直行左转
+								//  uturn :　调头
+								//  straight-uturn: 直行调头
+								//  left-right: 左右转
+								//  left-uturn：左侧调头
+								//  pedestrian 斑马预告线
+								//  slow 减速让行线
+								//  distance 车距确认
+								//  non-motorized 非机动车
+								mark: 'left' | 'straight' | 'right' | 'straight-right' | 'straight-left' | 'uturn' | 'straight-uturn' | 'left-right' | 'left-uturn' | 'pedestrian' | 'slow' | 'distance' | 'non-motorized'
+							},
+							//... 同上，其它标记
+						]
+					}
+				]
+			},
+			flagList: [
+				{
+					id : string, //标牌ID
+					x: number, //标牌坐标 (数据交互,无UI效果)
+					y: number, //标牌坐标 (数据交互,无UI效果)
+					icon: string, //标牌图片地址
+					width: number, //标牌宽度
+					height: number, //标牌高度
+				},
+				//...
+			]
+		},
+        //... 其它小路段
+	]
+}
