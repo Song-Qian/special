@@ -33,6 +33,59 @@
                 @cross-parterre-safearea-click='onCrossParterreSafeAreaClick'
                 @cross-lane-mark-click='onCrossLaneMarkClick'
             ></intersection>
+
+            <!-- <div class='operating' style='position: fixed; bottom: 0px; left: 0px; opacity: .5; color: red; font-size: 12px; background-color: #fff; max-width: 460px;'>
+                <br />
+                <fieldset style="border:1px solid red;">
+                    <legend style="border:1px solid red;">路口配置</legend>
+                    <div>路口类型： 
+                        <input type="radio" name="type" value='A' v-model='RoadMode' :checked="RoadMode === 'A'" /> 十字路口
+                        <input type="radio" name="type" value='Y' v-model='RoadMode' :checked="RoadMode === 'Y'" /> Y字路口
+                        <input type="radio" name="type" value='K' v-model='RoadMode' :checked="RoadMode === 'K'" /> K字路口
+                        <input type="radio" name="type" value='T' v-model='RoadMode' :checked="RoadMode === 'T'" /> T字路口
+                    </div>
+                    <div> 路面宽度：<input type="number" v-model='RoadWidth' step="10" /> </div>
+                    <div> 路面角度：<input type="range" v-model='Angle' min="0" max="360" /> </div>
+                </fieldset>
+                <br />
+                <fieldset style="border:1px solid red;">
+                    <legend style="border:1px solid red;">第一路口</legend>
+                    <div>
+                        边界:
+                        <input type="checkbox" v-model='Roads[0].boundary.left.has' :checked="Roads[0].boundary.left.has" /> 左
+                        <input type="checkbox" v-model='Roads[0].boundary.right.has' :checked="Roads[0].boundary.right.has" /> 右
+                    </div>
+                    <div>
+                        <input type="checkbox" v-model='Roads[0].stayArea' :checked="Roads[0].stayArea" /> 行人暂留区
+                        <input type="checkbox" v-model='Roads[0].pedestrian' :checked="Roads[0].pedestrian" /> 行人斑马线
+                        <input type="checkbox" v-model='Roads[0].stayPedestrian' :checked="Roads[0].stayPedestrian" /> 暂留区斑马线
+                        <input type="checkbox" v-model='Roads[0].stopLine' :checked="Roads[0].stopLine" /> 停止线
+                    </div>
+                    <div>
+                        车道数量：<input type="range" min="0" max="10" value="0" @input="onCrossLaneAdd($event, 0)" />
+                    </div>
+                    <fieldset v-for="(item, index) in Roads[0].Lane" :key="index">
+                        <legend>车道{{index}}</legend>
+                        <div>
+                            类型：
+                            <input type="radio" :name="'laneType_0_' + index" value='solid' v-model='Roads[0].Lane[index].type' /> solid
+                            <input type="radio" :name="'laneType_0_' + index" value='dotted' v-model='Roads[0].Lane[index].type' /> dotted
+                            <input type="radio" :name="'laneType_0_' + index" value='parterre' v-model='Roads[0].Lane[index].type' /> parterre
+                            <input type="radio" :name="'laneType_0_' + index" value='y_dotted' v-model='Roads[0].Lane[index].type' /> y_dotted
+                            <input type="radio" :name="'laneType_0_' + index" value='y_solid' v-model='Roads[0].Lane[index].type' /> y_solid
+                            <input type="radio" :name="'laneType_0_' + index" value='y_double_solid' v-model='Roads[0].Lane[index].type' /> y_double_solid
+                            <input type="radio" :name="'laneType_0_' + index" value='y_double_dashed' v-model='Roads[0].Lane[index].type' /> y_double_dashed
+                            <input type="radio" :name="'laneType_0_' + index" value='y_solid_area' v-model='Roads[0].Lane[index].type' /> y_solid_area
+                        </div>
+                        <div>
+                            <input type="checkbox" v-model='Roads[0].Lane[index].assist' :checked="Roads[0].Lane[index].assist" /> 是否辅道
+                            <input type="checkbox" v-model='Roads[0].Lane[index].reverse' :checked="Roads[0].Lane[index].reverse" /> 是否逆行
+                            <input type="checkbox" v-model='Roads[0].Lane[index].markright' :checked="Roads[0].Lane[index].markright" /> 右侧标记
+                            <input type="checkbox" v-model='Roads[0].Lane[index].hasBoundary' :checked="Roads[0].Lane[index].hasBoundary" /> 边界绘制
+                        </div>
+                    </fieldset>
+                </fieldset>
+            </div> -->
         </div>
     </body>
     <script>
@@ -59,15 +112,15 @@
                                     stayPedestrian: true,
                                     stopLine: true,
                                     Lane: [
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: []},
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
-                                        { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        // { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: []},
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
+                                        // { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
                                     ]
                                 },
                                 { 
@@ -77,17 +130,17 @@
                                     stayPedestrian: true,
                                     stopLine: true,
                                     Lane: [
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
-                                        { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        // { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        // { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        // { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        // { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
+                                        // { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
                                     ]
                                 },
                                 { 
@@ -97,16 +150,16 @@
                                     stayPedestrian: true,
                                     stopLine: true,
                                     Lane: [
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '1' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '1' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight-right'}, { seq: '1' , mark: 'straight-right'}, { seq: '2' , mark: 'straight-right'} ]},
-                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-left'}, { seq: '1' , mark: 'straight-left'}, { seq: '2' , mark: 'straight-left'} ] },
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'uturn'}, { seq: '1' , mark: 'uturn'}, { seq: '2' , mark: 'uturn'} ] },
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-uturn'}, { seq: '1' , mark: 'straight-uturn'}, { seq: '2' , mark: 'straight-uturn'} ] },
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'left-uturn'}, { seq: '1' , mark: 'left-uturn'}, { seq: '2' , mark: 'left-uturn'} ] },
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [{ seq: '0' , mark: 'left-right'}, { seq: '1' , mark: 'left-right'}, { seq: '2' , mark: 'left-right'} ] },
-                                        { type: 'dotted', assist: false, reverse: true, markright: false, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ] }
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '1' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '1' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight-right'}, { seq: '1' , mark: 'straight-right'}, { seq: '2' , mark: 'straight-right'} ]},
+                                        // { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-left'}, { seq: '1' , mark: 'straight-left'}, { seq: '2' , mark: 'straight-left'} ] },
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'uturn'}, { seq: '1' , mark: 'uturn'}, { seq: '2' , mark: 'uturn'} ] },
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-uturn'}, { seq: '1' , mark: 'straight-uturn'}, { seq: '2' , mark: 'straight-uturn'} ] },
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'left-uturn'}, { seq: '1' , mark: 'left-uturn'}, { seq: '2' , mark: 'left-uturn'} ] },
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [{ seq: '0' , mark: 'left-right'}, { seq: '1' , mark: 'left-right'}, { seq: '2' , mark: 'left-right'} ] },
+                                        // { type: 'dotted', assist: false, reverse: true, markright: false, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ] }
                                     ]
                                 },
                                 { 
@@ -116,21 +169,21 @@
                                     stayPedestrian: true,
                                     stopLine: true,
                                     Lane: [
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
-                                        { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        // { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
+                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        // { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        // { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        // { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
+                                        // { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
                                     ]
                                 }
                             ],
-                            RoadMode : 'Y',
+                            RoadMode : 'A',
                             RoadWidth: 500,
                             Angle: 0,
                         }
@@ -240,6 +293,11 @@
                         onCrossLaneMarkClick: function(e, i, lane, seq, mark) {
                             var me = this;
                             alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "个车道, 第" + (Number(seq) + 1) + "路标" + mark + "被点击");
+                        },
+                        onCrossLaneAdd: function(e, i) {
+                            var me = this;
+                            var total = e.target.value >> 0
+                            me.Roads[i].Lane = new Array(total).fill({ type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] });
                         }
                     }
                 })
