@@ -25,3 +25,99 @@
 .ivsom-road .ivsom-lane .ivsom-lane-mark:hover {
     fill: rgba(51, 153, 255, .5);
 }
+
+.ivsom-alien {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: 1px solid #3999f4;
+    background-color: rgba(57, 153, 244, .3);
+}
+
+.ivsom-alien > .ivsom-alien-title {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    height: 60px;
+    line-height: 60px;
+    position: relative;
+}
+
+.ivsom-alien > .ivsom-alien-title > .ivsom-alien-refresh {
+    height: 40px;
+    top: 10px;
+    right: 10px;
+    border-radius: 5px;
+    position: absolute;
+    font-size: 12px;
+    color: #fff;
+    line-height: normal;
+    background-color: #3999f4;
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.ivsom-alien > .ivsom-alien-container {
+    width: 100%;
+    height: calc(100% - 60px);
+    border-top: 1px solid #3999f4;
+}
+
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-drawing {
+    width: 100%;
+    height: 70%;
+}
+
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-table {
+    width: 100%;
+    height: 30%;
+    padding: 0px 10px;
+    box-sizing: border-box;
+}
+
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-table > table {
+    width: 100%;
+    color: #333;
+    background-color: #fff;
+    border-top: 1px solid #afafaf;
+    border-left: 1px solid #afafaf;
+}
+
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-table > table > tbody > tr > td {
+    padding: 5px;
+    box-sizing: border-box;
+    text-align: center;
+    border-right:1px solid #afafaf;
+    border-bottom:1px solid #afafaf;
+}
+
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-table > table > tbody > tr:hover {
+    background-color: rgba(57, 153, 244, .2);
+    cursor: pointer;
+}
+
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-table > table > tbody > tr > td:nth-child(2) {
+    text-align: left;
+}
+
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-table > table > tbody > tr > td:nth-child(3) {
+    text-align: right;
+}
+
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-table > table > tbody > tr > td:nth-child(4) {
+    width: 60px;
+}
+
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-table > table > tbody > tr > td > span.plus,
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-table > table > tbody > tr > td > span.less {
+    padding: 2px 10px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #3999f4;
+    color: #fff;
+    cursor: pointer;
+    border:1px solid #ddd;
+    margin-left: 5px;
+    text-align: center;
+}
