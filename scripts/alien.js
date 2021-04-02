@@ -195,13 +195,19 @@
                 var angle = item.angle;
                 angle += 30;
 
-                if(angle === 360) {
-                    angle = 0;
-                }
+                do {
 
-                if (me.Roads.some(function(it) { return it.id !== item.id && it.angle === angle })) {
-                    angle += 30;
-                }
+                    if(angle === 360) {
+                        angle = 0;
+                    }
+
+                    if(me.Roads.some(function(it) { return it.id !== item.id && it.angle === angle })) {
+                        angle += 30
+                        continue;
+                    }
+
+                    break;
+                } while(true)
 
                 if (angle - 360 > 0) {
                     item.angle = angle - 360;
@@ -220,14 +226,23 @@
                 var roads = me.Roads;
                 var angle = item.angle;
                 angle -= 30;
-                
-                if(angle === 360) {
-                    angle = 0;
-                }
 
-                if (me.Roads.some(function(it) { return it.id !== item.id && it.angle === angle })) {
-                    angle -= 30;
-                }
+                do {
+
+                    if(angle === 360) {
+                        angle = 0;
+                    }
+
+                    if(me.Roads.some(function(it) { return it.id !== item.id && it.angle === angle })) {
+                        angle -= 30;
+                        if (angle + 360 < 360) {
+                            angle += 360;
+                        }
+                        continue;
+                    }
+
+                    break;
+                } while(true)
 
                 if (angle + 360 < 360) {
                     item.angle = angle + 360;
