@@ -133,7 +133,7 @@
                             "<tbody>",
                                 "<tr v-for='(item, i) in getRoadsView' @click='acitveRoad(item)' :key='i'>",
                                     "<td>{{i + 1}}</td>",
-                                    "<td>{{ item.name }}</td>",
+                                    "<td>{{ item.name }} <span class='is_new' v-if='item.isNew'>新</span></td>",
                                     "<td>{{item.angle}}°</td>",
                                     "<td><span class='plus' @click.stop='addRoadAngle(i, item)'>+</span><span class='less' @click.stop='lessRoadAngle(i, item)'>-</span></td>",
                                 "</tr>",

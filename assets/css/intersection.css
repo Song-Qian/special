@@ -121,3 +121,16 @@
     margin-left: 5px;
     text-align: center;
 }
+
+.ivsom-alien > .ivsom-alien-container > .ivsom-alien-table > table > tbody > tr > td > span.is_new {
+    padding: 2px 5px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background-color: #42d23e;
+    color: #fff;
+    cursor: pointer;
+    border:1px solid #ddd;
+    margin-left: 5px;
+    text-align: center;
+    font-size: 12px;
+}
