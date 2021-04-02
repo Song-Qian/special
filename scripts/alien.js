@@ -97,7 +97,7 @@
                     "{{Title}}",
                 "</div>",
                 "<div class='ivsom-alien-container'>",
-                    "<svg xmlns='http://wwW.w3.org/2000/svg' class='ivsom-alien-drawing' version='1.1' viewBox='0 0 600 600' preserveAspectRatio='none xMidYMid'>",
+                    "<svg xmlns='http://wwW.w3.org/2000/svg' class='ivsom-alien-drawing' version='1.1' viewBox='0 0 600 600' preserveAspectRatio='xMidYMid'>",
                         "<g>",
                             "<circle cx='60' cy='60' r='40' fill='#fff' />",
                             "<path d='M60,25 L50,60 S60,45 70,60 L60,25 z' fill='#ea4748'/>",
@@ -194,6 +194,15 @@
                 var roads = me.Roads;
                 var angle = item.angle;
                 angle += 30;
+
+                if(angle === 360) {
+                    angle = 0;
+                }
+
+                if (me.Roads.some(function(it) { return it.id !== item.id && it.angle === angle })) {
+                    angle += 30;
+                }
+
                 if (angle - 360 > 0) {
                     item.angle = angle - 360;
                     roads[index] = item;
@@ -211,6 +220,14 @@
                 var roads = me.Roads;
                 var angle = item.angle;
                 angle -= 30;
+                
+                if(angle === 360) {
+                    angle = 0;
+                }
+
+                if (me.Roads.some(function(it) { return it.id !== item.id && it.angle === angle })) {
+                    angle -= 30;
+                }
 
                 if (angle + 360 < 360) {
                     item.angle = angle + 360;
