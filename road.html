@@ -37,7 +37,7 @@
             document.head.appendChild(s);
             s.onload = function() {
 
-                Vue.use(intersection);
+                Vue.use(road);
                 var app = new Vue({
                     el : "#app",
                     data: function() {
@@ -88,7 +88,7 @@
                                                 id: '1', //车道序号
                                                 //'solid' | 'dashed' | 'y_dashed' | 'y_solid' | 'y_double_solid' | 'y_double_dashed' | 'barrier' | 'parterre' | 'parterre_dashed' | 'y_parterre_solid' | 'y_parterre_dashed',
                                                 //机动车线类型， solid: 白色实线, dashed: 白色虚线, barrier: 护栏, y_dashed: 黄色虚线, y_solid: 黄色实线, y_double_solid: 双黄实线, y_double_dashed: 双黄虚线, parterre 花坛+白线, parterre_dashed 花坛+虚线, y_parterre_solid 花坛+黄线, y_parterre_dashed 花坛+黄虚线
-                                                type: 'solid',
+                                                type: 'barrier',
                                                 //'primary' | 'non-motorized' | 'assist'
                                                 // default: 'primary', 是否主道、辅道、非机动车道
                                                 laneType: 'non-motorized',
