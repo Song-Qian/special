@@ -139,7 +139,7 @@
     var IsolationRender = function(){
         var template = [
             "<g>",
-                "<line v-if='isSimpleLine' :x1='calcSimpleLinePosition.p1.x' :x2='calcSimpleLinePosition.p2.x' :y1='calcSimpleLinePosition.p1.y' :y2='calcSimpleLinePosition.p2.y' :stroke-dasharray=\"['dashed', 'y_dashed'].indexOf(Type) > -1 ? '45,45' : ''\" :stroke='calcLineColor' stroke-width='3' @click.capture.stop=\"$emit('on-simple-line-click', $event)\" />",
+                "<line v-if='isSimpleLine' :x1='calcSimpleLinePosition.p1.x' :x2='calcSimpleLinePosition.p2.x' :y1='calcSimpleLinePosition.p1.y' :y2='calcSimpleLinePosition.p2.y' :stroke-dasharray=\"['dotted', 'y_dotted'].indexOf(Type) > -1 ? '45,45' : ''\" :stroke='calcLineColor' stroke-width='3' @click.capture.stop=\"$emit('on-simple-line-click', $event)\" />",
                 
                 "<line v-if='isDoubleLine' :x1='calcDoubleLinePosition.top.p1.x' :x2='calcDoubleLinePosition.top.p2.x' :y1='calcDoubleLinePosition.top.p1.y' :y2='calcDoubleLinePosition.top.p2.y' :stroke-dasharray='calcDoublieLineStrokeDasharray[0]' :stroke='calcDoubleLineStrokeColor[0]' :stroke-width='caclDoubleLineStrokeWidth[0]' @click.capture.stop=\"$emit('on-right-line-click', $event)\" />",
                 "<line v-if='isDoubleLine' :x1='calcDoubleLinePosition.bottom.p1.x' :x2='calcDoubleLinePosition.bottom.p2.x' :y1='calcDoubleLinePosition.bottom.p1.y' :y2='calcDoubleLinePosition.bottom.p2.y' :stroke-dasharray='calcDoublieLineStrokeDasharray[1]' :stroke='calcDoubleLineStrokeColor[1]' :stroke-width='caclDoubleLineStrokeWidth[1]' @click.capture.stop=\"$emit('on-left-line-click', $event)\" />",
@@ -163,9 +163,9 @@
         template: IsolationRender.apply(this),
         props : {
             // solid: 白色实线, 
-            // dashed: 白色虚线, 
+            // dotted: 白色虚线, 
             // y_solid: 黄色实线,
-            // y_dashed: 黄色虚线, 
+            // y_dotted: 黄色虚线, 
             // y_double_solid: 双黄实线, 
             // y_double_dashed: 双黄实虚线,
 
@@ -202,7 +202,7 @@
             //是否单线
             isSimpleLine: function() {
                 var me = this;
-                return ["solid", "dashed", "y_solid", "y_dashed"].indexOf(me.Type) > -1;
+                return ["solid", "dotted", "y_solid", "y_dotted"].indexOf(me.Type) > -1;
             },
             //单线绘制定位
             calcSimpleLinePosition: function() {
@@ -215,7 +215,7 @@
             //实线、虚线颜色
             calcLineColor: function() {
                 var me = this;
-                var yellow = ["y_solid", "y_dashed", "y_double_solid", "y_double_dashed", "y_parterre_solid", "y_parterre_dashed"];
+                var yellow = ["y_solid", "y_dotted", "y_double_solid", "y_double_dashed", "y_parterre_solid", "y_parterre_dashed"];
                 if (yellow.indexOf(me.Type) > -1) {
                     return "#D6CB0A";
                 }
@@ -760,7 +760,7 @@
                 }
 
                 if (type === 'stay' && isShow) {
-                    return  'y_dashed'
+                    return  'y_dotted'
                 }
                 return '';
             },
@@ -783,7 +783,7 @@
                 }
 
                 if (type === 'stay' && isShow) {
-                    return 'y_dashed'
+                    return 'y_dotted'
                 }
                 return '';
             },
