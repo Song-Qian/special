@@ -11,6 +11,7 @@
     <body>
         <div id="app">
             <intersection 
+                ref="intersection"
                 :roads="Roads" 
                 :road-mode='RoadMode' 
                 :road-width='RoadWidth' 
@@ -106,84 +107,88 @@
                         return {
                             Roads : [
                                 { 
+                                    name : "测试路段1",
                                     boundary : { left: { has: true }, right: { has: true } },
                                     stayArea: true,
                                     pedestrian: true,
                                     stayPedestrian: true,
                                     stopLine: true,
                                     Lane: [
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        // { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: []},
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
-                                        // { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: []},
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
+                                        { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
                                     ]
                                 },
                                 { 
+                                    name : "测试路段2",
                                     boundary : { left: { has: true }, right: { has: true } },
                                     stayArea: true,
                                     pedestrian: true,
                                     stayPedestrian: true,
                                     stopLine: true,
                                     Lane: [
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        // { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        // { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        // { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        // { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
-                                        // { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
+                                        { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
                                     ]
                                 },
                                 { 
+                                    name : "测试路段3",
                                     boundary : { left: { has: true }, right: { has: true } },
                                     stayArea: true,
                                     pedestrian: true,
                                     stayPedestrian: true,
                                     stopLine: true,
                                     Lane: [
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '1' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '1' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight-right'}, { seq: '1' , mark: 'straight-right'}, { seq: '2' , mark: 'straight-right'} ]},
-                                        // { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-left'}, { seq: '1' , mark: 'straight-left'}, { seq: '2' , mark: 'straight-left'} ] },
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'uturn'}, { seq: '1' , mark: 'uturn'}, { seq: '2' , mark: 'uturn'} ] },
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-uturn'}, { seq: '1' , mark: 'straight-uturn'}, { seq: '2' , mark: 'straight-uturn'} ] },
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'left-uturn'}, { seq: '1' , mark: 'left-uturn'}, { seq: '2' , mark: 'left-uturn'} ] },
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [{ seq: '0' , mark: 'left-right'}, { seq: '1' , mark: 'left-right'}, { seq: '2' , mark: 'left-right'} ] },
-                                        // { type: 'dotted', assist: false, reverse: true, markright: false, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ] }
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '1' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '1' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight-right'}, { seq: '1' , mark: 'straight-right'}, { seq: '2' , mark: 'straight-right'} ]},
+                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-left'}, { seq: '1' , mark: 'straight-left'}, { seq: '2' , mark: 'straight-left'} ] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'uturn'}, { seq: '1' , mark: 'uturn'}, { seq: '2' , mark: 'uturn'} ] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight-uturn'}, { seq: '1' , mark: 'straight-uturn'}, { seq: '2' , mark: 'straight-uturn'} ] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [{ seq: '0' , mark: 'left-uturn'}, { seq: '1' , mark: 'left-uturn'}, { seq: '2' , mark: 'left-uturn'} ] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [{ seq: '0' , mark: 'left-right'}, { seq: '1' , mark: 'left-right'}, { seq: '2' , mark: 'left-right'} ] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: false, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ] }
                                     ]
                                 },
                                 { 
+                                    name : "测试路段4",
                                     boundary : { left: { has: true }, right: { has: true } },
                                     stayArea: true,
                                     pedestrian: true,
                                     stayPedestrian: true,
                                     stopLine: true,
                                     Lane: [
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        // { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
-                                        // { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        // { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        // { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        // { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                        // { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
-                                        // { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
+                                        { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
                                     ]
                                 }
                             ],
-                            RoadMode : 'A',
+                            RoadMode : 'K',
                             RoadWidth: 500,
                             Angle: 0,
                         }
@@ -220,7 +225,9 @@
                         //机动车道路点击事件
                         onCrossRoadPavementClick: function(e, i, lane) {
                             //e 事件对象, i 路口索引下标, lane 道路的索引下标
-                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路被点击");
+                            // alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路被点击");
+                            var me = this;
+                            me.$refs.intersection.setActive(i);
                         },
                         //机动车道路白色实线点击事件
                         onCrossSolidLineClick: function(e, i, lane) {
