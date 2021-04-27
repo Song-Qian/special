@@ -412,7 +412,7 @@
         var template = [
             "<g class='ivsom-lane' :transform=\"'translate('+ X + ',' + Y +')'\">",
                 "<g v-if=\"['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(Type) === -1\">",
-                    "<rect x='0' y='0' width='1200' :height='Width' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\"  />",
+                    "<rect x='0' y='0' width='1200' :height='Width' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" @click.capture.stop=\"$emit('on-lane-select', $event)\" />",
                     "<rect v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(i)' :x='calcFirstMarkArea(i).x' :y='calcFirstMarkArea(i).y' :width='calcFirstMarkArea(i).width' :height='calcFirstMarkArea(i).height' class='ivsom-lane-mark' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' stroke-width='1' stroke-dasharray='5,5' @click.capture.stop=\"$emit('on-lane-mark-select', $event, i - 1)\" />",
                     "<rect v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(calcMarkTotal + calcMarkTotal - i + 1)' :x='calcLastMarkArea(i).x' :y='calcLastMarkArea(i).y' :width='calcLastMarkArea(i).width' :height='calcLastMarkArea(i).height' class='ivsom-lane-mark' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' stroke-width='1' stroke-dasharray='5,5' @click.capture.stop=\"$emit('on-lane-mark-select', $event, calcMarkTotal + calcMarkTotal - i)\" />",
                     "<lane-mark v-for='(item, i) in calcLaneMark' :x='calcMarkPosition(item).x' :y='calcMarkPosition(item).y' :id='item.id' :mark='item.mark' :seq='item.seq' :area='Math.min(50, Width - 10)' :reverse='Reverse' @on-lanemark-click=\"$emit('on-lane-mark-click', arguments[0], i)\"></lane-mark>",
@@ -589,7 +589,8 @@
     var RoadSectionRender = function() {
         var template = [
             "<g>",
-                "<image v-for='(flag, n) in FlagList' :x='calcFlagListPosition(n).x' :y='calcFlagListPosition(n).y' width='190' height='100' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
+                "<image v-for='(flag, n) in getUpwardFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='190' height='100' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
+                "<image v-for='(flag, n) in getDownFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='190' height='100' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
                 "<isolation ",
                     ":length='1200' ",
                     ":transform=\"'translate('+ X + ',' + Y +')'\" ",
@@ -639,6 +640,7 @@
                     ":privileged='item.privileged' ",
                     ":text='item.text' ",
                     ":lanemark='item.lanemark' ",
+                    "@on-lane-select=\"$emit('on-road-lane-section', arguments[0], i, true)\" ",
                     "@on-lane-mark-select=\"$emit('on-road-lanemark-section', arguments[0], i, arguments[1], true)\" ",
                     "@on-lane-mark-click=\"$emit('on-road-lanemark-click', arguments[0], i, arguments[1], true)\" ",
                     "@on-lane-slowline-click=\"$emit('on-road-slowline-click', arguments[0], arguments[1], true)\" ",
@@ -661,21 +663,29 @@
                     ":privileged='item.privileged' ",
                     ":text='item.text' ",
                     ":lanemark='item.lanemark' ",
+                    "@on-lane-select=\"$emit('on-road-lane-section', arguments[0], i, false)\" ",
                     "@on-lane-mark-select=\"$emit('on-road-lanemark-section', arguments[0], i, item.laneType === 'non-motorized' ? 1 - arguments[1] : 11 - arguments[1], false)\" ",
                     "@on-lane-mark-click=\"$emit('on-road-lanemark-click', arguments[0], i, item.laneType === 'non-motorized' ? 1 - arguments[1] : 11 - arguments[1], false)\" ",
                     "@on-lane-slowline-click=\"$emit('on-road-slowline-click', arguments[0], arguments[1], false)\" ",
                     "@on-lane-park-click=\"$emit('on-road-lanepark-click', arguments[0], i, false)\" ",
                     "@on-lane-isolation-click=\"$emit('on-road-isolation-click', arguments[0], i, arguments[1], arguments[2], false)\" ",
-                "></lane>",
+                    "></lane>",
                 "<use href='#penalty' :x='0' :y='0' :transform='calcUpwardPenaltyMatrix'  v-show='Upward && Upward.frame && Upward.frame.penalty && Upward.frame.penalty.isShow' @click.capture.stop=\"$emit('on-lane-penalty', true)\" />",
                 "<use href='#penalty' :x='0' :y='0' :transform='calcDownPenaltyMatrix'  v-show='Down && Down.frame && Down.frame.penalty && Down.frame.penalty.isShow' @click.capture.stop=\"$emit('on-lane-penalty', false)\" />",
+                "<rect :x='X - 5' :y='calcUpwardLanePosition(0).y' width='1210' v-show='editState.isUpward && editState.laneIndex == LaneIndex' :height='calcUpwardRoadWidth' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                    "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
+                "</rect>",
+                "<rect :x='X - 5' :y='calcDownLanePosition(0).y' width='1210' v-show='!editState.isUpward && editState.laneIndex == LaneIndex' :height='calcDownRoadWidth' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                    "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
+                "</rect>",
             "</g>"
         ];
         return template.join('');
     }
-
+        
     var RoadSection = Vue.extend({
         template: RoadSectionRender.apply(this),
+        inject: ['editState'],
         props: {
             Upward : {
                 default: null,
@@ -700,7 +710,11 @@
             Y: {
                 default: 0,
                 type: Number
-            }
+            },
+            LaneIndex: {
+                default: 0,
+                type: Number
+            },
         },
         computed : {
             //是否单向道
@@ -936,6 +950,16 @@
                     return slow;
                 }
                 return me.Down && me.Down.frame && me.Down.frame.slow || null;
+            },
+            //获取上行车道路牌
+            getUpwardFlag: function() {
+                var me = this;
+                return me.FlagList.filter(function(it) { return !!it.isUpward });
+            },
+            //获取下行车道路牌
+            getDownFlag : function() {
+                var me = this;
+                return me.FlagList.filter(function(it) { return !it.isUpward });
             }
         },
         components: {
@@ -981,10 +1005,10 @@
                 w += a * 15 + b * me.calcDownLaneWidth;
                 return { x : me.X, y : me.Y + w + me.calcUpwardRoadWidth }
             },
-            calcFlagListPosition: function(i) {
+            calcFlagListPosition: function(it, i) {
                 var me = this;
-                var top = (1080 - me.RoadWidth) / 2 - 100;
-                return { x : me.X + Math.floor(i % 6) * 200, y :  top - 110 * Math.floor(i / 6) };
+                var top = !!it.isUpward ? ((1080 - me.RoadWidth) / 2 - 100) - 110 * Math.floor(i / 6) : (1080 / 2 + me.RoadWidth / 2) + 110 * Math.floor(i / 6);
+                return { x : me.X + Math.floor(i % 6) * 200, y :  top  };
             }
         }
     })
@@ -1065,25 +1089,28 @@
                     "@on-pedestrian-click=\"$parent.$emit('on-pedestrian-click', $event, n)\" ",
                     "></pedestrians>",
                 "<g>",
-                    "<road-section ",
-                        "v-for='(item, n) in Roads' ",
-                        ":upward='item.upward' ",
-                        ":down='item.down' ",
-                        ":flag-list='item.flagList' ",
-                        ":road-width='RoadWidth'",
-                        ":x='getRoadSectionPosition(n).x' ",
-                        ":y='getRoadSectionPosition(n).y' ",
-                        "@on-road-lanemark-section=\"$parent.$emit('on-pavement-lanemark-section', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
-                        "@on-lane-flag=\"$parent.$emit('on-pavement-lane-flag', $event, n, arguments[0])\" ",
-                        "@on-lane-penalty=\"$parent.$emit('on-pavement-lane-penalty', $event, n, arguments[0])\" ",
-                        "@on-road-lanemark-click=\"$parent.$emit('on-pavement-lanemark-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
-                        "@on-road-slowline-click=\"$parent.$emit('on-pavement-slowline-click', arguments[0], n, arguments[1], arguments[2])\" ",
-                        "@on-road-lanepark-click=\"$parent.$emit('on-pavement-lanepark-click', arguments[0], n, arguments[1], arguments[2])\" ",
-                        "@on-road-isolation-click=\"$parent.$emit('on-pavement-isolation-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
-                        "@on-road-boundary-click=\"$parent.$emit('on-pavement-boundary-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
-                        "@on-road-separation-click=\"$parent.$emit('on-pavement-separation-click', arguments[0], n, arguments[1], arguments[2])\" ",
-                        ">",
-                    "</road-section>",
+                "<road-section ",
+                    "v-for='(item, n) in Roads' ",
+                    ":upward='item.upward' ",
+                    ":down='item.down' ",
+                    ":flag-list='item.flagList' ",
+                    ":road-width='RoadWidth'",
+                    ":x='getRoadSectionPosition(n).x' ",
+                    ":y='getRoadSectionPosition(n).y' ",
+                    ":lane-index='n' ",
+                    ":key='n' ",
+                    "@on-road-lane-section=\"$parent.$emit('on-pavement-lane-section', arguments[0], n, arguments[1], arguments[2])\" ",
+                    "@on-road-lanemark-section=\"$parent.$emit('on-pavement-lanemark-section', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
+                    "@on-lane-flag=\"$parent.$emit('on-pavement-lane-flag', $event, n, arguments[0])\" ",
+                    "@on-lane-penalty=\"$parent.$emit('on-pavement-lane-penalty', $event, n, arguments[0])\" ",
+                    "@on-road-lanemark-click=\"$parent.$emit('on-pavement-lanemark-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
+                    "@on-road-slowline-click=\"$parent.$emit('on-pavement-slowline-click', arguments[0], n, arguments[1], arguments[2])\" ",
+                    "@on-road-lanepark-click=\"$parent.$emit('on-pavement-lanepark-click', arguments[0], n, arguments[1], arguments[2])\" ",
+                    "@on-road-isolation-click=\"$parent.$emit('on-pavement-isolation-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
+                    "@on-road-boundary-click=\"$parent.$emit('on-pavement-boundary-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
+                    "@on-road-separation-click=\"$parent.$emit('on-pavement-separation-click', arguments[0], n, arguments[1], arguments[2])\" ",
+                    ">",
+                "</road-section>",
                 "</g>",
             "</g>"
         ];
@@ -1156,14 +1183,13 @@
                         "<path d='M85,160 L75,85 S85,95 95,85 L85,160 z' fill='url(#orange_blue)' />",
                     "</g>",
                 "</defs>",
+                "<use x='20' y='20' xlink:href='#compass' />",
                 "<pavement ",
                     ":pedestrian='Pedestrian' ",
                     ":roads='Roads' ",
                     ":road-width='RoadWidth' ",
                     ":style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ",
-                    // "@on-road-lanemark-section=\"$emit('on-pavement-lanemark-section', arguments[0], arguments[1], arguments[2], arguments[3], arguments[4])\" ",
                     "></pavement>",
-                "<use x='20' y='20' xlink:href='#compass' />",
             "</svg>"
         ];
         return template.join('');
@@ -1171,6 +1197,12 @@
 
     var road = Vue.extend({
         template: render.apply(this),
+        provide: function() {
+            var me = this;
+            return {
+                'editState' : me.getEditableState
+            }
+        },
         props: {
             Pedestrian : {
                 default : function() {
@@ -1199,6 +1231,7 @@
                 moveTop: 0,
                 moveLeft: 0,
                 scale: 1,
+                editor: { isUpward : true, laneIndex: -1  }
             }
         },
         components: {
@@ -1211,6 +1244,10 @@
                 var m2 = (Math.sin(me.Angle * Math.PI / 180) * me.scale).toFixed(6);
                 var m3 = (-1 * (Math.sin(me.Angle * Math.PI / 180) * me.scale)).toFixed(6);
                 return "matrix("+ m1 +","+ m2 +","+ m3 +","+ m1 +","+ me.moveLeft +","+ me.moveTop +")";
+            },
+            getEditableState: function() {
+                var me = this;
+                return me.editor;
             }
         },
         methods: {
@@ -1258,6 +1295,14 @@
                 var me = this;
                 me.scale = event.wheelDelta > 0 ? me.scale + 0.01 : me.scale - 0.01;
                 me.scale = me.scale > 4 ? 4 : me.scale < 0 ? 0 : me.scale;
+            },
+            setEditablePavement: function(index, isUpward) {
+                var me = this;
+                var size = me.Pedestrian && me.Pedestrian.length || 0;
+                me.editor.isUpward = isUpward;
+                me.editor.laneIndex = index;
+                me.moveTop = 0;
+                me.moveLeft = 1920 - ((index + 1) * 1280 - 1280 / 2);
             }
         }
     })

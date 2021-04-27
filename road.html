@@ -12,6 +12,7 @@
     <body>
         <div id="app">
             <road 
+                ref="road"
                 :pedestrian='pedestrian' 
                 :roads='roads' 
                 :angle.sync='angle' 
@@ -27,6 +28,7 @@
                 @on-pavement-isolation-click="onLaneIsolationClick"
                 @on-pavement-boundary-click="onLaneBoundaryClick"
                 @on-pavement-separation-click="onLaneSeparationClick"
+                @on-pavement-lane-section="onLanePavementClick"
                 ></road>
         </div>
     </body>
@@ -88,7 +90,7 @@
                                                 id: '1', //车道序号
                                                 //'solid' | 'dashed' | 'y_dashed' | 'y_solid' | 'y_double_solid' | 'y_double_dashed' | 'barrier' | 'parterre' | 'parterre_dashed' | 'y_parterre_solid' | 'y_parterre_dashed',
                                                 //机动车线类型， solid: 白色实线, dashed: 白色虚线, barrier: 护栏, y_dashed: 黄色虚线, y_solid: 黄色实线, y_double_solid: 双黄实线, y_double_dashed: 双黄虚线, parterre 花坛+白线, parterre_dashed 花坛+虚线, y_parterre_solid 花坛+黄线, y_parterre_dashed 花坛+黄虚线
-                                                type: 'barrier',
+                                                type: 'solid',
                                                 //'primary' | 'non-motorized' | 'assist'
                                                 // default: 'primary', 是否主道、辅道、非机动车道
                                                 laneType: 'non-motorized',
@@ -362,49 +364,92 @@
                                             id : '0x0001', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/1.jpg' //标牌图片地址
+                                            icon: '../assets/images/1.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0002', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/2.jpg' //标牌图片地址
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0003', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/3.jpg' //标牌图片地址
+                                            icon: '../assets/images/3.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0004', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/4.jpg' //标牌图片地址
+                                            icon: '../assets/images/4.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0005', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/5.jpg' //标牌图片地址
+                                            icon: '../assets/images/5.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0006', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/6.jpg' //标牌图片地址
+                                            icon: '../assets/images/6.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0007', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/1.jpg' //标牌图片地址
+                                            icon: '../assets/images/1.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0008', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/2.jpg' //标牌图片地址
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
+                                        },
+                                        {
+                                            id : '0x0009', //标牌ID
+                                            x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
+                                            y: 25.156456, //标牌坐标 (数据交互,无UI效果)
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
+                                        },
+                                        {
+                                            id : '0x0010', //标牌ID
+                                            x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
+                                            y: 25.156456, //标牌坐标 (数据交互,无UI效果)
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
+                                        },
+                                        {
+                                            id : '0x00011', //标牌ID
+                                            x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
+                                            y: 25.156456, //标牌坐标 (数据交互,无UI效果)
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
+                                        },
+                                        {
+                                            id : '0x0012', //标牌ID
+                                            x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
+                                            y: 25.156456, //标牌坐标 (数据交互,无UI效果)
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
+                                        },
+                                        {
+                                            id : '0x0013', //标牌ID
+                                            x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
+                                            y: 25.156456, //标牌坐标 (数据交互,无UI效果)
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         }
                                     ]
                                 },
@@ -792,49 +837,57 @@
                                             id : '0x0001', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/1.jpg' //标牌图片地址
+                                            icon: '../assets/images/1.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0002', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/2.jpg' //标牌图片地址
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0003', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/3.jpg' //标牌图片地址
+                                            icon: '../assets/images/3.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0004', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/4.jpg' //标牌图片地址
+                                            icon: '../assets/images/4.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0005', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/5.jpg' //标牌图片地址
+                                            icon: '../assets/images/5.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0006', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/6.jpg' //标牌图片地址
+                                            icon: '../assets/images/6.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0007', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/1.jpg' //标牌图片地址
+                                            icon: '../assets/images/1.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0008', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/2.jpg' //标牌图片地址
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         }
                                     ]
                                 },
@@ -1152,49 +1205,57 @@
                                             id : '0x0001', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/1.jpg' //标牌图片地址
+                                            icon: '../assets/images/1.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0002', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/2.jpg' //标牌图片地址
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0003', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/3.jpg' //标牌图片地址
+                                            icon: '../assets/images/3.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0004', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/4.jpg' //标牌图片地址
+                                            icon: '../assets/images/4.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0005', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/5.jpg' //标牌图片地址
+                                            icon: '../assets/images/5.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0006', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/6.jpg' //标牌图片地址
+                                            icon: '../assets/images/6.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0007', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/1.jpg' //标牌图片地址
+                                            icon: '../assets/images/1.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0008', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                            icon: '../assets/images/2.jpg' //标牌图片地址
+                                            icon: '../assets/images/2.jpg', //标牌图片地址
+                                            isUpward: false // 是否上行车道标牌
                                         }
                                     ]
                                 }
@@ -1202,6 +1263,10 @@
                         }
                     },
                     methods: {
+                        //路面点击事件
+                        onLanePavementClick: function(e, pavement, lane, isUpward) {
+                            app.$refs.road.setEditablePavement(pavement, isUpward);
+                        },
                         //斑马线左右两侧停车线点击事件
                         onPedestrianStop: function(e, index, isLeft) {
                             if(isLeft) {
