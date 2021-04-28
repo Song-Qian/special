@@ -2574,12 +2574,6 @@
                 "<rect v-show='Active == 3' :x='getBottomActiveRect.x' :y='getBottomActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(0 ' + getBottomActiveRect.x + ', ' + getBottomActiveRect.y + ')'\" :height='950' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                // "<rect v-show='Active == 1' :x='getRightActiveRect.x' :y='getRightActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-120 ' + getRightActiveRect.x + ', ' + getRightActiveRect.y + ')'\" :height='1700' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
-                //     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
-                // "</rect>",
-                // "<rect v-show='Active == 2' :x='getBottomActiveRect.x' :y='getBottomActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(0 ' + getBottomActiveRect.x + ', ' + getBottomActiveRect.y + ')'\" :height='1700' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
-                //     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
-                // "</rect>",
             "</g>"
         ]
         return template.join("")
