@@ -34,7 +34,6 @@
                 @cross-parterre-safearea-click='onCrossParterreSafeAreaClick'
                 @cross-lane-mark-click='onCrossLaneMarkClick'
             ></intersection>
-
             <!-- <div class='operating' style='position: fixed; bottom: 0px; left: 0px; opacity: .5; color: red; font-size: 12px; background-color: #fff; max-width: 460px;'>
                 <br />
                 <fieldset style="border:1px solid red;">
@@ -194,6 +193,13 @@
                         }
                     },
                     methods: {
+                        //机动车道路点击事件
+                        onCrossRoadPavementClick: function(e, i, lane) {
+                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
+                            // alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路被点击");
+                            var me = this;
+                            me.$refs.intersection.setActive(i);
+                        },
                         //十字路口行人暂留区域点击事件
                         onCrossStayClick: function(e, i) {
                             //e 事件对象， i 路口索引下标
@@ -222,13 +228,7 @@
                             // e 事件对象, i 路口索引下标
                             alert("第"+ (i + 1) + "个路口机动车停止线被点击");
                         },
-                        //机动车道路点击事件
-                        onCrossRoadPavementClick: function(e, i, lane) {
-                            //e 事件对象, i 路口索引下标, lane 道路的索引下标
-                            // alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "道路被点击");
-                            var me = this;
-                            me.$refs.intersection.setActive(i);
-                        },
+                        
                         //机动车道路白色实线点击事件
                         onCrossSolidLineClick: function(e, i, lane) {
                             //e 事件对象, i 路口索引下标, lane 道路的索引下标
