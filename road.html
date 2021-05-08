@@ -68,6 +68,7 @@
                             roads: [
                                 {
                                     upward: {
+                                        name : '光谷一路 <- 高薪四路',
                                         frame: {
                                             //边界线的样式，prohibit 禁止停车 stay 暂停
                                             boundary: { id: '123', type: 'stay', len : 10, isShow: false },
@@ -247,6 +248,7 @@
                                     },
                                     //下行车道, down === null, 则是单行道
                                     down: {
+                                        name : '光谷一路 -> 高薪四路',
                                         //框架
                                         frame: {
                                             //边界线的样式，prohibit 禁止停车 stay 暂停
@@ -372,7 +374,7 @@
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
                                             icon: '../assets/images/2.jpg', //标牌图片地址
-                                            isUpward: false // 是否上行车道标牌
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0003', //标牌ID
@@ -386,7 +388,7 @@
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
                                             icon: '../assets/images/4.jpg', //标牌图片地址
-                                            isUpward: false // 是否上行车道标牌
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0005', //标牌ID
@@ -400,7 +402,7 @@
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
                                             icon: '../assets/images/6.jpg', //标牌图片地址
-                                            isUpward: false // 是否上行车道标牌
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0007', //标牌ID
@@ -414,21 +416,21 @@
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
                                             icon: '../assets/images/2.jpg', //标牌图片地址
-                                            isUpward: false // 是否上行车道标牌
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0009', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
                                             icon: '../assets/images/2.jpg', //标牌图片地址
-                                            isUpward: false // 是否上行车道标牌
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x0010', //标牌ID
                                             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
                                             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
                                             icon: '../assets/images/2.jpg', //标牌图片地址
-                                            isUpward: false // 是否上行车道标牌
+                                            isUpward: true // 是否上行车道标牌
                                         },
                                         {
                                             id : '0x00011', //标牌ID
@@ -455,6 +457,7 @@
                                 },
                                 {
                                     upward: {
+                                        name : '光谷一路 <- 高薪四路',
                                         frame: {
                                             //边界线的样式，prohibit 禁止停车 stay 暂停
                                             boundary: { id: '123', type: 'stay', len : 10, isShow: true },
@@ -668,6 +671,7 @@
                                     },
                                     //下行车道, down === null, 则是单行道
                                     down: {
+                                        name : '光谷一路 -> 高薪四路',
                                         //框架
                                         frame: {
                                             //边界线的样式，prohibit 禁止停车 stay 暂停
@@ -893,6 +897,7 @@
                                 },
                                 {
                                     upward: {
+                                        name : '光谷一路 <- 高薪四路',
                                         frame: {
                                             //边界线的样式，prohibit 禁止停车 stay 暂停
                                             boundary: { id: '123', type: 'prohibit', len : 10, isShow: true },
@@ -1048,6 +1053,7 @@
                                     },
                                     //下行车道, down === null, 则是单行道
                                     down: {
+                                        name : '光谷一路 -> 高薪四路',
                                         //框架
                                         frame: {
                                             //边界线的样式，prohibit 禁止停车 stay 暂停
@@ -1265,7 +1271,7 @@
                     methods: {
                         //路面点击事件
                         onLanePavementClick: function(e, pavement, lane, isUpward) {
-                            app.$refs.road.setEditablePavement(pavement, isUpward);
+                            // app.$refs.road.setEditablePavement(pavement, isUpward);
                         },
                         //斑马线左右两侧停车线点击事件
                         onPedestrianStop: function(e, index, isLeft) {

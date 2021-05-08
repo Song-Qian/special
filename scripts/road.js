@@ -591,6 +591,8 @@
             "<g>",
                 "<image v-for='(flag, n) in getUpwardFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='190' height='100' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
                 "<image v-for='(flag, n) in getDownFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='190' height='100' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
+                "<text :x='X + 600' :y='Y - 30' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Upward.name }}</text>",
+                "<text :x='X + 600' :y='Y + RoadWidth + 30' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Down.name }}</text>",
                 "<isolation ",
                     ":length='1200' ",
                     ":transform=\"'translate('+ X + ',' + Y +')'\" ",
@@ -605,7 +607,7 @@
                 "<isolation ",
                     "v-if='Upward.frame && Upward.frame.separation && Upward.frame.separation.isShow' ",
                     ":length='1200' ",
-                    ":transform=\"'translate('+ X + ',' + (Y + calcUpwardRoadWidth + (Upward.frame && Upward.frame.boundary && Upward.frame.boundary.isShow ? 15 : 0)) +')'\" ",
+                    ":transform=\"'translate('+ X + ',' + (Y + calcUpwardRoadWidth + (Upward.frame && Upward.frame.separation && Upward.frame.separation.isShow ? 15 : 0)) +')'\" ",
                     ":type='Upward.frame.separation.type' ",
                     ":reverse='!isUnidirectional' ",
                     "@on-simple-line-click=\"$emit('on-road-separation-click', arguments[0], Upward.frame.separation.type, 'none')\" ",
@@ -805,7 +807,7 @@
                 if (type === 'stay' && isShow) {
                     return 'y_dotted'
                 }
-                
+
                 if (isLine) {
                     return 'solid'
                 }
@@ -1018,8 +1020,9 @@
             },
             calcFlagListPosition: function(it, i) {
                 var me = this;
-                var top = !!it.isUpward ? ((1080 - me.RoadWidth) / 2 - 100) - 110 * Math.floor(i / 6) : (1080 / 2 + me.RoadWidth / 2) + 110 * Math.floor(i / 6);
-                return { x : me.X + Math.floor(i % 6) * 200, y :  top  };
+                var top = !!it.isUpward ? ((1080 - me.RoadWidth) / 2 - 100) - 110 * Math.floor(i / 6) - 60 : (1080 / 2 + me.RoadWidth / 2) + 110 * Math.floor(i / 6) + 60;
+                var left = !!it.isUpward ? me.X + Math.floor(i % 6) * 200 : me.X + Math.floor(5 - i % 6) * 200;
+                return { x : left, y :  top  };
             }
         }
     })
@@ -1100,28 +1103,32 @@
                     "@on-pedestrian-click=\"$parent.$emit('on-pedestrian-click', $event, n)\" ",
                     "></pedestrians>",
                 "<g>",
-                "<road-section ",
-                    "v-for='(item, n) in Roads' ",
-                    ":upward='item.upward' ",
-                    ":down='item.down' ",
-                    ":flag-list='item.flagList' ",
-                    ":road-width='RoadWidth'",
-                    ":x='getRoadSectionPosition(n).x' ",
-                    ":y='getRoadSectionPosition(n).y' ",
-                    ":lane-index='n' ",
-                    ":key='n' ",
-                    "@on-road-lane-section=\"$parent.$emit('on-pavement-lane-section', arguments[0], n, arguments[1], arguments[2])\" ",
-                    "@on-road-lanemark-section=\"$parent.$emit('on-pavement-lanemark-section', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
-                    "@on-lane-flag=\"$parent.$emit('on-pavement-lane-flag', $event, n, arguments[0])\" ",
-                    "@on-lane-penalty=\"$parent.$emit('on-pavement-lane-penalty', $event, n, arguments[0])\" ",
-                    "@on-road-lanemark-click=\"$parent.$emit('on-pavement-lanemark-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
-                    "@on-road-slowline-click=\"$parent.$emit('on-pavement-slowline-click', arguments[0], n, arguments[1], arguments[2])\" ",
-                    "@on-road-lanepark-click=\"$parent.$emit('on-pavement-lanepark-click', arguments[0], n, arguments[1], arguments[2])\" ",
-                    "@on-road-isolation-click=\"$parent.$emit('on-pavement-isolation-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
-                    "@on-road-boundary-click=\"$parent.$emit('on-pavement-boundary-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
-                    "@on-road-separation-click=\"$parent.$emit('on-pavement-separation-click', arguments[0], n, arguments[1], arguments[2])\" ",
-                    ">",
-                "</road-section>",
+                    "<road-section ",
+                        "v-for='(item, n) in Roads' ",
+                        ":upward='item.upward' ",
+                        ":down='item.down' ",
+                        ":flag-list='item.flagList' ",
+                        ":road-width='RoadWidth'",
+                        ":x='getRoadSectionPosition(n).x' ",
+                        ":y='getRoadSectionPosition(n).y' ",
+                        ":lane-index='n' ",
+                        ":key='n' ",
+                        "@on-road-lane-section=\"$parent.$emit('on-pavement-lane-section', arguments[0], n, arguments[1], arguments[2])\" ",
+                        "@on-road-lanemark-section=\"$parent.$emit('on-pavement-lanemark-section', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
+                        "@on-lane-flag=\"$parent.$emit('on-pavement-lane-flag', $event, n, arguments[0])\" ",
+                        "@on-lane-penalty=\"$parent.$emit('on-pavement-lane-penalty', $event, n, arguments[0])\" ",
+                        "@on-road-lanemark-click=\"$parent.$emit('on-pavement-lanemark-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
+                        "@on-road-slowline-click=\"$parent.$emit('on-pavement-slowline-click', arguments[0], n, arguments[1], arguments[2])\" ",
+                        "@on-road-lanepark-click=\"$parent.$emit('on-pavement-lanepark-click', arguments[0], n, arguments[1], arguments[2])\" ",
+                        "@on-road-isolation-click=\"$parent.$emit('on-pavement-isolation-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
+                        "@on-road-boundary-click=\"$parent.$emit('on-pavement-boundary-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
+                        "@on-road-separation-click=\"$parent.$emit('on-pavement-separation-click', arguments[0], n, arguments[1], arguments[2])\" ",
+                        ">",
+                    "</road-section>",
+                    "<text :x='(1920 / 2 - getPavementLength / 2) - 80' :y='1080 / 2 - RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold;' fill='rgb(214, 203, 10)'>上行</text>",
+                    "<text :x='(1920 / 2 - getPavementLength / 2) - 80' :y='1080 / 2 + RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold;' fill='rgb(214, 203, 10)'>下行</text>",
+                    "<text :x='(1920 / 2 + getPavementLength / 2) + 80' :y='1080 / 2 - RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold;' fill='rgb(214, 203, 10)'>上行</text>",
+                    "<text :x='(1920 / 2 + getPavementLength / 2) + 80' :y='1080 / 2 + RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold;' fill='rgb(214, 203, 10)'>下行</text>",
                 "</g>",
             "</g>"
         ];
