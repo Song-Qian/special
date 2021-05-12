@@ -427,7 +427,7 @@
                     "<rect v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(calcMarkTotal + calcMarkTotal - i + 1)' :x='calcLastMarkArea(i).x' :y='calcLastMarkArea(i).y' :width='calcLastMarkArea(i).width' :height='calcLastMarkArea(i).height' class='ivsom-lane-mark' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' stroke-width='1' stroke-dasharray='5,5' @click.capture.stop=\"$emit('on-lane-mark-select', $event, calcMarkTotal + calcMarkTotal - i)\" />",
                     "<lane-mark v-for='(item, i) in calcLaneMark' :x='calcMarkPosition(item).x' :y='calcMarkPosition(item).y' :id='item.id' :mark='item.mark' :seq='item.seq' :area='Math.min(50, Width - 10)' :reverse='Reverse' @on-lanemark-click=\"$emit('on-lane-mark-click', arguments[0], i)\"></lane-mark>",
                     "<rect v-for='i in calcParkTotal' :x='435 + (i * 30)' :y='Reverse ? Width - 15 : 0' width='30' height='15' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' @click.capture.stop=\"$emit('on-lane-park-click', $event)\" />",
-                    "<text v-if='!!calcText' :x=\"LaneType === 'non-motorized' ? calcText.x - 450 : calcText.x + 180\" :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate='Reverse ? 90 : -90' text-anchor='middle' textLength='120' lengthadjust='spacingAndGlyphs' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
+                    "<text v-if='!!calcText' :x=\"LaneType === 'non-motorized' ? calcText.x - 450 : calcText.x + 180\" :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate=\"Reverse ? '90' : '-90'\" :transform=\"'translate('+ (Reverse ? '-20' : '0') +', 0)'\" text-anchor='middle' textLength='120' lengthadjust='spacingAndGlyphs' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
                     "<text v-if=\"!!calcText && LaneType === 'non-motorized'\" :x=\"LaneType === 'non-motorized' ? calcText.x + 480 : calcText.x\" :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate='Reverse ? 90 : -90' text-anchor='middle' textLength='120' lengthadjust='spacingAndGlyphs' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
                     "<line v-if=\"!!calcText && Bus\" :x1=\"LaneType === 'non-motorized' ? (calcText.x - 540) : (calcText.x + 90)\" :x2=\"LaneType === 'non-motorized' ? (calcText.x - 410) : (calcText.x + 220)\" y1='0' y2='0' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
                     "<line v-if=\"!!calcText && Bus\" :x1=\"LaneType === 'non-motorized' ? (calcText.x - 540) : (calcText.x + 90)\" :x2=\"LaneType === 'non-motorized' ? (calcText.x - 410) : (calcText.x + 220)\" :y1='Width - 5' :y2='Width - 5' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
@@ -598,8 +598,8 @@
     var RoadSectionRender = function() {
         var template = [
             "<g>",
-                "<image v-for='(flag, n) in getUpwardFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='190' height='100' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
-                "<image v-for='(flag, n) in getDownFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='190' height='100' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
+                "<image v-for='(flag, n) in getUpwardFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
+                "<image v-for='(flag, n) in getDownFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
                 "<text :x='X + 600' :y='Y - 30' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Upward.name }}</text>",
                 "<text :x='X + 600' :y='Y + RoadWidth + 30' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Down.name }}</text>",
                 "<isolation ",
@@ -1047,8 +1047,8 @@
             },
             calcFlagListPosition: function(it, i) {
                 var me = this;
-                var top = !!it.isUpward ? ((1080 - me.RoadWidth) / 2 - 100) - 110 * Math.floor(i / 6) - 60 : (1080 / 2 + me.RoadWidth / 2) + 110 * Math.floor(i / 6) + 60;
-                var left = !!it.isUpward ? me.X + Math.floor(i % 6) * 200 : me.X + Math.floor(5 - i % 6) * 200;
+                var top = !!it.isUpward ? ((1080 - me.RoadWidth) / 2 - 130) - 90 * Math.floor(i / 10) - 60 : (1080 / 2 + me.RoadWidth / 2) + 90 * Math.floor(i / 10) + 60;
+                var left = !!it.isUpward ? me.X + Math.floor(i % 10) * 130 : me.X + Math.floor(9 - i % 10) * 130;
                 return { x : left, y :  top  };
             }
         }
