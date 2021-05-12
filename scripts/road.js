@@ -84,11 +84,13 @@
     //斑马线绘制
     var PedestrianRender = function() {
         var template = [
-            "<g :transform=\"'translate(' + Offset.x + ',' + Offset.y + ')'\" :style=\"{ display: IsShow ? 'block' : 'none' }\" > ",
+            "<g :transform=\"'translate(' + Offset.x + ',' + Offset.y + ')'\"  :style=\"{ display: IsNever ? 'none' : 'block'}\" > ",
                 "<rect x='0' y='0' width='80' :height='Height' fill='#333' />",
+                "<text :x='30' :y='-70' text-anchor='middle' transform='rotate(90, 30 -70)' font-size='24' fill='rgb(214, 203, 10)' v-show='(IsShow && !IsNever) && !!Name'>{{ Name }}</text>",
+                "<text :x='30' :y='Height + 70' text-anchor='middle' :transform=\"'rotate(90, 30 '+ (Height + 70) +')'\" font-size='24' fill='rgb(214, 203, 10)' v-show='(IsShow && !IsNever) && !!Name'>{{ Name }}</text>",
                 "<line x1='1.5' x2='1.5' y1='0' :y2='Height' stroke='#fff' stroke-width='3' style='pointer-events:visibleStroke;' @click.capture.stop=\"$emit('on-pedestrian-stop-click', true)\" />",
                 "<line x1='78.5' x2='78.5' y1='0' :y2='Height' stroke='#fff' stroke-width='3' style='pointer-events:visibleStroke;' @click.capture.stop=\"$emit('on-pedestrian-stop-click', false)\" />",
-                "<line x1='40' x2='40' y1='0' :y2='Height' stroke='#fff' stroke-width='50' stroke-dasharray='8,16' style='pointer-events:visibleStroke;' @click.capture.stop=\"$emit('on-pedestrian-click')\" />",
+                "<line x1='40' x2='40' y1='0' :y2='Height' v-show='IsShow' stroke='#fff' stroke-width='50' stroke-dasharray='8,16' style='pointer-events:visibleStroke;' @click.capture.stop=\"$emit('on-pedestrian-click')\" />",
             "</g>"
         ];
         return template.join("");
@@ -117,12 +119,20 @@
                 default: 0,
                 type: Number
             },
+            Name: {
+                default: '',
+                type: String
+            },
             Area: {
                 default: 0,
                 type: Number
             },
             IsShow: {
                 default: true,
+                type: Boolean
+            },
+            IsNever: {
+                default: false,
                 type: Boolean
             },
             Height: {
@@ -190,7 +200,7 @@
                 type : String
             },
             Length: {
-                default: 1200,
+                default: 1300,
                 type: Number
             },
             Reverse: {
@@ -412,11 +422,11 @@
         var template = [
             "<g class='ivsom-lane' :transform=\"'translate('+ X + ',' + Y +')'\">",
                 "<g v-if=\"['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(Type) === -1\">",
-                    "<rect x='0' y='0' width='1200' :height='Width' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" @click.capture.stop=\"$emit('on-lane-select', $event)\" />",
+                    "<rect x='0' y='0' width='1300' :height='Width' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" @click.capture.stop=\"$emit('on-lane-select', $event)\" />",
                     "<rect v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(i)' :x='calcFirstMarkArea(i).x' :y='calcFirstMarkArea(i).y' :width='calcFirstMarkArea(i).width' :height='calcFirstMarkArea(i).height' class='ivsom-lane-mark' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' stroke-width='1' stroke-dasharray='5,5' @click.capture.stop=\"$emit('on-lane-mark-select', $event, i - 1)\" />",
                     "<rect v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(calcMarkTotal + calcMarkTotal - i + 1)' :x='calcLastMarkArea(i).x' :y='calcLastMarkArea(i).y' :width='calcLastMarkArea(i).width' :height='calcLastMarkArea(i).height' class='ivsom-lane-mark' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' stroke-width='1' stroke-dasharray='5,5' @click.capture.stop=\"$emit('on-lane-mark-select', $event, calcMarkTotal + calcMarkTotal - i)\" />",
                     "<lane-mark v-for='(item, i) in calcLaneMark' :x='calcMarkPosition(item).x' :y='calcMarkPosition(item).y' :id='item.id' :mark='item.mark' :seq='item.seq' :area='Math.min(50, Width - 10)' :reverse='Reverse' @on-lanemark-click=\"$emit('on-lane-mark-click', arguments[0], i)\"></lane-mark>",
-                    "<rect v-for='i in calcParkTotal' :x='450 + (i * 30)' :y='Reverse ? Width - 15 : 0' width='30' height='15' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' @click.capture.stop=\"$emit('on-lane-park-click', $event)\" />",
+                    "<rect v-for='i in calcParkTotal' :x='435 + (i * 30)' :y='Reverse ? Width - 15 : 0' width='30' height='15' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' @click.capture.stop=\"$emit('on-lane-park-click', $event)\" />",
                     "<text v-if='!!calcText' :x=\"LaneType === 'non-motorized' ? calcText.x - 450 : calcText.x + 180\" :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate='Reverse ? 90 : -90' text-anchor='middle' textLength='120' lengthadjust='spacingAndGlyphs' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
                     "<text v-if=\"!!calcText && LaneType === 'non-motorized'\" :x=\"LaneType === 'non-motorized' ? calcText.x + 480 : calcText.x\" :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate='Reverse ? 90 : -90' text-anchor='middle' textLength='120' lengthadjust='spacingAndGlyphs' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
                     "<line v-if=\"!!calcText && Bus\" :x1=\"LaneType === 'non-motorized' ? (calcText.x - 540) : (calcText.x + 90)\" :x2=\"LaneType === 'non-motorized' ? (calcText.x - 410) : (calcText.x + 220)\" y1='0' y2='0' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
@@ -433,7 +443,7 @@
                     "v-if='HasBoundary' ",
                     ":type='Type' ",
                     ":transform=\"calcIsolationPosition\" ",
-                    "length='1200' ",
+                    "length='1300' ",
                     ":reverse='Reverse' ",
                     "@on-simple-line-click=\"$emit('on-lane-isolation-click', arguments[0], Type, 'none')\" ",
                     "@on-right-line-click=\"$emit('on-lane-isolation-click', arguments[0], Type, 'right')\" ",
@@ -533,7 +543,7 @@
             calcText: function() {
                 var me = this;
                 if(!!me.Text || !me.Bus) {
-                    var x = 600;
+                    var x = 700;
                     var y = me.Width / 2;
                     return { x: x, y: me.Reverse ? y - 13 : y + 13, text : me.Bus ? "公交车站".split('').reverse().join('') : me.Text.substr(0, 8).split('').reverse().join('') }
                 }
@@ -560,21 +570,20 @@
             calcLastMarkArea: function(i) {
                 var me = this;
                 var h = me.Width;
-                return { x : 1140 - ((i - 1) * 60), y : 5, width: 50, height: h - 10 };
+                return { x : 1240 - ((i - 1) * 60), y : 5, width: 50, height: h - 10 };
             },
             calcMarkPosition: function(mark) {
                 var me = this;
                 var diff = (50 - Math.min(50, me.Width - 10)) / 2;
                 var y = (me.Width - Math.min(50, me.Width - 10)) / 2;
                 if (me.LaneType === 'non-motorized' && mark.mark === 'non-motorized') {
-                    return mark.seq == 1 ? { x : 10 + diff, y : y } : { x : 1140 + diff, y : y };
+                    return mark.seq == 1 ? { x : 10 + diff, y : y } : { x : 1240 + diff, y : y };
                 }
-
 
                 if ((mark.seq - 1) < 6) {
                     return { x : 10 + diff + ((mark.seq - 1) * 60), y : y };
                 }
-                return { x : 840 + diff + ((mark.seq - 7) * 60), y : y };
+                return { x : 940 + diff + ((mark.seq - 7) * 60), y : y };
             },
             calcLaneMarkVisible: function(seq) {
                 var me = this;
@@ -594,7 +603,7 @@
                 "<text :x='X + 600' :y='Y - 30' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Upward.name }}</text>",
                 "<text :x='X + 600' :y='Y + RoadWidth + 30' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Down.name }}</text>",
                 "<isolation ",
-                    ":length='1200' ",
+                    ":length='1300' ",
                     ":transform=\"'translate('+ X + ',' + Y +')'\" ",
                     ":type='calcUpwardIsolation' ",
                     ":reverse='true' ",
@@ -606,7 +615,7 @@
                     "></isolation>",
                 "<isolation ",
                     "v-if='Upward.frame && Upward.frame.separation && Upward.frame.separation.isShow' ",
-                    ":length='1200' ",
+                    ":length='1300' ",
                     ":transform=\"'translate('+ X + ',' + (Y + calcUpwardRoadWidth + (Upward.frame && Upward.frame.separation && Upward.frame.separation.isShow ? 15 : 0)) +')'\" ",
                     ":type='Upward.frame.separation.type' ",
                     ":reverse='!isUnidirectional' ",
@@ -617,7 +626,7 @@
                     "@on-parterre-click=\"$emit('on-road-separation-click', arguments[0], Upward.frame.separation.type, 'none')\" ",
                     "></isolation>",
                 "<isolation ",
-                    ":length='1200' ",
+                    ":length='1300' ",
                     ":transform=\"'translate('+ X + ',' + (Y + RoadWidth - 15) +')'\" ",
                     ":type='calcDownIsolation' ",
                     ":reverse='false' ",
@@ -680,6 +689,20 @@
                 "<rect :x='X - 5' :y='calcDownLanePosition(0).y' width='1210' v-show='!editState.isUpward && editState.laneIndex == LaneIndex' :height='calcDownRoadWidth' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
+                "<pedestrians ",
+                    ":id='Pedestrian.id' ",
+                    ":x='Pedestrian.x' ",
+                    ":y='Pedestrian.y' ",
+                    ":len='Pedestrian.len' ",
+                    ":width='Pedestrian.width' ",
+                    ":area='Pedestrian.area' ",
+                    ":is-show='true' ",
+                    ":is-never='!Pedestrian.isShow' ",
+                    ":height='RoadWidth' ",
+                    ":offset='{ x: X + 700, y: Y }' ",
+                    "@on-pedestrian-stop-click=\"$emit('on-road-pedestrian-stop-click', $event, arguments[0])\" ",
+                    "@on-pedestrian-click=\"$emit('on-road-pedestrian-click', $event)\" ",
+                    "></pedestrians>",
             "</g>"
         ];
         return template.join('');
@@ -700,6 +723,10 @@
             FlagList: { 
                 default: [],
                 type: Array
+            },
+            Pedestrian: {
+                default: null,
+                type: Object
             },
             RoadWidth: {
                 default: 0,
@@ -760,7 +787,6 @@
             //上行车道边界线
             calcUpwardIsolation: function() {
                 var me = this;
-                debugger
                 var type = me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.type;
                 var isShow = me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow;
                 var isLine = me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow;
@@ -977,7 +1003,8 @@
         },
         components: {
             "Isolation" : Isolation,
-            "Lane" : Lane
+            "Lane" : Lane,
+            "Pedestrians" : Pedestrians
         },
         methods: {
             calcUpwardLanePosition: function(i) {
@@ -1089,24 +1116,26 @@
                 "</defs>",
                 "<rect :x='getPavementPosition.x' :y='getPavementPosition.y' :width='getPavementLength' :height='RoadWidth' fill='#333' />",
                 "<pedestrians ",
-                    "v-for='(item, n) in Pedestrian' ",
+                    "v-for='(item, n) in getPedestrians' ",
                     ":id='item.id' ",
                     ":x='item.x' ",
                     ":y='item.y' ",
                     ":len='item.len' ",
                     ":width='item.width' ",
                     ":area='item.area' ",
+                    ":name='item.name' ",
                     ":is-show='item.isShow' ",
                     ":height='RoadWidth' ",
-                    ":offset='{ x: getPavementPosition.x + (1280 * (n + 1) - 80), y: getPavementPosition.y }' ",
-                    "@on-pedestrian-stop-click=\"$parent.$emit('on-pedestrian-stop-click', $event, n, arguments[0])\" ",
-                    "@on-pedestrian-click=\"$parent.$emit('on-pedestrian-click', $event, n)\" ",
+                    ":offset='{ x: getPavementPosition.x + (1380 * (n + 1) - 80), y: getPavementPosition.y }' ",
+                    "@on-pedestrian-stop-click=\"$parent.$emit('on-pedestrian-stop-click', $event, n, arguments[0], 'pedestrian')\" ",
+                    "@on-pedestrian-click=\"$parent.$emit('on-pedestrian-click', $event, n, 'pedestrian')\" ",
                     "></pedestrians>",
                 "<g>",
                     "<road-section ",
                         "v-for='(item, n) in Roads' ",
                         ":upward='item.upward' ",
                         ":down='item.down' ",
+                        ":pedestrian='item.pedestrian' ",
                         ":flag-list='item.flagList' ",
                         ":road-width='RoadWidth'",
                         ":x='getRoadSectionPosition(n).x' ",
@@ -1123,6 +1152,8 @@
                         "@on-road-isolation-click=\"$parent.$emit('on-pavement-isolation-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
                         "@on-road-boundary-click=\"$parent.$emit('on-pavement-boundary-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
                         "@on-road-separation-click=\"$parent.$emit('on-pavement-separation-click', arguments[0], n, arguments[1], arguments[2])\" ",
+                        "@on-road-pedestrian-stop-click=\"$parent.$emit('on-pedestrian-stop-click', arguments[0], n, arguments[1], 'road')\" ",
+                        "@on-road-pedestrian-click=\"$parent.$emit('on-pedestrian-click', arguments[0], n, 'road')\" ",
                         ">",
                     "</road-section>",
                     "<text :x='(1920 / 2 - getPavementLength / 2) - 80' :y='1080 / 2 - RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold;' fill='rgb(214, 203, 10)'>上行</text>",
@@ -1157,12 +1188,16 @@
         computed : {
             getPavementLength: function() {
                 var me = this;
-                var size = me.Pedestrian && me.Pedestrian.length || 0;
-                return 1280 * (size + 1) - 80;
+                var size = me.Roads && me.Roads.length || 1;
+                return 1380 * size - 80;
             },
             getPavementPosition: function() {
                 var me = this;
                 return { x : 1920 / 2 - me.getPavementLength / 2, y : 1080/2 - me.RoadWidth / 2 };
+            },
+            getPedestrians: function() {
+                var me = this;
+                return me.Pedestrian.splice(0, me.Roads.length - 1);
             }
         },
         components: {
@@ -1172,7 +1207,7 @@
         methods: {
             getRoadSectionPosition: function(i) {
                 var me = this;
-                return { x : me.getPavementPosition.x + i * 1280, y : me.getPavementPosition.y };
+                return { x : me.getPavementPosition.x + i * 1380, y : me.getPavementPosition.y };
             }
         }
     })
@@ -1309,7 +1344,7 @@
                 me.editor.isUpward = isUpward;
                 me.editor.laneIndex = index;
                 me.moveTop = 0;
-                me.moveLeft = 1920 - ((index + 1) * 1280 - 1280 / 2);
+                me.moveLeft = 1920 - ((index + 1) * 1380 - 1380 / 2);
             }
         }
     })

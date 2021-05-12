@@ -61,8 +61,8 @@
                                  *   isShow: boolean, //是否显示
                                  * }
                                  * */
-                                { id: '1', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
-                                { id: '1', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true }
+                                { id: '1', name: '保利一小区', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
+                                { id: '1', name: '保利二小区', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true }
                             ],
                             //小路段
                             roads: [
@@ -361,6 +361,7 @@
                                             }
                                         ]
                                     },
+                                    pedestrian: { id: '0x0001', name: '纺织大学', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
                                     flagList: [
                                         {
                                             id : '0x0001', //标牌ID
@@ -836,6 +837,7 @@
                                             }
                                         ]
                                     },
+                                    pedestrian: { id: '0x0002', name: '中南财经大学', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
                                     flagList: [
                                         {
                                             id : '0x0001', //标牌ID
@@ -1206,6 +1208,7 @@
                                             }
                                         ]
                                     },
+                                    pedestrian: { id: '0x0003', name: '民族大学', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
                                     flagList: [
                                         {
                                             id : '0x0001', //标牌ID
@@ -1274,18 +1277,36 @@
                             // app.$refs.road.setEditablePavement(pavement, isUpward);
                         },
                         //斑马线左右两侧停车线点击事件
-                        onPedestrianStop: function(e, index, isLeft) {
-                            if(isLeft) {
-                                console.log("路段：第" + index + "段，行人斑马线左侧停车线被点击");
+                        onPedestrianStop: function(e, index, isLeft, type) {
+                            if (type === 'pedestrian') {
+                                if(isLeft) {
+                                    console.log("斑马线：第" + index + "段，行人斑马线左侧停车线被点击");
+                                }
+
+                                if(!isLeft) {
+                                    console.log("斑马线：第" + index + "段，行人斑马线右侧停车线被点击");
+                                }
                             }
 
-                            if(!isLeft) {
-                                console.log("路段：第" + index + "段，行人斑马线右侧停车线被点击");
+                            if (type === 'road') {
+                                if(isLeft) {
+                                    console.log("路段：第" + index + "段，行人斑马线左侧停车线被点击");
+                                }
+                                
+                                if(!isLeft) {
+                                    console.log("路段：第" + index + "段，行人斑马线右侧停车线被点击");
+                                }
                             }
                         },
                         //斑马线点击事件
-                        onPedestrianClick: function(e, index) {
-                            console.log("路段：第" + index + "段，行人斑马线被点击");
+                        onPedestrianClick: function(e, index, type) {
+                            if(type === 'pedestrian') {
+                                console.log("斑马线：第" + index + "段，行人斑马线被点击");
+                            }
+
+                            if(type === 'road') {
+                                console.log("路段：第" + index + "段，行人斑马线被点击");
+                            }
                         },
                         //laneMark框点击事件
                         onLaneMarkSection: function(e, pavement, lane, mark, isUpward) {
