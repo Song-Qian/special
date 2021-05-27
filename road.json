@@ -21,6 +21,16 @@
 			pedestrian: boolean, //deafult: true 是否具有人行班马线
 			stayArea: boolean, //default: true 是否具有人行暂留区
 			stopLine: boolean, //default: true 是否具有机动车停止线
+			flagList: [
+				{
+					id : string, //标牌ID
+					x: number, //标牌坐标 (数据交互,无UI效果)
+					y: number, //标牌坐标 (数据交互,无UI效果)
+					icon: string, //标牌图片地址
+					width: number, //标牌宽度
+					height: number, //标牌高度
+				}
+			],
 			//车道,自右向左绘制(顺时针)
 			lane : [
 				{

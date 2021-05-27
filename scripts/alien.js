@@ -142,7 +142,7 @@
                             "<tbody>",
                                 "<tr v-for='(item, i) in getRoadsView' :class='{ isActive : active == item.id }' @click='acitveRoad(item)' :key='i'>",
                                     "<td>{{i + 1}}</td>",
-                                    "<td :title='item.name'>{{ item.name }} <span class='is_new' v-if='item.isNew'>新</span></td>",
+                                    "<td :title='item.name'><span :class=\"{'is_new' : item.isNew }\" >{{item.isNew ? '新' : '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'}}</span> {{ item.name }}</td>",
                                     "<td>{{item.angle}}°</td>",
                                     "<td><span class='plus' @click.stop='addRoadAngle(i, item)'>+</span><span class='less' @click.stop='lessRoadAngle(i, item)'>-</span></td>",
                                 "</tr>",
@@ -288,6 +288,11 @@
                 } else {
                     me.active = item.id;
                 }
+                me.$emit('on-road-select', item, !!me.active);
+            },
+            clearActive: function() {
+                var me = this;
+                me.active = '';
             }
         }
     })

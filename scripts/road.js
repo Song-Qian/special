@@ -683,10 +683,10 @@
                     "></lane>",
                 "<use href='#penalty' :x='0' :y='0' :transform='calcUpwardPenaltyMatrix'  v-show='Upward && Upward.frame && Upward.frame.penalty && Upward.frame.penalty.isShow' @click.capture.stop=\"$emit('on-lane-penalty', true)\" />",
                 "<use href='#penalty' :x='0' :y='0' :transform='calcDownPenaltyMatrix'  v-show='Down && Down.frame && Down.frame.penalty && Down.frame.penalty.isShow' @click.capture.stop=\"$emit('on-lane-penalty', false)\" />",
-                "<rect :x='X - 5' :y='calcUpwardLanePosition(0).y' width='1210' v-show='editState.isUpward && editState.laneIndex == LaneIndex' :height='calcUpwardRoadWidth' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect :x='X - 5' :y='calcUpwardLanePosition(0).y' width='1310' v-show='editState.isUpward && editState.laneIndex == LaneIndex' :height='calcUpwardRoadWidth' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect :x='X - 5' :y='calcDownLanePosition(0).y' width='1210' v-show='!editState.isUpward && editState.laneIndex == LaneIndex' :height='calcDownRoadWidth' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect :x='X - 5' :y='calcDownLanePosition(0).y' width='1310' v-show='!editState.isUpward && editState.laneIndex == LaneIndex' :height='calcDownRoadWidth' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
                 "<pedestrians ",
@@ -1340,11 +1340,8 @@
             },
             setEditablePavement: function(index, isUpward) {
                 var me = this;
-                var size = me.Pedestrian && me.Pedestrian.length || 0;
                 me.editor.isUpward = isUpward;
                 me.editor.laneIndex = index;
-                me.moveTop = 0;
-                me.moveLeft = 1920 - ((index + 1) * 1380 - 1380 / 2);
             }
         }
     })

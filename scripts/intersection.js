@@ -466,6 +466,14 @@
                     "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, 3, n)'",
                     "@on-lane-mark-click='onRoadLaneMarkClick($event, 3, n, arguments[1])'",
                     "></lane>",
+                "<image v-for='(flag, n) in calcRoadTopForUpwardFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadTopForDownFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
+                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
+                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
+                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
                 "<g>",
                     //公路边界线
                     "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
@@ -488,26 +496,27 @@
                 "<stay-pedestrian v-show='RoadRight.stayArea && RoadRight.pedestrian' :width='calcRoadRightStay.width' :height='calcRoadRightStay.height' :angle='90' :x='calcRoadRightStay.left' :y='calcRoadRightStay.top' :defs='uuid' @on-stay-area-click='onCrossStayAreaClick($event, 1)'></stay-pedestrian>",
                 "<stay-pedestrian v-show='RoadBottom.stayArea && RoadBottom.pedestrian' :width='calcRoadBottomStay.width' :height='calcRoadBottomStay.height' :angle='180' :x='calcRoadBottomStay.left' :y='calcRoadBottomStay.top' :defs='uuid' @on-stay-area-click='onCrossStayAreaClick($event, 2)'></stay-pedestrian>",
                 "<stay-pedestrian v-show='RoadLeft.stayArea && RoadLeft.pedestrian' :width='calcRoadLeftStay.width' :height='calcRoadLeftStay.height' :angle='-90' :x='calcRoadLeftStay.left' :y='calcRoadLeftStay.top' :defs='uuid'  @on-stay-area-click='onCrossStayAreaClick($event, 3)'></stay-pedestrian>",
-                "<text :x='(1920 - RoadWidth) / 2 - 30' :y='(1080 - RoadWidth) / 2 - 300' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' :transform=\"'rotate(-90 ' + ((1920 - RoadWidth) / 2 - 30) + ', ' + ((1080 - RoadWidth) / 2 - 300) + ')'\"> {{ RoadTop.name }} </text>",
-                "<text :x='(1920 / 2) + (RoadWidth / 2) + 300' :y='(1080 - RoadWidth) / 2 - 30' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle'> {{ RoadRight.name }} </text>",
-                "<text :x='(1920 / 2) + (RoadWidth / 2) + 30' :y='(1080 / 2) + (RoadWidth / 2) + 300' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' :transform=\"'rotate(90 ' + ((1920 / 2) + (RoadWidth / 2) + 30) + ', ' + ((1080 / 2) + (RoadWidth / 2) + 300) + ')'\"> {{ RoadBottom.name }} </text>",
-                "<text :x='(1920 - RoadWidth) / 2 - 300' :y='(1080 / 2) + (RoadWidth / 2) + 50' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' style='display: block; background-color: red;'> {{ RoadLeft.name }} </text>",
-                "<rect v-show='Active == 0' :x='(1920 - RoadWidth) / 2 - 10' :y='-1080 + (1080 - RoadWidth) / 2' :width='RoadWidth + 20' :height='1080' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<text :x='(1920 - RoadWidth) / 2 - 30' :y='(1080 - RoadWidth) / 2 - 200' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(-90 ' + ((1920 - RoadWidth) / 2 - 30) + ', ' + ((1080 - RoadWidth) / 2 - 200) + ')'\"> {{ RoadTop.name }} </text>",
+                "<text :x='(1920 / 2) + (RoadWidth / 2) + 300' :y='(1080 - RoadWidth) / 2 - 30' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start'> {{ RoadRight.name }} </text>",
+                "<text :x='(1920 / 2) + (RoadWidth / 2) + 30' :y='(1080 / 2) + (RoadWidth / 2) + 200' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(90 ' + ((1920 / 2) + (RoadWidth / 2) + 30) + ', ' + ((1080 / 2) + (RoadWidth / 2) + 200) + ')'\"> {{ RoadBottom.name }} </text>",
+                "<text :x='(1920 - RoadWidth) / 2 - 300' :y='(1080 / 2) + (RoadWidth / 2) + 50' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='end' style='display: block; background-color: red;'> {{ RoadLeft.name }} </text>",
+                "<rect v-show='Active == 0' :x='(1920 - RoadWidth) / 2 - 10' :y='-1420 + (1080 - RoadWidth) / 2' :width='RoadWidth + 20' :height='1420' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect v-show='Active == 1' :x='(1920 / 2) + (RoadWidth / 2)' :y='(1080 - RoadWidth) / 2 - 10' :width='1500' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect v-show='Active == 1' :x='(1920 / 2) + (RoadWidth / 2)' :y='(1080 - RoadWidth) / 2 - 10' :width='1850' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect v-show='Active == 2' :x='(1920 - RoadWidth) / 2 - 10' :y='(1080 / 2) + (RoadWidth / 2)' :width='RoadWidth + 20' :height='1080' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect v-show='Active == 2' :x='(1920 - RoadWidth) / 2 - 10' :y='(1080 / 2) + (RoadWidth / 2)' :width='RoadWidth + 20' :height='1420' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect v-show='Active == 3' :x='-1500 + (1920- RoadWidth) / 2' :y='(1080 - RoadWidth) / 2 - 10' :width='1500' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect v-show='Active == 3' :x='-1850 + (1920- RoadWidth) / 2' :y='(1080 - RoadWidth) / 2 - 10' :width='1850' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
             "</g>"
         ];
         return template.join('');
     }
+
     var crossRoads = Vue.extend({
         template: crossRender.apply(this),
         props : {
@@ -538,7 +547,9 @@
                 //default: true 是否具有机动车停止线
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
-                Lane : { default: [], type: Array },
+                Lane: { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadRight : {
@@ -569,6 +580,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadBottom : {
@@ -599,6 +612,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadLeft : {
@@ -629,6 +644,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadWidth : {
@@ -989,9 +1006,121 @@
                     return me.RoadWidth / me.RoadLeft.Lane.length;
                 }
                 return me.RoadWidth;
+            },
+            calcRoadTopForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadTop.flagList || !me.RoadTop.flagList.length) {
+                    return [];
+                }
+                return me.RoadTop.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadTopForDownFlag: function () {
+                var me = this;
+                if (!me.RoadTop.flagList || !me.RoadTop.flagList.length) {
+                    return [];
+                }
+                return me.RoadTop.flagList.filter(function (it) { return !it.isUpward });
+            },
+            calcRoadRightForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadRight.flagList || !me.RoadRight.flagList.length) {
+                    return [];
+                }
+                return me.RoadRight.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadRightForDownFlag: function () {
+                var me = this;
+                if (!me.RoadRight.flagList || !me.RoadRight.flagList.length) {
+                    return [];
+                }
+                return me.RoadRight.flagList.filter(function (it) { return !it.isUpward });
+            },
+            calcRoadBottomForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadBottom.flagList || !me.RoadBottom.flagList.length) {
+                    return [];
+                }
+                return me.RoadBottom.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadBottomForDownFlag: function () {
+                var me = this;
+                if (!me.RoadBottom.flagList || !me.RoadBottom.flagList.length) {
+                    return [];
+                }
+                return me.RoadBottom.flagList.filter(function (it) { return !it.isUpward });
+            },
+            calcRoadLeftForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadLeft.flagList || !me.RoadLeft.flagList.length) {
+                    return [];
+                }
+                return me.RoadLeft.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadLeftForDownFlag: function () {
+                var me = this;
+                if (!me.RoadLeft.flagList || !me.RoadLeft.flagList.length) {
+                    return [];
+                }
+                return me.RoadLeft.flagList.filter(function (it) { return !it.isUpward });
             }
         },
         methods: {
+            calcRoadTopFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                if (flag.isUpward) {
+                    var top = (1080 - me.RoadWidth) / 2 - 200;
+                    var left = (1920 - me.RoadWidth) / 2 - 150;
+                    return { x: left - r * 90, y: top - i * 120 };
+                }
+
+                var top = (1080 - me.RoadWidth) / 2 - 200;
+                var left = (1920 / 2) + (me.RoadWidth / 2) + 20;
+                return { x: left + r * 90, y: top - i * 120 };
+            },
+            calcRoadRightFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                if (flag.isUpward) {
+                    var top = (1080 - me.RoadWidth) / 2 - 150;
+                    var left = (1920 / 2) + (me.RoadWidth / 2) + 300;
+                    return { x: left + i * 120, y: top - r * 90 };
+                }
+
+                var top = (1080 / 2 ) + (me.RoadWidth / 2) + 20;
+                var left = (1920 / 2) + (me.RoadWidth / 2) + 300;
+                return { x: left + i * 120, y: top + r * 90 };
+            },
+            calcRoadBottomFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                if (flag.isUpward) {
+                    var top = (1080 / 2 ) + (me.RoadWidth / 2) + 200;
+                    var left = (1920 / 2) + (me.RoadWidth / 2) + 150;
+                    return { x: left + r * 90, y : top + i * 120 }
+                }
+
+                var top = (1080 / 2 ) + (me.RoadWidth / 2) + 200;
+                var left = (1920 - me.RoadWidth) / 2 - 20;
+                return { x: left - r * 90, y : top + i * 120 }
+            },
+            calcRoadLeftFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                if (flag.isUpward) {
+                    var top = (1080 / 2 ) + (me.RoadWidth / 2) + 60;
+                    var left = (1920 - me.RoadWidth) / 2 - 410;
+                    return { x: left - i * 120, y : top + r * 90 }
+                }
+
+                var top = (1080 - me.RoadWidth) / 2 - 100;
+                var left = (1920 - me.RoadWidth) / 2 - 410;
+                return { x: left - i * 120, y : top - r * 90 }
+            },
             crossTopMoveTo: function(n) {
                 var me = this;
                 var left = (1920 - me.RoadWidth) / 2;
@@ -1218,6 +1347,12 @@
                     "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, 2, n)'",
                     "@on-lane-mark-click='onRoadLaneMarkClick($event, 2, n, arguments[1])'",
                     "></lane>",
+                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(30, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(30, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\"  />",
+                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-30, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-30, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
                 "<g>",
                     //公路边界线
                     "<path v-show='RoadLeft.boundary.left.has' :d='calcTopRoadBoundary.left' fill='none' stroke='#fff' stroke-width='2' transform='translate(0,1.414213562373095)' @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
@@ -1238,16 +1373,16 @@
                     "<path v-show='RoadRight.stayArea && RoadRight.pedestrian' :d='calcRoadRightStay' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, 1)' />",
                     "<path v-show='RoadBottom.stayArea && RoadBottom.pedestrian' :d='calcRoadBottomStay' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, 2)' />",
                 "</g>",
-                "<text :x='getLeftTextIntersection.x' :y='getLeftTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' :transform=\"'rotate(30 ' + getLeftTextIntersection.x + ', ' + getLeftTextIntersection.y + ')'\"> {{ RoadLeft.name }} </text>",
-                "<text :x='getTopTextIntersection.x' :y='getTopTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' :transform=\"'rotate(-30 ' + getTopTextIntersection.x + ', ' + getTopTextIntersection.y + ')'\"> {{ RoadRight.name }} </text>",
-                "<text :x='getRightTextIntersection.x' :y='getRightTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' :transform=\"'rotate(90 ' + getRightTextIntersection.x + ', ' + getRightTextIntersection.y + ')'\"> {{ RoadBottom.name }} </text>",
-                "<rect v-show='Active == 0' :x='getLeftActiveRect.x' :y='getLeftActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-240 ' + getLeftActiveRect.x + ', ' + getLeftActiveRect.y + ')'\" :height='1700' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<text :x='getLeftTextIntersection.x' :y='getLeftTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='end' :transform=\"'rotate(30 ' + getLeftTextIntersection.x + ', ' + getLeftTextIntersection.y + ')'\"> {{ RoadLeft.name }} </text>",
+                "<text :x='getTopTextIntersection.x' :y='getTopTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(-30 ' + getTopTextIntersection.x + ', ' + getTopTextIntersection.y + ')'\"> {{ RoadRight.name }} </text>",
+                "<text :x='getRightTextIntersection.x' :y='getRightTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(90 ' + getRightTextIntersection.x + ', ' + getRightTextIntersection.y + ')'\"> {{ RoadBottom.name }} </text>",
+                "<rect v-show='Active == 0' :x='getLeftActiveRect.x' :y='getLeftActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-240 ' + getLeftActiveRect.x + ', ' + getLeftActiveRect.y + ')'\" :height='2180' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect v-show='Active == 1' :x='getRightActiveRect.x' :y='getRightActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-120 ' + getRightActiveRect.x + ', ' + getRightActiveRect.y + ')'\" :height='1700' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect v-show='Active == 1' :x='getRightActiveRect.x' :y='getRightActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-120 ' + getRightActiveRect.x + ', ' + getRightActiveRect.y + ')'\" :height='2180' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect v-show='Active == 2' :x='getBottomActiveRect.x' :y='getBottomActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(0 ' + getBottomActiveRect.x + ', ' + getBottomActiveRect.y + ')'\" :height='1700' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect v-show='Active == 2' :x='getBottomActiveRect.x' :y='getBottomActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(0 ' + getBottomActiveRect.x + ', ' + getBottomActiveRect.y + ')'\" :height='1580' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
             "</g>"
@@ -1286,6 +1421,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadRight : {
@@ -1316,6 +1453,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadBottom : {
@@ -1346,6 +1485,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadWidth : {
@@ -1373,7 +1514,7 @@
             },
             getLeftTextIntersection: function() {
                 var me = this;
-                var a = utils.calcRadiusAnyPoint(me.getLeftIntersection.x, me.getLeftIntersection.y, 50, 150);
+                var a = utils.calcRadiusAnyPoint(me.getLeftIntersection.x, me.getLeftIntersection.y, 50, 120);
                 return utils.calcRadiusAnyPoint(a.x, a.y, 200, -150);
             },
             getRightTextIntersection: function() {
@@ -1727,9 +1868,90 @@
                 var p3 = utils.calcRadiusAnyPoint(v1.x, v1.y, ah, 30);
                 var p4 = utils.calcRadiusAnyPoint(p3.x, p3.y, Math.min(bw, rw), -150);
                 return { p1 : p1, p2 : p2, p3, p4 };
+            },
+            calcRoadLeftForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadLeft.flagList || !me.RoadLeft.flagList.length) {
+                    return [];
+                }
+                return me.RoadLeft.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadLeftForDownFlag: function () {
+                var me = this;
+                if (!me.RoadLeft.flagList || !me.RoadLeft.flagList.length) {
+                    return [];
+                }
+                return me.RoadLeft.flagList.filter(function (it) { return !it.isUpward });
+            },
+            calcRoadRightForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadRight.flagList || !me.RoadRight.flagList.length) {
+                    return [];
+                }
+                return me.RoadRight.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadRightForDownFlag: function () {
+                var me = this;
+                if (!me.RoadRight.flagList || !me.RoadRight.flagList.length) {
+                    return [];
+                }
+                return me.RoadRight.flagList.filter(function (it) { return !it.isUpward });
+            },
+            calcRoadBottomForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadBottom.flagList || !me.RoadBottom.flagList.length) {
+                    return [];
+                }
+                return me.RoadBottom.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadBottomForDownFlag: function () {
+                var me = this;
+                if (!me.RoadBottom.flagList || !me.RoadBottom.flagList.length) {
+                    return [];
+                }
+                return me.RoadBottom.flagList.filter(function (it) { return !it.isUpward });
             }
         },
         methods: {
+            calcRoadLeftFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                var v = me.getLeftIntersection;
+                if (flag.isUpward) {
+                    var d = utils.calcRadiusAnyPoint(v.x, v.y, 60 + r * 90, 120);
+                    return utils.calcRadiusAnyPoint(d.x, d.y, 310 + 120 * i, 210);
+                }
+
+                var d = utils.calcRadiusAnyPoint(v.x, v.y, (me.RoadWidth + 100) + r * 90, -60);
+                return utils.calcRadiusAnyPoint(d.x, d.y, 310 + 120 * i, -150);
+            },
+            calcRoadRightFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                var v = me.getTopIntersection;
+                if (flag.isUpward) {
+                    var d = utils.calcRadiusAnyPoint(v.x, v.y, 130 + 90 * r, -120);
+                    return utils.calcRadiusAnyPoint(d.x, d.y, 200 + 120 * i, -30);
+                }
+
+                var d = utils.calcRadiusAnyPoint(v.x, v.y, (me.RoadWidth + 20) + r * 90, 60);
+                return utils.calcRadiusAnyPoint(d.x, d.y, 100 + 120 * i, -30);
+            },
+            calcRoadBottomFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                var v = me.getRightIntersection;
+                if (flag.isUpward) {
+                    var d = utils.calcRadiusAnyPoint(v.x, v.y, 140 + 90 * r, 0);
+                    return utils.calcRadiusAnyPoint(d.x, d.y, 200 + 120 * i, 90);
+                }
+
+                var d = utils.calcRadiusAnyPoint(v.x, v.y, (me.RoadWidth + 20) + r * 90, 180);
+                return utils.calcRadiusAnyPoint(d.x, d.y, 200 + 120 * i, 90);
+            },
             roadLeftMoveTo: function(n) {
                 var me = this;
                 var v = me.getLeftIntersection;
@@ -1816,7 +2038,7 @@
                 var me = this;
                 var mark = {};
                 if(no === 0) {
-                    mark = me.RoadTop.Lane[lane].landmark
+                    mark = me.RoadLeft.Lane[lane].landmark
                 }
 
                 if(no === 1) {
@@ -1825,10 +2047,6 @@
 
                 if(no === 2) {
                     mark = me.RoadBottom.Lane[lane].landmark
-                }
-
-                if(no === 3) {
-                    mark = me.RoadLeft.Lane[lane].landmark
                 }
 
                 this.$parent.$emit("cross-lane-mark-click", e, no, lane, mark[side].seq, mark[side].mark);
@@ -1953,6 +2171,12 @@
                     "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, 2, n)'",
                     "@on-lane-mark-click='onRoadLaneMarkClick($event, 2, n, arguments[1])'",
                     "></lane>",
+                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
+                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
+                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
+                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
+                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
                 "<g>",
                     //公路边界线
                     "<path v-show='RoadLeft.boundary.left.has' :d='calcRoadLeftBoundary.innterLeft' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, false)'/>",
@@ -1969,16 +2193,16 @@
                 "</g>",
                 "<stay-pedestrian v-show='RoadLeft.stayArea && RoadLeft.pedestrian' :width='calcRoadLeftStay.width' :height='calcRoadLeftStay.height' :angle='-90' :x='calcRoadLeftStay.left' :y='calcRoadLeftStay.top' :defs='uuid'  @on-stay-area-click='onCrossStayAreaClick($event, 0)'></stay-pedestrian>",
                 "<stay-pedestrian v-show='RoadBottom.stayArea && RoadBottom.pedestrian' :width='calcRoadBottomStay.width' :height='calcRoadBottomStay.height' :angle='180' :x='calcRoadBottomStay.left' :y='calcRoadBottomStay.top' :defs='uuid' @on-stay-area-click='onCrossStayAreaClick($event, 2)'></stay-pedestrian>",
-                "<text :x='(1920 / 2) + (RoadWidth / 2) + 300' :y='(1080 - RoadWidth) / 2 - 30' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle'> {{ RoadRight.name }} </text>",
-                "<text :x='(1920 / 2) + (RoadWidth / 2) + 30' :y='(1080 / 2) + (RoadWidth / 2) + 300' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' :transform=\"'rotate(90 ' + ((1920 / 2) + (RoadWidth / 2) + 30) + ', ' + ((1080 / 2) + (RoadWidth / 2) + 300) + ')'\"> {{ RoadBottom.name }} </text>",
-                "<text :x='(1920 - RoadWidth) / 2 - 300' :y='(1080 / 2) + (RoadWidth / 2) + 50' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' style='display: block; background-color: red;'> {{ RoadLeft.name }} </text>",
-                "<rect v-show='Active == 0' :x='-1500 + (1920- RoadWidth) / 2' :y='(1080 - RoadWidth) / 2 - 10' :width='1500' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<text :x='(1920 / 2) + (RoadWidth / 2) + 300' :y='(1080 - RoadWidth) / 2 - 30' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start'> {{ RoadRight.name }} </text>",
+                "<text :x='(1920 / 2) + (RoadWidth / 2) + 30' :y='(1080 / 2) + (RoadWidth / 2) + 300' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(90 ' + ((1920 / 2) + (RoadWidth / 2) + 30) + ', ' + ((1080 / 2) + (RoadWidth / 2) + 300) + ')'\"> {{ RoadBottom.name }} </text>",
+                "<text :x='(1920 - RoadWidth) / 2 - 300' :y='(1080 / 2) + (RoadWidth / 2) + 50' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='end' style='display: block; background-color: red;'> {{ RoadLeft.name }} </text>",
+                "<rect v-show='Active == 0' :x='-1900 + (1920- RoadWidth) / 2' :y='(1080 - RoadWidth) / 2 - 10' :width='1900' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect v-show='Active == 1' :x='(1920 / 2) + (RoadWidth / 2)' :y='(1080 - RoadWidth) / 2 - 10' :width='1500' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect v-show='Active == 1' :x='(1920 / 2) + (RoadWidth / 2)' :y='(1080 - RoadWidth) / 2 - 10' :width='1900' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect v-show='Active == 2' :x='(1920 - RoadWidth) / 2 - 10' :y='(1080 / 2) + (RoadWidth / 2)' :width='RoadWidth + 20' :height='1080' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect v-show='Active == 2' :x='(1920 - RoadWidth) / 2 - 10' :y='(1080 / 2) + (RoadWidth / 2)' :width='RoadWidth + 20' :height='1480' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
             "</g>"
@@ -2017,6 +2241,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadRight : {
@@ -2047,6 +2273,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadBottom : {
@@ -2077,6 +2305,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadWidth : {
@@ -2284,9 +2514,93 @@
                 var p = utils.calcRadiusAnyPoint(ox, oy, 150, 315);
                 var p2 = utils.calcRadiusAnyPoint(ox, oy, 160 + s, 315);
                 return { p1: p, p2: p2 };
+            },
+            calcRoadRightForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadRight.flagList || !me.RoadRight.flagList.length) {
+                    return [];
+                }
+                return me.RoadRight.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadRightForDownFlag: function () {
+                var me = this;
+                if (!me.RoadRight.flagList || !me.RoadRight.flagList.length) {
+                    return [];
+                }
+                return me.RoadRight.flagList.filter(function (it) { return !it.isUpward });
+            },
+            calcRoadBottomForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadBottom.flagList || !me.RoadBottom.flagList.length) {
+                    return [];
+                }
+                return me.RoadBottom.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadBottomForDownFlag: function () {
+                var me = this;
+                if (!me.RoadBottom.flagList || !me.RoadBottom.flagList.length) {
+                    return [];
+                }
+                return me.RoadBottom.flagList.filter(function (it) { return !it.isUpward });
+            },
+            calcRoadLeftForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadLeft.flagList || !me.RoadLeft.flagList.length) {
+                    return [];
+                }
+                return me.RoadLeft.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadLeftForDownFlag: function () {
+                var me = this;
+                if (!me.RoadLeft.flagList || !me.RoadLeft.flagList.length) {
+                    return [];
+                }
+                return me.RoadLeft.flagList.filter(function (it) { return !it.isUpward });
             }
         },
         methods: {
+            calcRoadRightFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                if (flag.isUpward) {
+                    var top = (1080 - me.RoadWidth) / 2 - 150;
+                    var left = (1920 / 2) + (me.RoadWidth / 2) + 300;
+                    return { x: left + i * 120, y: top - r * 90 };
+                }
+
+                var top = (1080 / 2 ) + (me.RoadWidth / 2) + 20;
+                var left = (1920 / 2) + (me.RoadWidth / 2) + 300;
+                return { x: left + i * 120, y: top + r * 90 };
+            },
+            calcRoadBottomFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                if (flag.isUpward) {
+                    var top = (1080 / 2 ) + (me.RoadWidth / 2) + 300;
+                    var left = (1920 / 2) + (me.RoadWidth / 2) + 150;
+                    return { x: left + r * 90, y : top + i * 120 }
+                }
+
+                var top = (1080 / 2 ) + (me.RoadWidth / 2) + 300;
+                var left = (1920 - me.RoadWidth) / 2 - 20;
+                return { x: left - r * 90, y : top + i * 120 }
+            },
+            calcRoadLeftFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                if (flag.isUpward) {
+                    var top = (1080 / 2 ) + (me.RoadWidth / 2) + 60;
+                    var left = (1920 - me.RoadWidth) / 2 - 410;
+                    return { x: left - i * 120, y : top + r * 90 }
+                }
+
+                var top = (1080 - me.RoadWidth) / 2 - 100;
+                var left = (1920 - me.RoadWidth) / 2 - 410;
+                return { x: left - i * 120, y : top - r * 90 }
+            },
             roadLeftMoveTo: function(n) {
                 var me = this;
                 var v = { x : (1920 - me.RoadWidth) / 2, y : 1080 / 2 + me.RoadWidth / 2 };
@@ -2370,7 +2684,7 @@
                 var me = this;
                 var mark = {};
                 if(no === 0) {
-                    mark = me.RoadTop.Lane[lane].landmark
+                    mark = me.RoadLeft.Lane[lane].landmark
                 }
 
                 if(no === 1) {
@@ -2379,10 +2693,6 @@
 
                 if(no === 2) {
                     mark = me.RoadBottom.Lane[lane].landmark
-                }
-
-                if(no === 3) {
-                    mark = me.RoadLeft.Lane[lane].landmark
                 }
 
                 this.$parent.$emit("cross-lane-mark-click", e, no, lane, mark[side].seq, mark[side].mark);
@@ -2535,6 +2845,14 @@
                     "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, 3, n)'",
                     "@on-lane-mark-click='onRoadLaneMarkClick($event, 3, n, arguments[1])'",
                     "></lane>",
+                "<image v-for='(flag, n) in calcRoadTopForUpwardFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadTopForDownFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-45, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-45, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(45, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(45, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
                 "<g>",
                     //公路边界线
                     "<path v-show='RoadTop.boundary.left.has' :d='calcTopRoadBoundary.left' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, false)'/>",
@@ -2557,20 +2875,20 @@
                     "<path v-show='RoadLeft.stayArea && RoadLeft.pedestrian' :d='calcRoadRightStay' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, 2)' />",
                     "<path v-show='RoadBottom.stayArea && RoadBottom.pedestrian' :d='calcRoadLeftStay' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, 3)' />",
                 "</g>",
-                "<text :x='getTopTextIntersection.x' :y='getTopTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' :transform=\"'rotate(-90 ' + getTopTextIntersection.x + ', ' + getTopTextIntersection.y + ')'\"> {{ RoadTop.name }} </text>",
-                "<text :x='getRightTextIntersection.x' :y='getRightTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' :transform=\"'rotate(-45 ' + getRightTextIntersection.x + ', ' + getRightTextIntersection.y + ')'\"> {{ RoadRight.name }} </text>",
-                "<text :x='getLeftTextIntersection.x' :y='getLeftTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' :transform=\"'rotate(45 ' + getLeftTextIntersection.x + ', ' + getLeftTextIntersection.y + ')'\"> {{ RoadLeft.name }} </text>",
-                "<text :x='getBottomTextIntersection.x' :y='getBottomTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='middle' :transform=\"'rotate(-90 ' + getBottomTextIntersection.x + ', ' + getBottomTextIntersection.y + ')'\"> {{ RoadBottom.name }} </text>",
-                "<rect v-show='Active == 0' :x='getTopActiveRect.x - 10' :y='getTopActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-180 ' + getTopActiveRect.x + ', ' + getTopActiveRect.y + ')'\" :height='950' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<text :x='getTopTextIntersection.x' :y='getTopTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(-90 ' + getTopTextIntersection.x + ', ' + getTopTextIntersection.y + ')'\"> {{ RoadTop.name }} </text>",
+                "<text :x='getRightTextIntersection.x' :y='getRightTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(-45 ' + getRightTextIntersection.x + ', ' + getRightTextIntersection.y + ')'\"> {{ RoadRight.name }} </text>",
+                "<text :x='getLeftTextIntersection.x' :y='getLeftTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(45 ' + getLeftTextIntersection.x + ', ' + getLeftTextIntersection.y + ')'\"> {{ RoadLeft.name }} </text>",
+                "<text :x='getBottomTextIntersection.x' :y='getBottomTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(90 ' + getBottomTextIntersection.x + ', ' + getBottomTextIntersection.y + ')'\"> {{ RoadBottom.name }} </text>",
+                "<rect v-show='Active == 0' :x='getTopActiveRect.x - 10' :y='getTopActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-180 ' + getTopActiveRect.x + ', ' + getTopActiveRect.y + ')'\" :height='1350' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect v-show='Active == 1' :x='getLeftActiveRect.x' :y='getLeftActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-135 ' + getLeftActiveRect.x + ', ' + getLeftActiveRect.y + ')'\" :height='1350' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect v-show='Active == 1' :x='getLeftActiveRect.x' :y='getLeftActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-135 ' + getLeftActiveRect.x + ', ' + getLeftActiveRect.y + ')'\" :height='1900' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect v-show='Active == 2' :x='getRightActiveRect.x' :y='getRightActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-45 ' + getRightActiveRect.x + ', ' + getRightActiveRect.y + ')'\" :height='1350' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect v-show='Active == 2' :x='getRightActiveRect.x' :y='getRightActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-45 ' + getRightActiveRect.x + ', ' + getRightActiveRect.y + ')'\" :height='1900' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect v-show='Active == 3' :x='getBottomActiveRect.x' :y='getBottomActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(0 ' + getBottomActiveRect.x + ', ' + getBottomActiveRect.y + ')'\" :height='950' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect v-show='Active == 3' :x='getBottomActiveRect.x' :y='getBottomActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(0 ' + getBottomActiveRect.x + ', ' + getBottomActiveRect.y + ')'\" :height='1350' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
             "</g>"
@@ -2609,6 +2927,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadRight : {
@@ -2639,6 +2959,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadBottom : {
@@ -2669,6 +2991,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadLeft : {
@@ -2699,6 +3023,8 @@
                 stopLine: { default: true, type: Boolean },
                 //车道,自右向左绘制(顺时针)
                 Lane : { default: [], type: Array },
+                //车道中的标牌
+                flagList: { default: [], type: Array },
                 type: Object
             },
             RoadWidth : {
@@ -2722,22 +3048,22 @@
             getTopTextIntersection: function() {
                 var me = this;
                 var a = utils.calcRadiusAnyPoint(me.getTopIntersection.x, me.getTopIntersection.y, me.RoadWidth + 20, -180);
-                return utils.calcRadiusAnyPoint(a.x, a.y, 200, -90);
+                return utils.calcRadiusAnyPoint(a.x, a.y, 180, -90);
             },
             getRightTextIntersection: function() {
                 var me = this;
-                var a = utils.calcRadiusAnyPoint(me.getTopIntersection.x, me.getTopIntersection.y, 300, -45);
+                var a = utils.calcRadiusAnyPoint(me.getTopIntersection.x, me.getTopIntersection.y, 500, -45);
                 return utils.calcRadiusAnyPoint(a.x, a.y, 20, -135);
             },
             getLeftTextIntersection: function() {
                 var me = this;
-                var a = utils.calcRadiusAnyPoint(me.getCrossIntersection.x, me.getCrossIntersection.y, 300, 45);
+                var a = utils.calcRadiusAnyPoint(me.getCrossIntersection.x, me.getCrossIntersection.y, 500, 45);
                 return utils.calcRadiusAnyPoint(a.x, a.y, 20, -45);
             },
             getBottomTextIntersection: function() {
                 var me = this;
-                var a = utils.calcRadiusAnyPoint(me.getBottomIntersection.x, me.getBottomIntersection.y, me.RoadWidth + 20, 180);
-                return utils.calcRadiusAnyPoint(a.x, a.y, 200, 90);
+                var a = utils.calcRadiusAnyPoint(me.getBottomIntersection.x, me.getBottomIntersection.y, me.RoadWidth + 40, 180);
+                return utils.calcRadiusAnyPoint(a.x, a.y, 180, 90);
             },
             getCenterIntersection: function() {
                 var me = this;
@@ -3136,9 +3462,117 @@
                 var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, w, 247.5);
 
                 return { p1 : p1, p2 : p2 };
+            },
+            calcRoadTopForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadTop.flagList || !me.RoadTop.flagList.length) {
+                    return [];
+                }
+                return me.RoadTop.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadTopForDownFlag: function () {
+                var me = this;
+                if (!me.RoadTop.flagList || !me.RoadTop.flagList.length) {
+                    return [];
+                }
+                return me.RoadTop.flagList.filter(function (it) { return !it.isUpward });
+            },
+            calcRoadRightForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadRight.flagList || !me.RoadRight.flagList.length) {
+                    return [];
+                }
+                return me.RoadRight.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadRightForDownFlag: function () {
+                var me = this;
+                if (!me.RoadRight.flagList || !me.RoadRight.flagList.length) {
+                    return [];
+                }
+                return me.RoadRight.flagList.filter(function (it) { return !it.isUpward });
+            },
+            calcRoadBottomForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadBottom.flagList || !me.RoadBottom.flagList.length) {
+                    return [];
+                }
+                return me.RoadBottom.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadBottomForDownFlag: function () {
+                var me = this;
+                if (!me.RoadBottom.flagList || !me.RoadBottom.flagList.length) {
+                    return [];
+                }
+                return me.RoadBottom.flagList.filter(function (it) { return !it.isUpward });
+            },
+            calcRoadLeftForUpwardFlag: function () {
+                var me = this;
+                if (!me.RoadLeft.flagList || !me.RoadLeft.flagList.length) {
+                    return [];
+                }
+                return me.RoadLeft.flagList.filter(function (it) { return it.isUpward });
+            },
+            calcRoadLeftForDownFlag: function () {
+                var me = this;
+                if (!me.RoadLeft.flagList || !me.RoadLeft.flagList.length) {
+                    return [];
+                }
+                return me.RoadLeft.flagList.filter(function (it) { return !it.isUpward });
             }
         },
         methods: {
+            calcRoadTopFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                var v = me.getTopIntersection;
+                if (flag.isUpward) {
+                    var d = utils.calcRadiusAnyPoint(v.x, v.y,  me.RoadWidth + 140 + r * 90, 180);
+                    return utils.calcRadiusAnyPoint(d.x, d.y, 180 + i * 120, -90);
+                }
+
+                var d = utils.calcRadiusAnyPoint(v.x, v.y,  20 + r * 90, 0);
+                return utils.calcRadiusAnyPoint(d.x, d.y, 180 + i * 120, -90);
+            },
+            calcRoadRightFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                var v = me.getCrossIntersection;
+                if (flag.isUpward) {
+                    var d = utils.calcRadiusAnyPoint(v.x, v.y,  me.RoadWidth + 140 + r * 90, -135);
+                    return utils.calcRadiusAnyPoint(d.x, d.y, 500 + i * 120, -45);
+                }
+
+                var d = utils.calcRadiusAnyPoint(v.x, v.y,  20 + r * 90, 45);
+                return utils.calcRadiusAnyPoint(d.x, d.y, 500 + i * 120, -45);
+            },
+            calcRoadLeftFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                var v = me.getCrossIntersection;
+                if (flag.isUpward) {
+                    var d = utils.calcRadiusAnyPoint(v.x, v.y,  140 + r * 90, -45);
+                    return utils.calcRadiusAnyPoint(d.x, d.y, 500 + i * 120, 45);
+                }
+                
+                var d = utils.calcRadiusAnyPoint(v.x, v.y,  me.RoadWidth + 20 + r * 90, 135);
+                return utils.calcRadiusAnyPoint(d.x, d.y, 500 + i * 120, 45);
+            },
+            calcRoadBottomFlagPosition: function (flag, n) {
+                var me = this;
+                var i = n % 10;
+                var r = Math.floor(n / 10);
+                var v = me.getBottomIntersection;
+                if (flag.isUpward) {
+                    var d = utils.calcRadiusAnyPoint(v.x, v.y,  100 + r * 90, 0);
+                    return utils.calcRadiusAnyPoint(d.x, d.y, 180 + i * 120, 90);
+                }
+                
+                var d = utils.calcRadiusAnyPoint(v.x, v.y,  me.RoadWidth + 60 + r * 90, 180);
+                return utils.calcRadiusAnyPoint(d.x, d.y, 180 + i * 120, 90);
+            },
             crossTopMoveTo: function(n) {
                 var me = this;
                 var v = me.getTopIntersection;
@@ -3241,11 +3675,11 @@
                 }
 
                 if(no === 2) {
-                    mark = me.RoadBottom.Lane[lane].landmark
+                    mark = me.RoadLeft.Lane[lane].landmark
                 }
 
                 if(no === 3) {
-                    mark = me.RoadLeft.Lane[lane].landmark
+                    mark = me.RoadBottom.Lane[lane].landmark
                 }
 
                 this.$parent.$emit("cross-lane-mark-click", e, no, lane, mark[side].seq, mark[side].mark);
@@ -3262,7 +3696,7 @@
             "<svg xmlns='http://wwW.w3.org/2000/svg' class='ivsom-road' version='1.1' viewBox='0 0 1920 1080' preserveAspectRatio='none meet' style='width:100%; height:100%' @mousedown.stop='onEnabledDrag' @mouseup.stop='onDragDrop' @mouseleave.stop='onDragDrop' @mousemove.stop='onDragMove' @mousewheel.prevent.stop='onScaleView'>",
                 "<defs>",
                     "<clipPath id='clip'>",
-                        "<path d='M-800,-800 -800,1880 2720,1880 2720,-800 -800,-800 z' />",
+                        "<path d='M-1200,-1200 -1200,2280 3120,2280 3120,-1200 -1200,-1200 z' />",
                     "</clipPath>",
                 "</defs>",
                 "<cross-road v-if=\"RoadMode === 'A'\" :road-top='Roads[0]' :road-width='RoadWidth' :road-right='Roads[1]' :road-bottom='Roads[2]' :road-left='Roads[3]' :active='active' :style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ></cross-road>",
@@ -3311,7 +3745,7 @@
                 rotate: { isRotate : false, x: 0, y: 0 },
                 moveTop: 0,
                 moveLeft: 0,
-                scale: 1,
+                scale: 0.5,
                 active : -1
             }
         },
