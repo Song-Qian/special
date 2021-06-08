@@ -150,10 +150,10 @@
                                         { id : '0x0029', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg',  isUpward: false }
                                     ],
                                     Lane: [
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right', highlight: true }, { seq: '2' , mark: 'right', highlight: true } ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight', highlight: true}, { seq: '2' , mark: 'straight', highlight: true} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight', highlight: true}, { seq: '2' , mark: 'straight', highlight: true} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left', highlight: true}, { seq: '2' , mark: 'left', highlight: true} ]},
                                         { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: []},
                                         { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
                                         { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
@@ -335,7 +335,7 @@
                                     ]
                                 }
                             ],
-                            RoadMode : 'K',
+                            RoadMode : 'L',
                             RoadWidth: 500,
                             Angle: 0,
                         }
@@ -447,7 +447,10 @@
                         //道路路标点击事件
                         onCrossLaneMarkClick: function(e, i, lane, seq, mark) {
                             var me = this;
-                            alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "个车道, 第" + (Number(seq) + 1) + "路标" + mark + "被点击");
+							me.$refs.intersection.cancelMarkHighlight();
+							me.$set(me.Roads[i].Lane[lane].landmark[seq], "highlight", !me.Roads[i].Lane[lane].landmark[seq].highlight);
+							//me.Roads[i].Lane[lane].landmark[seq].highlight = !me.Roads[i].Lane[lane].landmark[seq].highlight;
+                            //alert("第"+ (i + 1) + "个路口，第" + ( lane + 1) + "个车道, 第" + (Number(seq) + 1) + "路标" + mark + "被点击");
                         },
                         onCrossLaneAdd: function(e, i) {
                             var me = this;

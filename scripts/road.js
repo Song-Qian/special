@@ -424,8 +424,10 @@
                 "<g v-if=\"['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(Type) === -1\">",
                     "<rect x='0' y='0' width='1300' :height='Width' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" @click.capture.stop=\"$emit('on-lane-select', $event)\" />",
                     "<rect v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(i)' :x='calcFirstMarkArea(i).x' :y='calcFirstMarkArea(i).y' :width='calcFirstMarkArea(i).width' :height='calcFirstMarkArea(i).height' class='ivsom-lane-mark' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' stroke-width='1' stroke-dasharray='5,5' @click.capture.stop=\"$emit('on-lane-mark-select', $event, i - 1)\" />",
+					"<text v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(i)' :x='calcFirstMarkArea(i).x + calcFirstMarkArea(i).width / 2' :y='calcFirstMarkArea(i).y + calcFirstMarkArea(i).height / 2' text-anchor='middle' fill='#fff'>{{ Reverse ? 12 - i + 1 + '#' : i + '#'}}</text>",
                     "<rect v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(calcMarkTotal + calcMarkTotal - i + 1)' :x='calcLastMarkArea(i).x' :y='calcLastMarkArea(i).y' :width='calcLastMarkArea(i).width' :height='calcLastMarkArea(i).height' class='ivsom-lane-mark' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' stroke-width='1' stroke-dasharray='5,5' @click.capture.stop=\"$emit('on-lane-mark-select', $event, calcMarkTotal + calcMarkTotal - i)\" />",
-                    "<lane-mark v-for='(item, i) in calcLaneMark' :x='calcMarkPosition(item).x' :y='calcMarkPosition(item).y' :id='item.id' :mark='item.mark' :seq='item.seq' :area='Math.min(50, Width - 10)' :reverse='Reverse' @on-lanemark-click=\"$emit('on-lane-mark-click', arguments[0], i)\"></lane-mark>",
+                    "<text v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(calcMarkTotal + calcMarkTotal - i + 1)' :x='calcLastMarkArea(i).x + calcLastMarkArea(i).width / 2' :y='calcLastMarkArea(i).y + calcLastMarkArea(i).height / 2' text-anchor='middle' fill='#fff'>{{ Reverse ? (12 - (calcMarkTotal + calcMarkTotal - i)) + '#' : calcMarkTotal + calcMarkTotal - i + 1 + '#' }}</text>",
+					"<lane-mark v-for='(item, i) in calcLaneMark' :x='calcMarkPosition(item).x' :y='calcMarkPosition(item).y' :id='item.id' :mark='item.mark' :seq='item.seq' :area='Math.min(50, Width - 10)' :reverse='Reverse' @on-lanemark-click=\"$emit('on-lane-mark-click', arguments[0], i)\"></lane-mark>",
                     "<rect v-for='i in calcParkTotal' :x='435 + (i * 30)' :y='Reverse ? Width - 15 : 0' width='30' height='15' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' @click.capture.stop=\"$emit('on-lane-park-click', $event)\" />",
                     "<text v-if='!!calcText' :x=\"LaneType === 'non-motorized' ? calcText.x - 450 : calcText.x + 180\" :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate=\"Reverse ? '90' : '-90'\" :transform=\"'translate('+ (Reverse ? '-20' : '0') +', 0)'\" text-anchor='middle' textLength='120' lengthadjust='spacingAndGlyphs' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
                     "<text v-if=\"!!calcText && LaneType === 'non-motorized'\" :x=\"LaneType === 'non-motorized' ? calcText.x + 480 : calcText.x\" :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate='Reverse ? 90 : -90' text-anchor='middle' textLength='120' lengthadjust='spacingAndGlyphs' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
@@ -588,7 +590,7 @@
             calcLaneMarkVisible: function(seq) {
                 var me = this;
                 if(me.Lanemark) {
-                    return !me.Lanemark.some(function(it, index) { return it.seq === seq });
+                    return !me.Lanemark.some(function(it, index) { return it.seq == seq });
                 }
                 return true;
             }
