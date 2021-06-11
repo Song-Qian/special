@@ -2854,11 +2854,10 @@
 			}
         }
     })
-
     
     var LRender = function() {
         var template = [
-            "<g class='cross-road' clip-path='url(#clip)'>",
+            "<g class='l-road' clip-path='url(#clip)'>",
                 "<defs>",
                     "<g :id=\"'stayArea_' + uuid \"><path d='M200,0 V180 C200,200 200,200 180,200 L0,200 C100,200 200,100 200,0 z' fill='#0075c5' stroke='#fff' stroke-width='3' /></g>",
                 "</defs>",
@@ -3378,6 +3377,473 @@
                 var left = (1920 / 2) + (me.RoadWidth / 2) + 300;
                 return { x: left + i * 120, y: top + r * 90 };
             },
+        }
+    })
+
+    var ORender = function () {
+        var template = [
+            "<g class='o-road' clip-path='url(#max-clip)'>",
+                "<g>",
+                    "<rect v-for='(item, i) in getRoadMap' :key='i' :x='handlerPavementAngle(i).vertex.x' :y='-499999.5 + handlerPavementAngle(i).vertex.y' :transform=\"'rotate(' + handlerPavementAngle(i).angle + ', ' + handlerPavementAngle(i).vertex.x + ' ' + handlerPavementAngle(i).vertex.y + ')'\" :width='RoadWidth' height='499999.5' fill='#333' />",
+                    "<circle :cx='1920 / 2' :cy='1080 / 2' :r='calcCircumscribeRadius' fill='#333' />",
+                    "<circle :cx='1920 / 2' :cy='1080 / 2' :r='calcCircumscribeRadius / 3' fill='rgb(53, 159, 64)' stroke-dasharray='10,10' stroke='#fff' stroke-width='3' />",
+                    "<path v-for='(item, i) in getRoadMap' :key='i' :d='hanlderNotch(i)' fill='#333' stroke='#333' stroke-width='2' />",
+                    "<path v-for='(item, i) in getRoadMap' :key='i' :d='handlerLeftBoundary(i, 2.23606797749979)' fill='none' stroke-linecap='round' stroke='#8e8e8e' stroke-width='5' />",
+                    "<path v-for='(item, i) in getRoadMap' :key='i' :d='handlerRightBoundary(i, 2.23606797749979)' fill='none' stroke-linecap='round' stroke='#8e8e8e' stroke-width='5' />",
+                "</g>",
+            "<g>",
+                //行人斑马线
+                "<line v-for='(item, i) in getRoadMap' :key='i' v-show='item.pedestrian' :x1='handlerPedestrian(i).p1.x' :x2='handlerPedestrian(i).p2.x' :y1='handlerPedestrian(i).p1.y' :y2='handlerPedestrian(i).p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, i, false)' />",
+            "</g>",
+            "<g>",
+                //机动车停止线
+                "<line v-for='(item, i) in getRoadMap' :key='i' v-if='item.stopLine' :x1='handlerStopLine(i).p1.x' :x2='handlerStopLine(i).p2.x' :y1='handlerStopLine(i).p1.y' :y2='handlerStopLine(i).p2.y' stroke='#fff' stroke-width='5' @click.capture.stop='onRoadStopLineClick($event, i)'/>",
+            "</g>",
+            "<g v-for='(item, i) in getRoadMap' :key='i'>",
+                "<lane ",
+                    "v-for='(it, n) in item.Lane' ",
+                    ":type='it.type' ",
+                    ":assist='it.assist' ",
+                    ":reverse='it.reverse' ",
+                    ":markright='it.markright' ",
+                    ":has-boundary='it.hasBoundary' ",
+                    ":has-safe-area='it.hasSafeArea' ",
+                    ":landmark='it.landmark' ",
+                    ":angle='handlerLanePosition(i, n).angle' ",
+                    ":width='handlerRoadWidth(i)' ",
+                    ":x='handlerLanePosition(i, n).vertex.x' ",
+                    ":y='handlerLanePosition(i, n).vertex.y' ",
+                    "@on-pavement-click='onRoadLanePavementClick($event, i, n)'",
+                    "@on-solid-line-click='onRoadLaneSolidLineClick($event, i, n)'",
+                    "@on-dotted-line-click='onRoadLaneDottedLineClick($event, i, n)'",
+                    "@on-parterre-boundary-line-click='onRoadParterreBoundaryClick($event, i, n)'",
+                    "@on-y-dotted-line-click='onRoadLaneYDottedLineClick($event, i, n)'",
+                    "@on-y-solid-line-click='onRoadLaneYSolidLineClick($event, i, n)'",
+                    "@on-double-y-solid-click='onRoadLaneYDoubleSolidLineClick($event, i, n, arguments[1])'",
+                    "@on-double-y-dashed-click='onRoadLaneYDoubleDottedLineClick($event, i, n, arguments[1])'",
+                    "@on-y-solid-area-click='onRoadLaneYSolidAreaClick($event, i, n)'",
+                    "@on-parterre-click='onRoadLaneParterreClick($event, i, n)'",
+                    "@on-parterre-line-click='onRoadLaneParterreLineClick($event, i, n, arguments[1])'",
+                    "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, i, n)'",
+                    "@on-lane-mark-click='onRoadLaneMarkClick($event, i, n, arguments[1])'",
+                    "></lane>",
+            "</g>",
+            "<g v-for='(item, i) in getRoadMap' :key='i'>",
+                "<image v-for='(flag, n) in handlerForUpwardFlag(item)' :x='handlerFlagPosition(flag, i, n).vertex.x' :y='handlerFlagPosition(flag, i, n).vertex.y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate('+ handlerFlagPosition(flag, i, n).angle +', '+ handlerFlagPosition(flag, i, n).vertex.x +' '+ handlerFlagPosition(flag, i, n).vertex.y +')'\" />",
+                "<image v-for='(flag, n) in handlerForDownFlag(item)' :x='handlerFlagPosition(flag, i, n).vertex.x' :y='handlerFlagPosition(flag, i, n).vertex.y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate('+ handlerFlagPosition(flag, i, n).angle +', '+ handlerFlagPosition(flag, i, n).vertex.x +' '+ handlerFlagPosition(flag, i, n).vertex.y +')'\" />",
+            "</g>",
+            "<g>",
+                //公路边界线
+                "<path v-for='(item, i) in getRoadMap' :key='i' v-show='item.boundary.left.has' :d='handlerLeftBoundary(i, -1.414213562373095)' stroke-linecap='round' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, i, false)' />",
+                "<path v-for='(item, i) in getRoadMap' :key='i' v-show='item.boundary.right.has' :d='handlerRightBoundary(i, -1.414213562373095)' stroke-linecap='round' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, i, true)' />",
+            "</g>",
+            "<g>",
+                //行人安全暂留区斑马线
+                "<line v-for='(item, i) in getRoadMap' :key='i' v-show='item.pedestrian && item.stayArea && item.stayPedestrian' :x1='handlerSafeAreaPedestrian(i).p1.x' :x2='handlerSafeAreaPedestrian(i).p2.x' :y1='handlerSafeAreaPedestrian(i).p1.y' :y2='handlerSafeAreaPedestrian(i).p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, i, true)'/>",
+            "</g>",
+            "<g>",
+                "<path v-for='(item, i) in getRoadMap' :key='i' v-show='item.stayArea && item.pedestrian' :d='handlerSafeAreaStay(i)' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, i)' />",
+            "</g>",
+            "<text v-for='(item, i) in getRoadMap' :key='i' :x='handlerTextIntersection(i).vertex.x' :y='handlerTextIntersection(i).vertex.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate('+ handlerTextIntersection(i).angle +' ' + handlerTextIntersection(i).vertex.x + ', ' + handlerTextIntersection(i).vertex.y + ')' + ' translate(0,-20)'\"> {{ item.name }} </text>",
+            "<rect v-for='(item, i) in getRoadMap' :key='i'  v-show='Active == i' :x='handlerActiveRect(i).vertex.x' :y='handlerActiveRect(i).vertex.y' :width='2380' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10' :transform=\"'rotate('+ handlerActiveRect(i).angle +' ' + handlerActiveRect(i).vertex.x + ', ' + handlerActiveRect(i).vertex.y + ')' + 'translate(0,-10)'\" >",
+                "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
+            "</rect>",
+        "</g>"
+        ]
+        return template.join("")
+    }
+    var ORoads = Vue.extend({
+        template: ORender.apply(this),
+        props: {
+            Roads: {
+                default: [],
+                type: Array
+            },
+            // RoadBottom : {
+            //     //路口名称
+            //     name : { default: '', type: String },
+            //     //边界白线控制
+            //     boundary: { 
+            //         left : { 
+            //             //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
+            //             length: { defualt: 0, type: Number },
+            //             //deafult: true 是否具有左侧边界白线,
+            //             has: { default: true, type: Boolean } 
+            //         },
+            //         right: {
+            //             //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
+            //             length: { defualt: 0, type: Number },
+            //             //deafult: true 是否具有右侧边界白线
+            //             has: { default: true, type: Boolean } 
+            //         }
+            //     },
+            //     //deafult: true 是否具有人行班马线
+            //     pedestrian: { default: true, type: Boolean },
+            //     //default: true 是否具有人行暂留区
+            //     stayArea: { default: true, type: Boolean },
+            //     //default: true, 是否具有暂留区斑马线
+            //     stayPedestrian: { default: true, type: Boolean },
+            //     //default: true 是否具有机动车停止线
+            //     stopLine: { default: true, type: Boolean },
+            //     //车道,自右向左绘制(顺时针)
+            //     Lane : { default: [], type: Array },
+            //     //车道中的标牌
+            //     flagList: { default: [], type: Array },
+            //     type: Object
+            // },
+            RoadWidth : {
+                default: 500,
+                type: Number
+            },
+            Active : {
+                default: 0,
+                type: Number
+            }
+        },
+        data: function() {
+            return {
+                uuid : utils.uuid()
+            }
+        },
+        computed: {
+            getRoadMap: function () {
+                var me = this;
+                return me.Roads && me.Roads.filter(function (it, i) { return !!it }) || [];
+            },
+            //多边形的外切圆半径
+            calcCircumscribeRadius: function () {
+                var me = this;
+                var w = me.RoadWidth;
+                var a = me.getRoadMap && me.getRoadMap.length || 3;
+                return Number((w / (2 * Math.sin(Math.PI / a))).toFixed(5));
+            },
+            //多边形的内切圆半径
+            calcInsideRadius: function () {
+                var me = this;
+                var w = me.RoadWidth;
+                var a = me.getRoadMap && me.getRoadMap.length || 3;
+                return w / 2 * Math.cos(Math.PI / a);
+            }
+        },
+        components: {
+            "StayPedestrian": StayPedestrian,
+            "Lane" : Lane
+        },
+        methods: {
+            handlerPavementAngle: function (i) {
+                var me = this;
+                var r = me.calcCircumscribeRadius;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = i * (360 / count);
+                var a2 = (360 / count) / 2;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                //外切圆顶点计算
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r, -90 + (a - a2));
+                //内切圆顶点计算
+                // var v = utils.calcRadiusAnyPoint(c.x, c.y, r, -90 + a);
+                // var v1 = utils.calcRadiusAnyPoint(v.x, v.y, r, -180 + a);
+                return { angle: a, vertex : v }
+            },
+            handlerLeftBoundary: function (i, offset) {
+                var me = this;
+                var r = me.calcCircumscribeRadius;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((i * (360 / count)) - ((360 / count) / 2));
+                var al = a - ((360 / count) / 2);
+                var ar = a + ((360 / count) / 2);
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + offset, a);
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, al);
+                var v2 = utils.calcRadiusAnyPoint(v.x, v.y, 120, ar);
+                var r1 = utils.calcRadiusAnyPoint(v.x, v.y, 60, a);
+                var v3 = utils.calcRadiusAnyPoint(v.x, v.y, 499999.5, ar);
+
+                var out = "M${v1x},${v1y} S${r1x},${r1y} ${v2x},${v2y} L${v3x},${v3y}".replace(/\$\{v1x\}/g, v1.x).replace(/\$\{v1y\}/g, v1.y)
+                    .replace(/\$\{v2x\}/g, v2.x).replace(/\$\{v2y\}/g, v2.y).replace(/\$\{r1x\}/g, r1.x).replace(/\$\{r1y\}/g, r1.y)
+                    .replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
+                
+                if(!me.getRoadMap[i].stayArea) {
+                    out = "M${vx},${vy} L${v3x},${v3y}".replace(/\$\{vx\}/g, v.x).replace(/\$\{vy\}/g, v.y).replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
+                }
+                return out;
+            },
+            handlerRightBoundary: function (i, offset) {
+                var me = this;
+                var r = me.calcCircumscribeRadius;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((i * (360 / count)) - ((360 / count) / 2));
+                var al = a - ((360 / count) / 2);
+                var ar = a + ((360 / count) / 2);
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var index = me.getRoadMap && me.getRoadMap[i + 1] && i + 1 || 0;
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r, a);
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 499999.5, al);
+                var v2 = utils.calcRadiusAnyPoint(v.x, v.y, 120, al);
+                var r1 = utils.calcRadiusAnyPoint(v.x, v.y, 60, a);
+                var v3 = utils.calcRadiusAnyPoint(v.x, v.y, 120, ar);
+
+                var out = "M${v1x},${v1y} L${v2x},${v2y} S${r1x},${r1y} ${v3x},${v3y}".replace(/\$\{v1x\}/g, v1.x).replace(/\$\{v1y\}/g, v1.y)
+                    .replace(/\$\{v2x\}/g, v2.x).replace(/\$\{v2y\}/g, v2.y).replace(/\$\{r1x\}/g, r1.x).replace(/\$\{r1y\}/g, r1.y)
+                    .replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
+                if(!me.getRoadMap[index].stayArea) {
+                    out = "M${vx},${vy} V-499999.5".replace(/\$\{vx\}/g, v.x).replace(/\$\{vy\}/g, v.y);
+                }
+                return out;
+            },
+            hanlderNotch: function (i) {
+                var me = this;
+                var r = me.calcCircumscribeRadius;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((i * (360 / count)) - ((360 / count) / 2));
+                var al = a - ((360 / count) / 2) - 1;
+                var ar = a + ((360 / count) / 2) + 1;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r, a);
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, al);
+                var v2 = utils.calcRadiusAnyPoint(v.x, v.y, 120, ar);
+                var r1 = utils.calcRadiusAnyPoint(v.x, v.y, 60, a);
+                return "M${v1x},${v1y} L${vx},${vy} ${v2x},${v2y} S${rx},${ry} ${v1x},${v1y} z"
+                    .replace(/\$\{v1x\}/g, v1.x).replace(/\$\{v1y\}/g, v1.y).replace(/\$\{v2x\}/g, v2.x).replace(/\$\{v2y\}/g, v2.y)
+                    .replace(/\$\{rx\}/g, r1.x).replace(/\$\{ry\}/g, r1.y).replace(/\$\{vx\}/g, v.x).replace(/\$\{vy\}/g, v.y);
+            },
+            handlerRoadWidth: function(i) {
+                var me = this;
+                if(me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length) {
+                    return Number((me.RoadWidth / me.getRoadMap[i].Lane.length).toFixed(5));
+                }
+                return me.RoadWidth;
+            },
+            handlerPedestrian: function (i) {
+                var me = this;
+                var diff = me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length <= 2 ? 50 : me.handlerRoadWidth(i);
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + (i * (360 / count));
+                var r = me.calcCircumscribeRadius;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + 20, a);
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - diff, a - 90);
+                var v2 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - diff, a + 90);
+                return { p1: v1, p2: v2 };
+            },
+            handlerSafeAreaPedestrian: function (i) {
+                var me = this;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((i * (360 / count)) - ((360 / count) / 2));
+                var r = me.calcCircumscribeRadius;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var p1 = utils.calcRadiusAnyPoint(c.x, c.y, r, a);
+                var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, 80, a);
+                return { p1: p1, p2: p2 };
+            },
+            handlerSafeAreaStay: function (i) {
+                var me = this;
+                var prevIndex = i - 1 < 0 ? me.getRoadMap.length - 1 : i - 1;
+                var prevLane = me.getRoadMap[prevIndex] && me.getRoadMap[prevIndex].Lane.length || 0;
+                var curLane = me.getRoadMap[i] && me.getRoadMap[i].Lane.length || 0;
+                var prevDiff = prevLane <= 2 ? 50 : Number((me.RoadWidth / prevLane).toFixed(5));
+                var curDiff = curLane <= 2 ? 50 : Number((me.RoadWidth / curLane).toFixed(5));
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((i * (360 / count)) - ((360 / count) / 2));
+                var al = a - ((360 / count) / 2);
+                var ar = a + ((360 / count) / 2);
+                var r = me.calcCircumscribeRadius;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r, a);
+                //计算人行暂留区域的左侧参考绘制点
+                var r1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, al);
+                var v1 = utils.calcRadiusAnyPoint(r1.x, r1.y, prevDiff, -90 + al);
+                var r2 = utils.calcRadiusAnyPoint(v1.x, v1.y, 9999, -180 + al);
+                //计算人行暂留区域的右侧参考绘制点
+                var r3 = utils.calcRadiusAnyPoint(v.x, v.y, 120, ar);
+                var v2 = utils.calcRadiusAnyPoint(r3.x, r3.y, curDiff, 90 + ar);
+                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, 9999, ar + 180);
+                //计算人行暂留区域的顶角圆
+                var r5 = utils.calcLineIntersection(v1, r2, v2, r4);
+                var v3 = utils.calcRadiusAnyPoint(r5.x, r5.y, 50, al);
+                var v4 = utils.calcRadiusAnyPoint(r5.x, r5.y, 50, ar);
+                var s1 = utils.calcRadiusAnyPoint(v.x, v.y, -60, a);
+
+                return "M${v1x},${v1y} L${v3x},${v3y} C${r5x},${r5y} ${r5x},${r5y} ${v4x},${v4y} L${v2x},${v2y} S${s1x},${s1y} ${v1x},${v1y} z"
+                    .replace(/\$\{v1x\}/g, v1.x).replace(/\$\{v1y\}/g, v1.y).replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y)
+                    .replace(/\$\{r5x\}/g, r5.x).replace(/\$\{r5y\}/g, r5.y).replace(/\$\{v4x\}/g, v4.x).replace(/\$\{v4y\}/g, v4.y)
+                    .replace(/\$\{v2x\}/g, v2.x).replace(/\$\{v2y\}/g, v2.y).replace(/\$\{s1x\}/g, s1.x).replace(/\$\{s1y\}/g, s1.y);
+            },
+            handlerTextIntersection: function(i) {
+                var me = this;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((i * (360 / count)) - ((360 / count) / 2));
+                var ar = a + ((360 / count) / 2);
+                var r = me.calcCircumscribeRadius;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r, a);
+                return { vertex: utils.calcRadiusAnyPoint(v.x, v.y, 300, ar), angle : ar };
+            },
+            handlerStopLine: function (i) { 
+                var me = this;
+                var lane = me.getRoadMap[i] && me.getRoadMap[i].Lane.length || 0;
+                var diff = !me.getRoadMap[i].stayArea ? 0 : lane <= 2 ? 50 : Number((me.RoadWidth / lane).toFixed(5));
+                var len = !lane ? me.RoadWidth - (diff * 2) : ((me.getRoadMap[i].Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane));
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + (i * (360 / count));
+                var r = me.calcCircumscribeRadius;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + 50, a);
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - diff, a - 90);
+                var v2 = utils.calcRadiusAnyPoint(v1.x, v1.y, me.getRoadMap[i].stayArea ? (len - diff) : len, a + 90);
+                return { p1: v1, p2: v2 };
+            },
+            handlerLanePosition: function (i, k) {
+                var me = this;
+                var lane = me.getRoadMap[i] && me.getRoadMap[i].Lane.length || 0;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var w = Number((me.RoadWidth / lane).toFixed(5));
+                var a = -90 + (i * (360 / count));
+                var r = me.calcCircumscribeRadius;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + 60, a);
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2, a - 90);
+                var v2 = utils.calcRadiusAnyPoint(v1.x, v1.y, (k + 1) * w, a + 90);
+                return { vertex : v2, angle: -90 + a }
+            },
+            handlerForUpwardFlag: function (item) {
+                if (!item.flagList || !item.flagList.length) {
+                    return [];
+                }
+                return item.flagList.filter(function (it) { return it.isUpward });
+            },
+            handlerForDownFlag: function (item) {
+                if (!item.flagList || !item.flagList.length) {
+                    return [];
+                }
+                return item.flagList.filter(function (it) { return !it.isUpward });
+            },
+            handlerFlagPosition: function (flag, lane, n) {
+                var me = this;
+                var i = n % 16;
+                var r = Math.floor(n / 16);
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((lane * (360 / count)) - ((360 / count) / 2));
+                var ar = a + ((360 / count) / 2);
+                var radius = me.calcCircumscribeRadius;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, radius, a);
+                if (flag.isUpward) {
+                    var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 300 + i * 120, ar);
+                    var v2 = utils.calcRadiusAnyPoint(v1.x, v1.y, 130 + r * 90, -90 + ar);
+                    return { vertex: v2, angle: ar };
+                }
+
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 300 + i * 120, ar);
+                var v2 = utils.calcRadiusAnyPoint(v1.x, v1.y, -(me.RoadWidth + 20) - r * 90, -90 + ar);
+                return { vertex: v2, angle: ar };
+            },
+            handlerActiveRect: function (lane) {
+                var me = this;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((lane * (360 / count)) - ((360 / count) / 2));
+                var ar = a + ((360 / count) / 2);
+                var radius = me.calcCircumscribeRadius;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, radius, a);
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 60, ar);
+                return { vertex : v1, angle: ar }
+            },
+            onRoadPedestrianClick: function(e, no, isStay) {
+                //转盘路口行人斑马线的点击事件
+                this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
+            },
+            onRoadStopLineClick: function(e, no) {
+                //机动车停止线点击事件
+                this.$parent.$emit("cross-road-stopline-click", e, no);
+            },
+            onRoadLanePavementClick: function(e, no, lane) {
+                //机动车道路点击事件
+                this.$parent.$emit("cross-road-pavement-click", e, no, lane);
+            },
+            onRoadLaneSolidLineClick: function(e, no, lane) {
+                //机动车道路白色实线点击事件
+                this.$parent.$emit("cross-solid-line-click", e, no, lane);
+            },
+            onRoadLaneDottedLineClick: function(e, no, lane) {
+                //机动车道路白色虚线点击事件
+                this.$parent.$emit("cross-dotted-line-click", e, no, lane);
+            },
+            onRoadParterreBoundaryClick: function(e, no, lane) {
+                //花坛边界线点击事件
+                this.$parent.$emit("cross-parterre-boundary-line-click", e, no, lane);
+            },
+            onRoadLaneYDottedLineClick: function() {
+                //机动车黄色虚线点击事件
+                this.$parent.$emit("cross-y-dotted-line-click", e, no, lane);
+            },
+            onRoadLaneYSolidLineClick: function(e, no, lane) {
+                //机动车黄色实线点击事件
+                this.$parent.$emit("cross-y-solid-line-click", e, no, lane);
+            },
+            onRoadLaneYDoubleSolidLineClick: function(e, no, lane, side) {
+                //机动车双黄色实线点击事件
+                this.$parent.$emit("cross-y-double-solid-line-click", e, no, lane, side);
+            },
+            onRoadLaneYDoubleDottedLineClick: function(e, no, lane, side) {
+                //机动车黄色虚线点击事件
+                this.$parent.$emit("cross-y-double-dashed-line-click", e, no, lane, side);
+            },
+            onRoadLaneYSolidAreaClick: function(e, no, lane) {
+                //机动车黄色禁停区域点击事件
+                this.$parent.$emit("cross-y-area-click", e, no, lane);
+            },
+            onRoadLaneParterreClick: function(e, no, lane) {
+                //花坛绿色区域点击事件
+                this.$parent.$emit("cross-parterre-click", e, no, lane);
+            },
+            onRoadLaneParterreLineClick: function(e, no, lane, side) {
+                //花坛内部白线点击事件
+                this.$parent.$emit("cross-parterre-line-click", e, no, lane, side);
+            },
+            onRoadLaneParterreSafeAreaClick: function(e, no, lane) {
+                //安全岛点击事件
+                this.$parent.$emit("cross-parterre-safearea-click", e, no, lane);
+            },
+            onRoadLaneMarkClick: function(e, no, lane, side) {
+                //道路路标点击事件
+                var me = this;
+                var mark = {};
+                var mark = me.getRoadMap[no] && me.getRoadMap[no].Lane[lane].landmark;
+                this.$parent.$emit("cross-lane-mark-click", e, no, lane, side, mark[side].mark);
+            },
+            onRoadBoundaryClick: function(e, no, isRight) {
+                //O字路口公路边界线的点击事件
+                this.$parent.$emit('cross-road-boundary-click', e, no, isRight ? 'right' : 'left');
+            },
+            onRoadPedestrianClick: function(e, no, isStay) {
+                //O字路口行人斑马线的点击事件
+                this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
+            },
+            onCrossStayAreaClick: function(e, no) {
+                //O字路口行人暂留区域点击事件
+                this.$parent.$emit('cross-stay-click', e, no, 'right');
+            },
+			onCancelLaneMarkHighlight: function() {
+                var me = this;
+                var modify = me.Roads.concat([]);
+                var modify = modify.map(function (it) {
+                    it.Lane = it.Lane.map(function (lane) {
+                        return { 
+                            type: lane.type, 
+                            assist: lane.assist, 
+                            reverse: lane.reverse, 
+                            markright: lane.markright, 
+                            hasBoundary: lane.hasBoundary, 
+                            landmark: lane.landmark.map(function(mark) { 
+                                return { seq: mark.seq , mark: mark.mark, highlight: false } 
+                            })
+                        }
+                    })
+                    return it;
+                })
+				
+				me.$emit("update:roads", modify);
+			}
         }
     })
 
@@ -4434,12 +4900,16 @@
                     "<clipPath id='clip'>",
                         "<path d='M-1200,-1200 -1200,2280 3120,2280 3120,-1200 -1200,-1200 z' />",
                     "</clipPath>",
+                    "<clipPath id='max-clip'>",
+                        "<path d='M-2400,-2400 -2400,3480 4320,3480 4320,-2400 -2400,-2400 z' />",
+                    "</clipPath>",
                 "</defs>",
                 "<cross-road ref='crossRoad' v-if=\"RoadMode === 'A'\" :road-top.sync='Roads[0]' :road-width='RoadWidth' :road-right.sync='Roads[1]' :road-bottom.sync='Roads[2]' :road-left.sync='Roads[3]' :active='active' :style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ></cross-road>",
                 "<y-road ref='yRoad' v-if=\"RoadMode === 'Y'\" :road-width='RoadWidth' :road-left.sync='Roads[0]' :road-right.sync='Roads[1]' :road-bottom.sync='Roads[2]' :active='active' :style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ></y-road>",
                 "<t-road ref='tRoad' v-if=\"RoadMode === 'T'\" :road-width='RoadWidth' :road-left.sync='Roads[0]' :road-right.sync='Roads[1]' :road-bottom.sync='Roads[2]' :active='active' :style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ></t-road>",
                 "<k-road ref='kRoad' v-if=\"RoadMode === 'K'\" :road-top.sync='Roads[0]' :road-width='RoadWidth' :road-right.sync='Roads[1]' :road-left.sync='Roads[2]' :active='active' :road-bottom.sync='Roads[3]'  :style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ></k-road>",
                 "<l-road ref='lRoad' v-if=\"RoadMode === 'L'\" :road-top.sync='Roads[0]' :road-width='RoadWidth' :road-right.sync='Roads[1]' :active='active'  :style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ></l-road>",
+                "<o-road ref='oRoad' v-if=\"RoadMode === 'O'\" :roads.sync='Roads' :road-width='RoadWidth' :active='active'  :style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ></o-road>",
                 "<g>",
                     "<circle cx='60' cy='60' r='40' fill='#fff' stroke='#ececec' stroke-width='2' />",
                     "<path d='M60,25 L50,60 S60,45 70,60 L60,25 z' fill='#ea4748'/>",
@@ -4491,7 +4961,8 @@
             "YRoad" : YRoads,
             "TRoad" : TRoads,
             "KRoad" : KRoads,
-            "LRoad" : LRoads
+            "LRoad" : LRoads,
+            "ORoad" : ORoads
         },
         computed:{
             getMatrix: function() {
@@ -4555,6 +5026,7 @@
 				me.$refs.tRoad && me.$refs.tRoad.onCancelLaneMarkHighlight();
 				me.$refs.kRoad && me.$refs.kRoad.onCancelLaneMarkHighlight();
 				me.$refs.lRoad && me.$refs.lRoad.onCancelLaneMarkHighlight();
+				me.$refs.oRoad && me.$refs.oRoad.onCancelLaneMarkHighlight();
 			},
             setActive: function(index) {
                 var me = this;

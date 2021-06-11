@@ -206,7 +206,7 @@
                 var result = [];
                 var length = me.Roads && me.Roads.length || 0;
                 for(var i = 0 ; i < length; i++){
-                    if(total < 4) {
+                    if(total < 12) {
                         total += 1
                         result.push(me.Roads[i])
                     }

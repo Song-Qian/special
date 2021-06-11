@@ -600,8 +600,8 @@
     var RoadSectionRender = function() {
         var template = [
             "<g>",
-                "<image v-for='(flag, n) in getUpwardFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
-                "<image v-for='(flag, n) in getDownFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n)\" />",
+                "<image v-for='(flag, n) in getUpwardFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n, true)\" />",
+                "<image v-for='(flag, n) in getDownFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n, false)\" />",
                 "<text :x='X + 600' :y='Y - 30' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Upward.name }}</text>",
                 "<text :x='X + 600' :y='Y + RoadWidth + 30' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Down.name }}</text>",
                 "<isolation ",
@@ -1146,7 +1146,7 @@
                         ":key='n' ",
                         "@on-road-lane-section=\"$parent.$emit('on-pavement-lane-section', arguments[0], n, arguments[1], arguments[2])\" ",
                         "@on-road-lanemark-section=\"$parent.$emit('on-pavement-lanemark-section', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
-                        "@on-lane-flag=\"$parent.$emit('on-pavement-lane-flag', $event, n, arguments[0])\" ",
+                        "@on-lane-flag=\"$parent.$emit('on-pavement-lane-flag', $event, n, arguments[0], arguments[1])\" ",
                         "@on-lane-penalty=\"$parent.$emit('on-pavement-lane-penalty', $event, n, arguments[0])\" ",
                         "@on-road-lanemark-click=\"$parent.$emit('on-pavement-lanemark-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
                         "@on-road-slowline-click=\"$parent.$emit('on-pavement-slowline-click', arguments[0], n, arguments[1], arguments[2])\" ",
