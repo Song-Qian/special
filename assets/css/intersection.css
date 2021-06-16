@@ -5,6 +5,10 @@
     background-color: #111;
 }
 
+.ivsom-road * {
+    will-change: 'transform'
+}
+
 .ivsom-road > .cross-road,
 .ivsom-road > .y-road,
 .ivsom-road > .t-road
