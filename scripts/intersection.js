@@ -270,8 +270,7 @@
                 //道路路标的点击事件
                 var me = this;
                 me.$emit('on-lane-mark-click', e, i);
-            },
-
+            }
         }
     })
 
@@ -3399,9 +3398,11 @@
                     "<path v-for='(item, i) in getRoadMap' :key='i' :d='handlerPavementAngle(i)' fill='#333' />",
                     "<circle :cx='1920 / 2' :cy='1080 / 2' :r='calcCircumscribeRadius' fill='#333' />",
                     "<circle :cx='1920 / 2' :cy='1080 / 2' :r='calcCircumscribeRadius / 3' fill='rgb(53, 159, 64)' stroke-dasharray='10,10' stroke='#fff' stroke-width='3' />",
-                    "<path v-for='(item, i) in getRoadMap' :key='i' :d='hanlderNotch(i)' fill='#333' stroke='#333' stroke-width='2' />",
-                    "<path v-for='(item, i) in getRoadMap' :key='i' :d='handlerLeftBoundary(i, 2.23606797749979)' fill='none' stroke-linecap='round' stroke='#8e8e8e' stroke-width='5' />",
-                    "<path v-for='(item, i) in getRoadMap' :key='i' :d='handlerRightBoundary(i, 2.23606797749979)' fill='none' stroke-linecap='round' stroke='#8e8e8e' stroke-width='5' />",
+                    "<g v-for='(item, i) in getRoadMap' :key='i'>",
+                        "<path v-show='item.stayArea' :d='hanlderNotch(i)' fill='#333' stroke='#333' stroke-width='2' />",
+                        "<path :d='handlerLeftBoundary(i, 2.23606797749979)' fill='none' stroke-linecap='round' stroke='#8e8e8e' stroke-width='5' />",
+                        "<path :d='handlerRightBoundary(i, 2.23606797749979)' fill='none' stroke-linecap='round' stroke='#8e8e8e' stroke-width='5' />",
+                    "</g>",
                 "</g>",
                 "<g v-for='(item, i) in getRoadMap' :key='i'>",
                     //行人斑马线
@@ -3421,19 +3422,19 @@
                         ":width='handlerRoadWidth(i)' ",
                         ":x='handlerLanePosition(i, n).vertex.x' ",
                         ":y='handlerLanePosition(i, n).vertex.y' ",
-                        "@on-pavement-click='onRoadLanePavementClick($event, i, n)'",
-                        "@on-solid-line-click='onRoadLaneSolidLineClick($event, i, n)'",
-                        "@on-dotted-line-click='onRoadLaneDottedLineClick($event, i, n)'",
-                        "@on-parterre-boundary-line-click='onRoadParterreBoundaryClick($event, i, n)'",
-                        "@on-y-dotted-line-click='onRoadLaneYDottedLineClick($event, i, n)'",
-                        "@on-y-solid-line-click='onRoadLaneYSolidLineClick($event, i, n)'",
-                        "@on-double-y-solid-click='onRoadLaneYDoubleSolidLineClick($event, i, n, arguments[1])'",
-                        "@on-double-y-dashed-click='onRoadLaneYDoubleDottedLineClick($event, i, n, arguments[1])'",
-                        "@on-y-solid-area-click='onRoadLaneYSolidAreaClick($event, i, n)'",
-                        "@on-parterre-click='onRoadLaneParterreClick($event, i, n)'",
-                        "@on-parterre-line-click='onRoadLaneParterreLineClick($event, i, n, arguments[1])'",
-                        "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, i, n)'",
-                        "@on-lane-mark-click='onRoadLaneMarkClick($event, i, n, arguments[1])'",
+                        "@on-pavement-click='onRoadLanePavementClick($event, i, n)' ",
+                        "@on-solid-line-click='onRoadLaneSolidLineClick($event, i, n)' ",
+                        "@on-dotted-line-click='onRoadLaneDottedLineClick($event, i, n)' ",
+                        "@on-parterre-boundary-line-click='onRoadParterreBoundaryClick($event, i, n)' ",
+                        "@on-y-dotted-line-click='onRoadLaneYDottedLineClick($event, i, n)' ",
+                        "@on-y-solid-line-click='onRoadLaneYSolidLineClick($event, i, n)' ",
+                        "@on-double-y-solid-click='onRoadLaneYDoubleSolidLineClick($event, i, n, arguments[1])' ",
+                        "@on-double-y-dashed-click='onRoadLaneYDoubleDottedLineClick($event, i, n, arguments[1])' ",
+                        "@on-y-solid-area-click='onRoadLaneYSolidAreaClick($event, i, n)' ",
+                        "@on-parterre-click='onRoadLaneParterreClick($event, i, n)' ",
+                        "@on-parterre-line-click='onRoadLaneParterreLineClick($event, i, n, arguments[1])' ",
+                        "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, i, n)' ",
+                        "@on-lane-mark-click='onRoadLaneMarkClick($event, i, n, arguments[1])' ",
                         "></lane>",
                     "<image v-for='(flag, n) in handlerForUpwardFlag(item)' :x='handlerFlagPosition(flag, i, n).vertex.x' :y='handlerFlagPosition(flag, i, n).vertex.y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate('+ handlerFlagPosition(flag, i, n).angle +', '+ handlerFlagPosition(flag, i, n).vertex.x +' '+ handlerFlagPosition(flag, i, n).vertex.y +')'\" />",
                     "<image v-for='(flag, n) in handlerForDownFlag(item)' :x='handlerFlagPosition(flag, i, n).vertex.x' :y='handlerFlagPosition(flag, i, n).vertex.y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate('+ handlerFlagPosition(flag, i, n).angle +', '+ handlerFlagPosition(flag, i, n).vertex.x +' '+ handlerFlagPosition(flag, i, n).vertex.y +')'\" />",
@@ -3524,6 +3525,29 @@
                 var me = this;
                 var r = me.calcCircumscribeRadius;
                 var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((i * (360 / count)) + ((360 / count) / 2));
+                var ar = a + ((360 / count) / 2);
+                var al = a - ((360 / count) / 2);
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var index = me.getRoadMap.length > i + 1 ? i + 1 : 0;
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + offset, a);
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, ar);
+                var v2 = utils.calcRadiusAnyPoint(v.x, v.y, 120, al);
+                var r1 = utils.calcRadiusAnyPoint(v.x, v.y, 60, a);
+                var v3 = utils.calcRadiusAnyPoint(v.x, v.y, 499999.5, al);
+
+                var out = "M${v1x},${v1y} S${r1x},${r1y} ${v2x},${v2y} L${v3x},${v3y}".replace(/\$\{v1x\}/g, v1.x).replace(/\$\{v1y\}/g, v1.y)
+                    .replace(/\$\{v2x\}/g, v2.x).replace(/\$\{v2y\}/g, v2.y).replace(/\$\{r1x\}/g, r1.x).replace(/\$\{r1y\}/g, r1.y)
+                    .replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
+                if(!me.getRoadMap[index].stayArea) {
+                    out = "M${vx},${vy} L${v3x},${v3y}".replace(/\$\{vx\}/g, v.x).replace(/\$\{vy\}/g, v.y).replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
+                }
+                return out;
+            },
+            handlerRightBoundary: function (i, offset) {
+                var me = this;
+                var r = me.calcCircumscribeRadius;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
                 var a = -90 + ((i * (360 / count)) - ((360 / count) / 2));
                 var al = a - ((360 / count) / 2);
                 var ar = a + ((360 / count) / 2);
@@ -3537,32 +3561,8 @@
                 var out = "M${v1x},${v1y} S${r1x},${r1y} ${v2x},${v2y} L${v3x},${v3y}".replace(/\$\{v1x\}/g, v1.x).replace(/\$\{v1y\}/g, v1.y)
                     .replace(/\$\{v2x\}/g, v2.x).replace(/\$\{v2y\}/g, v2.y).replace(/\$\{r1x\}/g, r1.x).replace(/\$\{r1y\}/g, r1.y)
                     .replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
-                
                 if(!me.getRoadMap[i].stayArea) {
                     out = "M${vx},${vy} L${v3x},${v3y}".replace(/\$\{vx\}/g, v.x).replace(/\$\{vy\}/g, v.y).replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
-                }
-                return out;
-            },
-            handlerRightBoundary: function (i, offset) {
-                var me = this;
-                var r = me.calcCircumscribeRadius;
-                var count = me.getRoadMap && me.getRoadMap.length || 3;
-                var a = -90 + ((i * (360 / count)) - ((360 / count) / 2));
-                var al = a - ((360 / count) / 2);
-                var ar = a + ((360 / count) / 2);
-                var c = { x: 1920 / 2, y: 1080 / 2 };
-                var index = me.getRoadMap && me.getRoadMap[i + 1] && i + 1 || 0;
-                var v = utils.calcRadiusAnyPoint(c.x, c.y, r, a);
-                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 499999.5, al);
-                var v2 = utils.calcRadiusAnyPoint(v.x, v.y, 120, al);
-                var r1 = utils.calcRadiusAnyPoint(v.x, v.y, 60, a);
-                var v3 = utils.calcRadiusAnyPoint(v.x, v.y, 120, ar);
-
-                var out = "M${v1x},${v1y} L${v2x},${v2y} S${r1x},${r1y} ${v3x},${v3y}".replace(/\$\{v1x\}/g, v1.x).replace(/\$\{v1y\}/g, v1.y)
-                    .replace(/\$\{v2x\}/g, v2.x).replace(/\$\{v2y\}/g, v2.y).replace(/\$\{r1x\}/g, r1.x).replace(/\$\{r1y\}/g, r1.y)
-                    .replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
-                if(!me.getRoadMap[index].stayArea) {
-                    out = "M${vx},${vy} V-499999.5".replace(/\$\{vx\}/g, v.x).replace(/\$\{vy\}/g, v.y);
                 }
                 return out;
             },
