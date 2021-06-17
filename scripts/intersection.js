@@ -346,10 +346,10 @@
                 "</g>",
                 "<g>",
                     //行人斑马线
-                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 + 25' :y2='(1080 - RoadWidth) / 2 + 25' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 - 25' :x2='1920 / 2 + RoadWidth / 2 - 25' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
-                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 - 25' :y2='1080 / 2 + RoadWidth / 2 - 25 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
-                    "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 + 25' :x2='(1920 - RoadWidth) / 2 + 25' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
+                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 20' :y2='(1080 - RoadWidth) / 2 - 20' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 20' :y2='1080 / 2 + RoadWidth / 2 + 20 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
+                    "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 - 20' :x2='(1920 - RoadWidth) / 2 - 20' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -905,14 +905,14 @@
                 var width = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadTop.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
                 var x = (1920 - me.RoadWidth) / 2 + diff;
                 var y = 1080 / 2 - me.RoadWidth / 2;
-                return { p1 : { x: x, y: y - 20 }, p2: { x: x + width, y: y - 20 }};
+                return { p1 : { x: x, y: y - 50 }, p2: { x: x + width, y: y - 50 }};
             },
             calcRoadRightStopLine: function() {
                 var me = this;
                 var lane = me.RoadRight.Lane.length || 0;
                 var diff = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var height = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var x = 1920 / 2 + me.RoadWidth / 2 + 20;
+                var x = 1920 / 2 + me.RoadWidth / 2 + 50;
                 var y = (1080 - me.RoadWidth) / 2 + diff;
                 return { p1: { x : x, y : y }, p2: { x : x, y : y + height } };
             },
@@ -923,14 +923,14 @@
                 var width = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
                 var x = 1920 / 2 + me.RoadWidth / 2 - width - diff;
                 var y = 1080 / 2 + me.RoadWidth / 2;
-                return { p1 : { x: x, y: y + 20 }, p2: { x: x + width, y: y + 20 }};
+                return { p1 : { x: x, y: y + 50 }, p2: { x: x + width, y: y + 50 }};
             },
             calcRoadLeftStopLine: function() {
                 var me = this;
                 var lane = me.RoadLeft.Lane.length || 0;
                 var diff = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var height = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadLeft.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var x = 1920 / 2 - me.RoadWidth / 2 - 20;
+                var x = 1920 / 2 - me.RoadWidth / 2 - 50;
                 var y = 1080 / 2 + me.RoadWidth / 2 - diff;
                 return { p1: { x : x, y : y - height }, p2: { x : x, y : y } };
             },
@@ -1124,20 +1124,20 @@
             crossTopMoveTo: function(n) {
                 var me = this;
                 var left = (1920 - me.RoadWidth) / 2;
-                var top = (1080 - me.RoadWidth) / 2 - 20;
+                var top = (1080 - me.RoadWidth) / 2 - 60;
                 var width = me.calcRoadTopLaneWidth;
                 return { x : (n + 1) * width + left, y: top };
             },
             crossRightMoveTo: function(n) {
                 var me = this;
                 var top = (1080 - me.RoadWidth) / 2;
-                var left = 1920 / 2 + me.RoadWidth / 2 + 20;
+                var left = 1920 / 2 + me.RoadWidth / 2 + 60;
                 var width = me.calcRoadRightWidth;
                 return { x : left, y : (n + 1) * width + top };
             },
             crossBottomMoveTo: function(n) {
                 var me = this;
-                var top = 1080 / 2 + me.RoadWidth / 2 + 20;
+                var top = 1080 / 2 + me.RoadWidth / 2 + 60;
                 var left = 1920 / 2 + me.RoadWidth / 2;
                 var width = me.calcRoadBottomLaneWidth;
                 return { x : left - (n + 1) * width, y : top };
@@ -1145,7 +1145,7 @@
             crossLeftMoveTo: function(n) {
                 var me = this;
                 var top = 1080 / 2 + me.RoadWidth / 2;
-                var left = (1920 - me.RoadWidth) / 2 - 20;
+                var left = (1920 - me.RoadWidth) / 2 - 60;
                 var width = me.calcRoadLeftLaneWidth;
                 return { x: left, y: top - (n + 1) * width };
             },
@@ -2191,9 +2191,9 @@
                 "</g>",
                 "<g>",
                     //行人斑马线
-                    "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 + 25' :x2='(1920 - RoadWidth) / 2 + 25' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 - 25' :x2='1920 / 2 + RoadWidth / 2 - 25' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
-                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 - 25' :y2='1080 / 2 + RoadWidth / 2 - 25 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
+                    "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 - 20' :x2='(1920 - RoadWidth) / 2 - 20' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 20' :y2='1080 / 2 + RoadWidth / 2 + 20 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -2483,7 +2483,8 @@
                 var inner_right = "M${tx},${ty} H499999.5".replace(/(\$\{tx\})/g, t.x).replace(/(\$\{ty\})/g, t.y);
                 var inner_left = "M${lx},${ly} C${vx},${vy} ${vx},${vy} ${rx},${ry} H${len}".replace(/(\$\{rx\})/g, r.x).replace(/(\$\{ry\})/g, r.y).replace(/(\$\{vx\})/g, v.x).replace(/(\$\{vy\})/g, v.y).replace(/(\$\{lx\})/g, l.x).replace(/(\$\{ly\})/g, l.y).replace(/(\$\{len\})/g, len);
                 var out = "M${lx},${ly} C${vx},${vy} ${vx},${vy} ${rx},${ry} H${len}".replace(/(\$\{rx\})/g, r.x).replace(/(\$\{ry\})/g, r.y + 2.5).replace(/(\$\{vx\})/g, v.x + 2.5).replace(/(\$\{vy\})/g, v.y + 2.5).replace(/(\$\{lx\})/g, l.x + 2.5).replace(/(\$\{ly\})/g, l.y).replace(/(\$\{len\})/g, len);
-                if (!me.RoadRight.stayArea) {
+                
+                if (!me.RoadBottom.stayArea) {
                     inner_left = "M${vx},${vy} H${len}".replace(/(\$\{vx\})/g, v.x).replace(/(\$\{vy\})/g, v.y).replace(/(\$\{len\})/g, len);
                     out = "M${vx},${vy} H${len}".replace(/(\$\{vx\})/g, v.x).replace(/(\$\{vy\})/g, v.y + 2.5).replace(/(\$\{len\})/g, len);
                 }
@@ -2494,16 +2495,20 @@
                 var v1 = { x : (1920 - me.RoadWidth) / 2, y : (1080 / 2) + me.RoadWidth / 2 };
                 var v2 = { x : 1920 / 2 + me.RoadWidth / 2, y : (1080 / 2) + me.RoadWidth / 2 };
                 var v3 = { x : v1.x - 200, y : v1.y + 200 };
-                var v4 = { x : v2.x + 200, y : v2.y + 200 };
+                var v4 = { x: v2.x + 200, y: v2.y + 200 };
+                
                 var l = "M${v3x},${v1y} C${v1x},${v1y} ${v1x},${v1y} ${v1x},${v3y} V499999.5".replace(/(\$\{v1x\})/g, v1.x).replace(/(\$\{v1y\})/g, v1.y).replace(/(\$\{v3x\})/g, v3.x).replace(/(\$\{v3y\})/g, v3.y);
                 var lo = "M${v3x},${v1y} C${v1x},${v1y} ${v1x},${v1y} ${v1x},${v3y} V499999.5".replace(/(\$\{v1x\})/g, v1.x - 2.5).replace(/(\$\{v1y\})/g, v1.y + 2.5).replace(/(\$\{v3x\})/g, v3.x - 2.5).replace(/(\$\{v3y\})/g, v3.y + 2.5);
                 var r = "M${v4x},${v2y} C${v2x},${v2y} ${v2x},${v2y} ${v2x},${v4y} V499999.5".replace(/(\$\{v2x\})/g, v2.x).replace(/(\$\{v2y\})/g, v2.y).replace(/(\$\{v4x\})/g, v4.x).replace(/(\$\{v4y\})/g, v4.y);
                 var ro = "M${v4x},${v2y} C${v2x},${v2y} ${v2x},${v2y} ${v2x},${v4y} V499999.5".replace(/(\$\{v2x\})/g, v2.x + 2.5).replace(/(\$\{v2y\})/g, v2.y + 2.5).replace(/(\$\{v4x\})/g, v4.x + 2.5).replace(/(\$\{v4y\})/g, v4.y + 2.5);
                 if (!me.RoadBottom.stayArea) {
-                    l = "M${v1x},${v1y} V499999.5".replace(/(\$\{v1x\})/g, v1.x).replace(/(\$\{v1y\})/g, v1.y);
-                    lo = "M${v1x},${v1y} V499999.5".replace(/(\$\{v1x\})/g, v1.x - 2.5).replace(/(\$\{v1y\})/g, v1.y);
                     r = "M${v2x},${v2y} V499999.5".replace(/(\$\{v2x\})/g, v2.x).replace(/(\$\{v2y\})/g, v2.y);
                     ro = "M${v2x},${v2y} V499999.5".replace(/(\$\{v2x\})/g, v2.x + 2.5).replace(/(\$\{v2y\})/g, v2.y);
+                }
+
+                if (!me.RoadLeft.stayArea) {
+                    l = "M${v1x},${v1y} V499999.5".replace(/(\$\{v1x\})/g, v1.x).replace(/(\$\{v1y\})/g, v1.y);
+                    lo = "M${v1x},${v1y} V499999.5".replace(/(\$\{v1x\})/g, v1.x - 2.5).replace(/(\$\{v1y\})/g, v1.y);
                 }
                 return { innerLeft: l, innerRight: r, outLeft: lo, outRight: ro }
             },
@@ -2536,7 +2541,7 @@
                 var lane = me.RoadLeft.Lane.length || 0;
                 var diff = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var height = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadLeft.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var x = 1920 / 2 - me.RoadWidth / 2 - 20;
+                var x = 1920 / 2 - me.RoadWidth / 2 - 50;
                 var y = 1080 / 2 + me.RoadWidth / 2 - diff;
                 return { p1: { x : x, y : y - height }, p2: { x : x, y : y } };
             },
@@ -2545,7 +2550,7 @@
                 var lane = me.RoadRight.Lane.length || 0;
                 var diff = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var height = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var x = 1920 / 2 + me.RoadWidth / 2 + 20;
+                var x = 1920 / 2 + me.RoadWidth / 2 + 50;
                 var y = (1080 - me.RoadWidth) / 2 + diff;
                 return { p1: { x : x, y : y }, p2: { x : x, y : y + height } };
             },
@@ -2556,7 +2561,7 @@
                 var width = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
                 var x = 1920 / 2 + me.RoadWidth / 2 - width - diff;
                 var y = 1080 / 2 + me.RoadWidth / 2;
-                return { p1 : { x: x, y: y + 20 }, p2: { x: x + width, y: y + 20 }};
+                return { p1 : { x: x, y: y + 50 }, p2: { x: x + width, y: y + 50 }};
             },
             calcPedestrianLength: function() {
                 var me = this;
@@ -2716,19 +2721,19 @@
                 var me = this;
                 var v = { x : (1920 - me.RoadWidth) / 2, y : 1080 / 2 + me.RoadWidth / 2 };
                 var width = me.calcRoadLeftLaneWidth;
-                return { x : v.x - 20, y :  v.y - ((n + 1) * width)}
+                return { x : v.x - 60, y :  v.y - ((n + 1) * width)}
             },
             roadRightMoveTo: function(n) {
                 var me = this;
                 var v = { x : 1920 / 2 + me.RoadWidth / 2, y : 1080 / 2 - me.RoadWidth / 2 };
                 var width = me.calcRoadRightLaneWidth;
-                return { x : v.x + 20, y: v.y + ((n + 1) * width) }
+                return { x : v.x + 60, y: v.y + ((n + 1) * width) }
             },
             roadBottomMoveTo: function(n) {
                 var me = this;
                 var v = { x : 1920 / 2 + me.RoadWidth / 2, y : 1080 / 2 + me.RoadWidth / 2 };
                 var width = me.calcRoadBottomLaneWidth;
-                return { x : v.x - ((n + 1) * width), y: v.y + 20 }
+                return { x : v.x - ((n + 1) * width), y: v.y + 60 }
             },
             onRoadPedestrianClick: function(e, no, isStay) {
                 //十字路口行人斑马线的点击事件

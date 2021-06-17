@@ -275,65 +275,65 @@
                                         { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [{ seq: '0' , mark: 'left-right'}, { seq: '1' , mark: 'left-right'}, { seq: '2' , mark: 'left-right'} ] },
                                         { type: 'dotted', assist: false, reverse: true, markright: false, hasBoundary: true, landmark: [{ seq: '0' , mark: 'straight'}, { seq: '1' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ] }
                                     ]
+                                },
+                                { 
+                                    name : "测试路段4",
+                                    boundary : { left: { has: true }, right: { has: true } },
+                                    stayArea: true,
+                                    pedestrian: true,
+                                    stayPedestrian: true,
+                                    stopLine: true,
+                                    flagList: [
+                                        {
+                                            id : '0x0001', //标牌ID
+                                            x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
+                                            y: 25.156456, //标牌坐标 (数据交互,无UI效果)
+                                            icon: '../assets/images/1.jpg', //标牌图片地址
+                                            isUpward: true // 是否上行车道标牌
+                                        },
+                                        { id : '0x0002', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg', isUpward: false },
+                                        { id : '0x0003', x: 112.54564846, y: 25.156456, icon: '../assets/images/3.jpg', isUpward: true },
+                                        { id : '0x0004', x: 112.54564846, y: 25.156456, icon: '../assets/images/4.jpg', isUpward: false },
+                                        { id : '0x0005', x: 112.54564846, y: 25.156456, icon: '../assets/images/5.jpg', isUpward: true },
+                                        { id : '0x0006', x: 112.54564846, y: 25.156456, icon: '../assets/images/6.jpg', isUpward: false },
+                                        { id : '0x0007', x: 112.54564846, y: 25.156456, icon: '../assets/images/1.jpg', isUpward: true },
+                                        { id : '0x0008', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg',  isUpward: false },
+                                        { id : '0x0009', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg', isUpward: false },
+                                        { id : '0x0010', x: 112.54564846, y: 25.156456, icon: '../assets/images/3.jpg', isUpward: true },
+                                        { id : '0x0011', x: 112.54564846, y: 25.156456, icon: '../assets/images/4.jpg', isUpward: false },
+                                        { id : '0x0012', x: 112.54564846, y: 25.156456, icon: '../assets/images/5.jpg', isUpward: true },
+                                        { id : '0x0013', x: 112.54564846, y: 25.156456, icon: '../assets/images/6.jpg', isUpward: false },
+                                        { id : '0x0014', x: 112.54564846, y: 25.156456, icon: '../assets/images/1.jpg', isUpward: true },
+                                        { id : '0x0015', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg',  isUpward: false },
+                                        { id : '0x0016', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg', isUpward: false },
+                                        { id : '0x0017', x: 112.54564846, y: 25.156456, icon: '../assets/images/3.jpg', isUpward: true },
+                                        { id : '0x0018', x: 112.54564846, y: 25.156456, icon: '../assets/images/4.jpg', isUpward: false },
+                                        { id : '0x0019', x: 112.54564846, y: 25.156456, icon: '../assets/images/5.jpg', isUpward: true },
+                                        { id : '0x0020', x: 112.54564846, y: 25.156456, icon: '../assets/images/6.jpg', isUpward: false },
+                                        { id : '0x0021', x: 112.54564846, y: 25.156456, icon: '../assets/images/1.jpg', isUpward: true },
+                                        { id : '0x0022', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg',  isUpward: false },
+                                        { id : '0x0023', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg', isUpward: false },
+                                        { id : '0x0024', x: 112.54564846, y: 25.156456, icon: '../assets/images/3.jpg', isUpward: true },
+                                        { id : '0x0025', x: 112.54564846, y: 25.156456, icon: '../assets/images/4.jpg', isUpward: false },
+                                        { id : '0x0026', x: 112.54564846, y: 25.156456, icon: '../assets/images/5.jpg', isUpward: true },
+                                        { id : '0x0027', x: 112.54564846, y: 25.156456, icon: '../assets/images/6.jpg', isUpward: false },
+                                        { id : '0x0028', x: 112.54564846, y: 25.156456, icon: '../assets/images/1.jpg', isUpward: true },
+                                        { id : '0x0029', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg',  isUpward: false }
+                                    ],
+                                    Lane: [
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
+                                        { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
+                                        { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
+                                        { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
+                                        { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
+                                    ]
                                 }
-                                // { 
-                                //     name : "测试路段4",
-                                //     boundary : { left: { has: true }, right: { has: true } },
-                                //     stayArea: true,
-                                //     pedestrian: true,
-                                //     stayPedestrian: true,
-                                //     stopLine: true,
-                                //     flagList: [
-                                //         {
-                                //             id : '0x0001', //标牌ID
-                                //             x: 112.54564846, //标牌坐标 (数据交互,无UI效果)
-                                //             y: 25.156456, //标牌坐标 (数据交互,无UI效果)
-                                //             icon: '../assets/images/1.jpg', //标牌图片地址
-                                //             isUpward: true // 是否上行车道标牌
-                                //         },
-                                //         { id : '0x0002', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg', isUpward: false },
-                                //         { id : '0x0003', x: 112.54564846, y: 25.156456, icon: '../assets/images/3.jpg', isUpward: true },
-                                //         { id : '0x0004', x: 112.54564846, y: 25.156456, icon: '../assets/images/4.jpg', isUpward: false },
-                                //         { id : '0x0005', x: 112.54564846, y: 25.156456, icon: '../assets/images/5.jpg', isUpward: true },
-                                //         { id : '0x0006', x: 112.54564846, y: 25.156456, icon: '../assets/images/6.jpg', isUpward: false },
-                                //         { id : '0x0007', x: 112.54564846, y: 25.156456, icon: '../assets/images/1.jpg', isUpward: true },
-                                //         { id : '0x0008', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg',  isUpward: false },
-                                //         { id : '0x0009', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg', isUpward: false },
-                                //         { id : '0x0010', x: 112.54564846, y: 25.156456, icon: '../assets/images/3.jpg', isUpward: true },
-                                //         { id : '0x0011', x: 112.54564846, y: 25.156456, icon: '../assets/images/4.jpg', isUpward: false },
-                                //         { id : '0x0012', x: 112.54564846, y: 25.156456, icon: '../assets/images/5.jpg', isUpward: true },
-                                //         { id : '0x0013', x: 112.54564846, y: 25.156456, icon: '../assets/images/6.jpg', isUpward: false },
-                                //         { id : '0x0014', x: 112.54564846, y: 25.156456, icon: '../assets/images/1.jpg', isUpward: true },
-                                //         { id : '0x0015', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg',  isUpward: false },
-                                //         { id : '0x0016', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg', isUpward: false },
-                                //         { id : '0x0017', x: 112.54564846, y: 25.156456, icon: '../assets/images/3.jpg', isUpward: true },
-                                //         { id : '0x0018', x: 112.54564846, y: 25.156456, icon: '../assets/images/4.jpg', isUpward: false },
-                                //         { id : '0x0019', x: 112.54564846, y: 25.156456, icon: '../assets/images/5.jpg', isUpward: true },
-                                //         { id : '0x0020', x: 112.54564846, y: 25.156456, icon: '../assets/images/6.jpg', isUpward: false },
-                                //         { id : '0x0021', x: 112.54564846, y: 25.156456, icon: '../assets/images/1.jpg', isUpward: true },
-                                //         { id : '0x0022', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg',  isUpward: false },
-                                //         { id : '0x0023', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg', isUpward: false },
-                                //         { id : '0x0024', x: 112.54564846, y: 25.156456, icon: '../assets/images/3.jpg', isUpward: true },
-                                //         { id : '0x0025', x: 112.54564846, y: 25.156456, icon: '../assets/images/4.jpg', isUpward: false },
-                                //         { id : '0x0026', x: 112.54564846, y: 25.156456, icon: '../assets/images/5.jpg', isUpward: true },
-                                //         { id : '0x0027', x: 112.54564846, y: 25.156456, icon: '../assets/images/6.jpg', isUpward: false },
-                                //         { id : '0x0028', x: 112.54564846, y: 25.156456, icon: '../assets/images/1.jpg', isUpward: true },
-                                //         { id : '0x0029', x: 112.54564846, y: 25.156456, icon: '../assets/images/2.jpg',  isUpward: false }
-                                //     ],
-                                //     Lane: [
-                                //         { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'right'}, { seq: '2' , mark: 'right'} ]},
-                                //         { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                //         { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                //         { type: 'parterre', assist: false, reverse: false, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [] },
-                                //         { type: 'solid', assist: false, reverse: false, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                //         { type: 'y_solid_area', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                //         { type: 'solid', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [ { seq: '0' , mark: 'straight'}, { seq: '2' , mark: 'straight'} ]},
-                                //         { type: 'parterre', assist: false, reverse: true, markright: true, hasSafeArea: true, hasBoundary: true, landmark: [ { seq: '0' , mark: 'left'}, { seq: '2' , mark: 'left'} ]},
-                                //         { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: true, landmark: [] },
-                                //         { type: 'dotted', assist: false, reverse: true, markright: true, hasBoundary: false, landmark: [] },
-                                //         { type: 'solid', assist: true, reverse: true, markright: false, hasBoundary: true, landmark: [] }
-                                //     ]
-                                // },
                                 // { 
                                 //     name : "测试路段5",
                                 //     boundary : { left: { has: true }, right: { has: true } },
@@ -451,7 +451,7 @@
                                 //     ]
                                 // }
                             ],
-                            RoadMode : 'O',
+                            RoadMode : 'Y',
                             RoadWidth: 500,
                             Angle: 0,
                         }
