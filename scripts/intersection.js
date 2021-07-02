@@ -1775,8 +1775,7 @@
                 var lane = me.RoadLeft.Lane && me.RoadLeft.Lane.length || 0;
                 var before = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var diff = before + after;
-                var width = !lane ? me.calcRoadLeftLaneWidth - diff : ((me.RoadLeft.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var width = lane <= 2 ? me.RoadWidth - after - before : ((me.RoadLeft.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
                 var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, -150);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, before, -60);
                 var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, width, -60);
@@ -1789,8 +1788,7 @@
                 var lane = me.RoadRight.Lane && me.RoadRight.Lane.length || 0;
                 var before = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var diff = before + after;
-                var width = !lane ? me.calcRoadRightLaneWidth - diff : ((me.RoadRight.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var width = lane <= 2 ? me.RoadWidth - after - before : ((me.RoadRight.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
                 var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, -30);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, before, 60);
                 var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, width, 60);
@@ -1803,8 +1801,7 @@
                 var lane = me.RoadBottom.Lane && me.RoadBottom.Lane.length || 0;
                 var before = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var diff = before + after;
-                var width = !lane ? me.calcRoadBottomLaneWidth - diff : ((me.RoadBottom.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var width = lane <= 2 ? me.RoadWidth - after - before : ((me.RoadBottom.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
                 var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, 90);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, before, 180);
                 var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, width, 180);
