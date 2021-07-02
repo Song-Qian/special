@@ -466,14 +466,14 @@
                     "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, 3, n)'",
                     "@on-lane-mark-click='onRoadLaneMarkClick($event, 3, n, arguments[1])'",
                     "></lane>",
-                "<image v-for='(flag, n) in calcRoadTopForUpwardFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadTopForDownFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
-                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
-                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
-                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
+                "<image v-for='(flag, n) in calcRoadTopForUpwardFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 0, flag)' />",
+                "<image v-for='(flag, n) in calcRoadTopForDownFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 0, flag)' />",
+                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
+                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
+                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 2, flag)' />",
+                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 2, flag)' />",
+                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 3, flag)' />",
+                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 3, flag)' />",
                 "<g>",
                     //公路边界线
                     "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
@@ -827,22 +827,32 @@
                 var rightLane = me.RoadRight.Lane.length || 0;
                 var bottomLane = me.RoadBottom.Lane.length || 0;
                 var leftLane = me.RoadLeft.Lane.length || 0;
+                var stayMap = [
+                    me.RoadTop.stayArea ? (topLane - 2 <= 0 ? 50 : me.RoadWidth / topLane) : 0,
+                    me.RoadRight.stayArea ? (topLane - 2 <= 0 ? 50 : me.RoadWidth / topLane) : 0,
+                    me.RoadRight.stayArea ? (rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane) : 0,
+                    me.RoadBottom.stayArea ? (rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane) : 0,
+                    me.RoadLeft.stayArea ? (bottomLane - 2 <= 0 ? 50 : me.RoadWidth / bottomLane) : 0,
+                    me.RoadBottom.stayArea ? (bottomLane - 2 <= 0 ? 50 : me.RoadWidth / bottomLane) : 0,
+                    me.RoadTop.stayArea ? (leftLane - 2 <= 0 ? 50 : me.RoadWidth / leftLane) : 0,
+                    me.RoadLeft.stayArea ? (leftLane - 2 <= 0 ? 50 : me.RoadWidth / leftLane) : 0
+                ];
                 return {
                     top : {
-                        x1 : topLane - 2 <= 0 ? (1920 - me.RoadWidth) / 2 + 50 : (1920 - me.RoadWidth) / 2 + me.RoadWidth / topLane,
-                        x2 : topLane - 2 <= 0 ? 1920 / 2 + me.RoadWidth / 2 - 50 : 1920 / 2 + me.RoadWidth / 2 - me.RoadWidth / topLane
+                        x1 : (1920 - me.RoadWidth) / 2 + stayMap[0],
+                        x2 : 1920 / 2 + me.RoadWidth / 2 - stayMap[1]
                     },
                     right: {
-                        y1 : rightLane - 2 <= 0 ? (1080 - me.RoadWidth) / 2 + 50 : (1080 - me.RoadWidth) / 2 + me.RoadWidth / rightLane,
-                        y2 : rightLane - 2 <= 0 ? 1080 / 2 + me.RoadWidth / 2 - 50 : 1080 / 2 + me.RoadWidth / 2 - me.RoadWidth / rightLane
+                        y1 : (1080 - me.RoadWidth) / 2 + stayMap[2],
+                        y2 : 1080 / 2 + me.RoadWidth / 2 - stayMap[3]
                     },
                     bottom : {
-                        x1 : bottomLane - 2 <= 0 ? (1920 - me.RoadWidth) / 2 + 50 : (1920 - me.RoadWidth) / 2 + me.RoadWidth / bottomLane,
-                        x2 : bottomLane - 2 <= 0 ? 1920 / 2 + me.RoadWidth / 2 - 50 : 1920 / 2 + me.RoadWidth / 2 - me.RoadWidth / bottomLane
+                        x1 : (1920 - me.RoadWidth) / 2 + stayMap[4],
+                        x2 : 1920 / 2 + me.RoadWidth / 2 - stayMap[5]
                     },
                     left: {
-                        y1 : leftLane - 2 <= 0 ? (1080 - me.RoadWidth) / 2 + 50 : (1080 - me.RoadWidth) / 2 + me.RoadWidth / leftLane,
-                        y2 : leftLane - 2 <= 0 ? 1080 / 2 + me.RoadWidth / 2 - 50 : 1080 / 2 + me.RoadWidth / 2 - me.RoadWidth / leftLane
+                        y1 : (1080 - me.RoadWidth) / 2 + stayMap[6],
+                        y2 : 1080 / 2 + me.RoadWidth / 2 - stayMap[7]
                     }
                 }
             },
@@ -901,37 +911,46 @@
             calcRoadTopStopLine: function() {
                 var me = this;
                 var lane = me.RoadTop.Lane.length || 0;
-                var diff = !me.RoadTop.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var width = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadTop.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var x = (1920 - me.RoadWidth) / 2 + diff;
+                var before = !me.RoadTop.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var after = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var diff = before + after;
+                var width = !lane ? me.RoadWidth - diff : ((me.RoadTop.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var x = (1920 - me.RoadWidth) / 2 + before;
                 var y = 1080 / 2 - me.RoadWidth / 2;
+
                 return { p1 : { x: x, y: y - 50 }, p2: { x: x + width, y: y - 50 }};
             },
             calcRoadRightStopLine: function() {
                 var me = this;
                 var lane = me.RoadRight.Lane.length || 0;
-                var diff = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var height = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
+                var before = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var after = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var diff = before + after;
+                var height = !lane ? me.RoadWidth - diff : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
                 var x = 1920 / 2 + me.RoadWidth / 2 + 50;
-                var y = (1080 - me.RoadWidth) / 2 + diff;
+                var y = (1080 - me.RoadWidth) / 2 + before;
                 return { p1: { x : x, y : y }, p2: { x : x, y : y + height } };
             },
             calcRoadBottomStopLine: function() {
                 var me = this;
                 var lane = me.RoadBottom.Lane.length || 0;
-                var diff = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var width = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var x = 1920 / 2 + me.RoadWidth / 2 - width - diff;
+                var before = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var after = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var diff = before + after;
+                var width = !lane ? me.RoadWidth - diff : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var x = 1920 / 2 + me.RoadWidth / 2 - width - before;
                 var y = 1080 / 2 + me.RoadWidth / 2;
                 return { p1 : { x: x, y: y + 50 }, p2: { x: x + width, y: y + 50 }};
             },
             calcRoadLeftStopLine: function() {
                 var me = this;
                 var lane = me.RoadLeft.Lane.length || 0;
-                var diff = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var height = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadLeft.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
+                var before = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var after = !me.RoadTop.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var diff = before + after;
+                var height = !lane ? me.RoadWidth - diff : ((me.RoadLeft.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
                 var x = 1920 / 2 - me.RoadWidth / 2 - 50;
-                var y = 1080 / 2 + me.RoadWidth / 2 - diff;
+                var y = 1080 / 2 + me.RoadWidth / 2 - before;
                 return { p1: { x : x, y : y - height }, p2: { x : x, y : y } };
             },
             calcRoadTopStay: function() {
@@ -1161,6 +1180,9 @@
                 //十字路口行人斑马线的点击事件
                 this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
             },
+			onRoadFlagClick: function(e, no, flag) {
+                this.$parent.$emit('cross-road-flag-click', e, no, flag);
+			},
             onRoadStopLineClick: function(e, no) {
                 //机动车停止线点击事件
                 this.$parent.$emit("cross-road-stopline-click", e, no);
@@ -1410,12 +1432,12 @@
                     "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, 2, n)'",
                     "@on-lane-mark-click='onRoadLaneMarkClick($event, 2, n, arguments[1])'",
                     "></lane>",
-                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(30, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(30, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\"  />",
-                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-30, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-30, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(30, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 0, flag)' />",
+                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(30, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 0, flag)'  />",
+                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-30, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
+                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-30, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
+                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 2, flag)' />",
+                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 2, flag)' />",
                 "<g>",
                     //公路边界线
                     "<path v-show='RoadLeft.boundary.left.has' :d='calcTopRoadBoundary.left' fill='none' stroke='#fff' stroke-width='2' transform='translate(0,1.414213562373095)' @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
@@ -1749,38 +1771,44 @@
             //计算Y字路口左侧机动车停止线
             calcRoadLeftStopLine: function() {
                 var me = this;
-                var v = me.getLeftIntersection;
-                var lane = me.RoadLeft.Lane.length || 0;
-                var diff = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 0 : me.RoadWidth / lane;
-                var width = !lane ? 0 : ((me.RoadLeft.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane));
-                var d = utils.calcRadiusAnyPoint(v.x, v.y, 80, -150);
-                var p1 = utils.calcRadiusAnyPoint(d.x, d.y, diff, -60);
-                var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, (me.RoadLeft.stayArea ? width - diff : width) || diff, -60);
-                return { p1 : p1, p2: p2 };
+                var v1 = me.getLeftIntersection;
+                var lane = me.RoadLeft.Lane && me.RoadLeft.Lane.length || 0;
+                var before = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var after = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var diff = before + after;
+                var width = !lane ? me.calcRoadLeftLaneWidth - diff : ((me.RoadLeft.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, -150);
+                var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, before, -60);
+                var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, width, -60);
+                return { p1 : p1, p2 : p2 };
             },
             //计算Y字路口右侧机动车停止线
             calcRoadRightStopLine: function() {
                 var me = this;
-                var v = me.getTopIntersection;
-                var lane = me.RoadRight.Lane.length || 0;
-                var diff = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 0 : me.RoadWidth / lane;
-                var width = !lane ? 0 : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane));
-                var d = utils.calcRadiusAnyPoint(v.x, v.y, 80, -30);
-                var p1 = utils.calcRadiusAnyPoint(d.x, d.y, diff, 60);
-                var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, (me.RoadRight.stayArea ? width - diff : width) || diff, 60);
-                return { p1 : p1, p2: p2 };
+                var v1 = me.getTopIntersection;
+                var lane = me.RoadRight.Lane && me.RoadRight.Lane.length || 0;
+                var before = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var after = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var diff = before + after;
+                var width = !lane ? me.calcRoadRightLaneWidth - diff : ((me.RoadRight.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, -30);
+                var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, before, 60);
+                var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, width, 60);
+                return { p1 : p1, p2 : p2 };
             },
             //计算Y字路口下侧机动车停止线
             calcRoadBottomStopLine: function() {
                 var me = this;
-                var v = me.getRightIntersection;
-                var lane = me.RoadBottom.Lane.length || 0;
-                var diff = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 0 : me.RoadWidth / lane;
-                var width = !lane ? 0 : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane));
-                var d = utils.calcRadiusAnyPoint(v.x, v.y, 80, 90);
-                var p1 = utils.calcRadiusAnyPoint(d.x, d.y, diff, 180);
-                var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, (me.RoadRight.stayArea ? width - diff : width) || diff, 180);
-                return { p1 : p1, p2: p2 };
+                var v1 = me.getRightIntersection;
+                var lane = me.RoadBottom.Lane && me.RoadBottom.Lane.length || 0;
+                var before = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var after = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var diff = before + after;
+                var width = !lane ? me.calcRoadBottomLaneWidth - diff : ((me.RoadBottom.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, 90);
+                var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, before, 180);
+                var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, width, 180);
+                return { p1 : p1, p2 : p2 };
             },
             //计算Y字路口左侧行人安全暂留区
             calcRoadLeftStay: function() {
@@ -1889,48 +1917,51 @@
                 var me = this;
                 var v1 = me.getLeftIntersection;
                 var v2 = me.getTopIntersection;
-                var lw = me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 :  me.calcRoadLeftLaneWidth;
-                var bw = me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
+                var lw = !me.RoadLeft.stayArea ? 0 : me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
+                var rw = !me.RoadRight.stayArea ? 0 : me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
+                var bw = !me.RoadBottom.stayArea && !me.RoadLeft.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
                 var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 40, -150);
                 var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 40, -150);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, lw, -60);
-                var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, lw, 120);
+                var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, rw, 120);
                 var ah = utils.calcTriangleHeight(30, 90);
                 var p3 = utils.calcRadiusAnyPoint(v1.x, v1.y, ah, 135);
                 var p4 = utils.calcRadiusAnyPoint(p3.x, p3.y, Math.min(lw, bw), -30);
-                return { p1 : p1, p2 : p2, p3, p4 };
+                return { p1 : p1, p2 : p2, p3 : p3, p4 : p4 };
             },
             //计算Y字路口右侧行人斑马线长度
             calcRightPedestrian: function() {
                 var me = this;
                 var v1 = me.getTopIntersection;
                 var v2 = me.getRightIntersection;
-                var rw = me.RoadRight.Lane && me.RoadRight.Lane.length <= 2 ? 50 :  me.calcRoadRightLaneWidth;
-                var lw = me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
+                var rw = !me.RoadRight.stayArea ? 0 : me.RoadRight.Lane && me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
+                var bw = !me.RoadBottom.stayArea ? 0 : me.RoadRight.Lane && me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
+                var lw = !me.RoadLeft.stayArea && !me.RoadRight.stayArea ? 0 : me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
                 var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 40, -30);
                 var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 40, -30);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, rw, 60);
-                var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, rw, -120);
+                var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, bw, -120);
                 var ah = utils.calcTriangleHeight(30, 90);
                 var p3 = utils.calcRadiusAnyPoint(v1.x, v1.y, ah, -90);
                 var p4 = utils.calcRadiusAnyPoint(p3.x, p3.y, Math.min(rw, lw), 90);
-                return { p1 : p1, p2 : p2, p3, p4 };
+                return { p1 : p1, p2 : p2, p3 : p3, p4 : p4 };
             },
             //计算Y字路口下侧行人斑马线长度
             calcBottomPedestrian: function() {
                 var me = this;
                 var v1 = me.getRightIntersection;
                 var v2 = me.getLeftIntersection;
-                var bw = me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 :  me.calcRoadBottomLaneWidth;
-                var rw = me.RoadRight.Lane &&me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
+                var bw = !me.RoadBottom.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
+                var lw = !me.RoadLeft.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
+                var rw = !me.RoadRight.stayArea && !me.RoadBottom.stayArea ? 0 : me.RoadRight.Lane &&me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
                 var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 40, 90);
                 var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 40, 90);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, bw, 180);
-                var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, bw, 0);
+                var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, lw, 0);
                 var ah = utils.calcTriangleHeight(30, 90);
                 var p3 = utils.calcRadiusAnyPoint(v1.x, v1.y, ah, 30);
                 var p4 = utils.calcRadiusAnyPoint(p3.x, p3.y, Math.min(bw, rw), -150);
-                return { p1 : p1, p2 : p2, p3, p4 };
+                return { p1 : p1, p2 : p2, p3 : p3, p4 : p4 };
             },
             calcRoadLeftForUpwardFlag: function () {
                 var me = this;
@@ -2040,6 +2071,9 @@
                 //十字路口行人斑马线的点击事件
                 this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
             },
+			onRoadFlagClick: function(e, no, flag) {
+                this.$parent.$emit('cross-road-flag-click', e, no, flag);
+			},
             onRoadStopLineClick: function(e, no) {
                 //机动车停止线点击事件
                 this.$parent.$emit("cross-road-stopline-click", e, no);
@@ -2282,12 +2316,12 @@
                     "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, 2, n)'",
                     "@on-lane-mark-click='onRoadLaneMarkClick($event, 2, n, arguments[1])'",
                     "></lane>",
-                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
-                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
-                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
-                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
-                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 0, flag)' />",
+                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 0, flag)' />",
+                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
+                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
+                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 2, flag)' />",
+                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 2, flag)' />",
                 "<g>",
                     //公路边界线
                     "<path v-show='RoadLeft.boundary.left.has' :d='calcRoadLeftBoundary.innterLeft' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, false)'/>",
@@ -2540,7 +2574,7 @@
                 var me = this;
                 var lane = me.RoadLeft.Lane.length || 0;
                 var diff = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var height = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadLeft.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
+                var height = !lane ? me.RoadWidth - diff : ((me.RoadLeft.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
                 var x = 1920 / 2 - me.RoadWidth / 2 - 50;
                 var y = 1080 / 2 + me.RoadWidth / 2 - diff;
                 return { p1: { x : x, y : y - height }, p2: { x : x, y : y } };
@@ -2548,38 +2582,48 @@
             calcRoadRightStopLine: function() {
                 var me = this;
                 var lane = me.RoadRight.Lane.length || 0;
-                var diff = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var height = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
+                var diff = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var height = !lane ? me.RoadWidth - diff : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane));
                 var x = 1920 / 2 + me.RoadWidth / 2 + 50;
-                var y = (1080 - me.RoadWidth) / 2 + diff;
+                var y = (1080 - me.RoadWidth) / 2;
                 return { p1: { x : x, y : y }, p2: { x : x, y : y + height } };
             },
             calcRoadBottomStopLine: function() {
                 var me = this;
                 var lane = me.RoadBottom.Lane.length || 0;
-                var diff = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var width = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var x = 1920 / 2 + me.RoadWidth / 2 - width - diff;
+                var before = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var after = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var diff = before + after;
+                var width = !lane ? me.RoadWidth - diff : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var x = 1920 / 2 + me.RoadWidth / 2 - before;
                 var y = 1080 / 2 + me.RoadWidth / 2;
-                return { p1 : { x: x, y: y + 50 }, p2: { x: x + width, y: y + 50 }};
+                return { p1 : { x: x, y: y + 50 }, p2: { x: x - width, y: y + 50 }};
             },
             calcPedestrianLength: function() {
                 var me = this;
                 var rightLane = me.RoadRight.Lane.length || 0;
                 var bottomLane = me.RoadBottom.Lane.length || 0;
                 var leftLane = me.RoadLeft.Lane.length || 0;
+                var stayMap = [
+                    0,
+                    me.RoadBottom.stayArea ? (rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane) : 0,
+                    me.RoadLeft.stayArea ? (bottomLane - 2 <= 0 ? 50 : me.RoadWidth / bottomLane) : 0,
+                    me.RoadBottom.stayArea ? (bottomLane - 2 <= 0 ? 50 : me.RoadWidth / bottomLane) : 0,
+                    0,
+                    me.RoadLeft.stayArea ? (leftLane - 2 <= 0 ? 50 : me.RoadWidth / leftLane) : 0
+                ];
                 return {
                     right: {
-                        y1 : rightLane - 2 <= 0 ? (1080 - me.RoadWidth) / 2 + 50 : (1080 - me.RoadWidth) / 2 + me.RoadWidth / rightLane,
-                        y2 : rightLane - 2 <= 0 ? 1080 / 2 + me.RoadWidth / 2 - 50 : 1080 / 2 + me.RoadWidth / 2 - me.RoadWidth / rightLane
+                        y1 : (1080 - me.RoadWidth) / 2 + stayMap[0],
+                        y2 : 1080 / 2 + me.RoadWidth / 2 - stayMap[1]
                     },
                     bottom : {
-                        x1 : bottomLane - 2 <= 0 ? (1920 - me.RoadWidth) / 2 + 50 : (1920 - me.RoadWidth) / 2 + me.RoadWidth / bottomLane,
-                        x2 : bottomLane - 2 <= 0 ? 1920 / 2 + me.RoadWidth / 2 - 50 : 1920 / 2 + me.RoadWidth / 2 - me.RoadWidth / bottomLane
+                        x1 : (1920 - me.RoadWidth) / 2 + stayMap[2],
+                        x2 : 1920 / 2 + me.RoadWidth / 2 - stayMap[3]
                     },
                     left: {
-                        y1 : leftLane - 2 <= 0 ? (1080 - me.RoadWidth) / 2 + 50 : (1080 - me.RoadWidth) / 2 + me.RoadWidth / leftLane,
-                        y2 : leftLane - 2 <= 0 ? 1080 / 2 + me.RoadWidth / 2 - 50 : 1080 / 2 + me.RoadWidth / 2 - me.RoadWidth / leftLane
+                        y1 : (1080 - me.RoadWidth) / 2 + stayMap[4],
+                        y2 : 1080 / 2 + me.RoadWidth / 2 - stayMap[5]
                     }
                 }
             },
@@ -2739,6 +2783,9 @@
                 //十字路口行人斑马线的点击事件
                 this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
             },
+			onRoadFlagClick: function(e, no, flag) {
+                this.$parent.$emit('cross-road-flag-click', e, no, flag);
+			},
             onRoadStopLineClick: function(e, no) {
                 //机动车停止线点击事件
                 this.$parent.$emit("cross-road-stopline-click", e, no);
@@ -2889,8 +2936,8 @@
                 "</g>",
                 "<g>",
                     //行人斑马线
-                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 + 25' :y2='(1080 - RoadWidth) / 2 + 25' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 - 25' :x2='1920 / 2 + RoadWidth / 2 - 25' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 20' :y2='(1080 - RoadWidth) / 2 - 20' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -2951,10 +2998,10 @@
                     "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, 1, n)'",
                     "@on-lane-mark-click='onRoadLaneMarkClick($event, 1, n, arguments[1])'",
                     "></lane>",
-                "<image v-for='(flag, n) in calcRoadTopForUpwardFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadTopForDownFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
-                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' />",
+                "<image v-for='(flag, n) in calcRoadTopForUpwardFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 0, flag)' />",
+                "<image v-for='(flag, n) in calcRoadTopForDownFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 0, flag)' />",
+                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
+                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
                 "<g>",
                     //公路边界线
                     "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
@@ -3154,33 +3201,41 @@
                 var me = this;
                 var topLane = me.RoadTop.Lane.length || 0;
                 var rightLane = me.RoadRight.Lane.length || 0;
+                var stayMap = [
+                    0,
+                    me.RoadRight.stayArea ? (topLane - 2 <= 0 ? 50 : me.RoadWidth / topLane) : 0,
+                    me.RoadRight.stayArea ? (rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane) : 0,
+                    0
+                ];
                 return {
                     top : {
-                        x1 : topLane - 2 <= 0 ? (1920 - me.RoadWidth) / 2 + 50 : (1920 - me.RoadWidth) / 2 + me.RoadWidth / topLane,
-                        x2 : topLane - 2 <= 0 ? 1920 / 2 + me.RoadWidth / 2 - 50 : 1920 / 2 + me.RoadWidth / 2 - me.RoadWidth / topLane
+                        x1 : (1920 - me.RoadWidth) / 2 + stayMap[0],
+                        x2 : (1920 / 2) + (me.RoadWidth / 2) - stayMap[1]
                     },
                     right: {
-                        y1 : rightLane - 2 <= 0 ? (1080 - me.RoadWidth) / 2 + 50 : (1080 - me.RoadWidth) / 2 + me.RoadWidth / rightLane,
-                        y2 : rightLane - 2 <= 0 ? 1080 / 2 + me.RoadWidth / 2 - 50 : 1080 / 2 + me.RoadWidth / 2 - me.RoadWidth / rightLane
+                        y1 : (1080 - me.RoadWidth) / 2 + stayMap[2],
+                        y2 : (1080 / 2) + (me.RoadWidth / 2) + stayMap[3]
                     }
                 }
             },
             calcRoadTopStopLine: function() {
                 var me = this;
                 var lane = me.RoadTop.Lane.length || 0;
-                var diff = !me.RoadTop.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var width = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadTop.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var x = (1920 - me.RoadWidth) / 2 + diff;
+                var before = 0;
+                var after = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var diff = before + after;
+                var width = !lane ? me.RoadWidth - diff : ((me.RoadTop.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var x = (1920 - me.RoadWidth) / 2 + before;
                 var y = 1080 / 2 - me.RoadWidth / 2;
-                return { p1 : { x: x, y: y - 20 }, p2: { x: x + width, y: y - 20 }};
+                return { p1 : { x: x, y: y - 50 }, p2: { x: x + width, y: y - 50 }};
             },
             calcRoadRightStopLine: function() {
                 var me = this;
                 var lane = me.RoadRight.Lane.length || 0;
-                var diff = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
-                var height = !lane ? me.RoadWidth - (diff * 2) : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var x = 1920 / 2 + me.RoadWidth / 2 + 20;
-                var y = (1080 - me.RoadWidth) / 2 + diff;
+                var before = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
+                var height = !lane ? me.RoadWidth - before : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var x = 1920 / 2 + me.RoadWidth / 2 + 50;
+                var y = (1080 - me.RoadWidth) / 2 + before;
                 return { p1: { x : x, y : y }, p2: { x : x, y : y + height } };
             },
             calcRoadTopLaneWidth: function() {
@@ -3235,14 +3290,14 @@
             crossTopMoveTo: function(n) {
                 var me = this;
                 var left = (1920 - me.RoadWidth) / 2;
-                var top = (1080 - me.RoadWidth) / 2 - 20;
+                var top = (1080 - me.RoadWidth) / 2 - 60;
                 var width = me.calcRoadTopLaneWidth;
                 return { x : (n + 1) * width + left, y: top };
             },
             crossRightMoveTo: function(n) {
                 var me = this;
                 var top = (1080 - me.RoadWidth) / 2;
-                var left = 1920 / 2 + me.RoadWidth / 2 + 20;
+                var left = 1920 / 2 + me.RoadWidth / 2 + 60;
                 var width = me.calcRoadRightWidth;
                 return { x : left, y : (n + 1) * width + top };
             },
@@ -3250,6 +3305,9 @@
                 //L字路口行人斑马线的点击事件
                 this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
             },
+			onRoadFlagClick: function(e, no, flag) {
+                this.$parent.$emit('cross-road-flag-click', e, no, flag);
+			},
             onRoadStopLineClick: function(e, no) {
                 //机动车停止线点击事件
                 this.$parent.$emit("cross-road-stopline-click", e, no);
@@ -3441,8 +3499,8 @@
                         "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, i, n)' ",
                         "@on-lane-mark-click='onRoadLaneMarkClick($event, i, n, arguments[1])' ",
                         "></lane>",
-                    "<image v-for='(flag, n) in handlerForUpwardFlag(item)' :x='handlerFlagPosition(flag, i, n).vertex.x' :y='handlerFlagPosition(flag, i, n).vertex.y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate('+ handlerFlagPosition(flag, i, n).angle +', '+ handlerFlagPosition(flag, i, n).vertex.x +' '+ handlerFlagPosition(flag, i, n).vertex.y +')'\" />",
-                    "<image v-for='(flag, n) in handlerForDownFlag(item)' :x='handlerFlagPosition(flag, i, n).vertex.x' :y='handlerFlagPosition(flag, i, n).vertex.y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate('+ handlerFlagPosition(flag, i, n).angle +', '+ handlerFlagPosition(flag, i, n).vertex.x +' '+ handlerFlagPosition(flag, i, n).vertex.y +')'\" />",
+                    "<image v-for='(flag, n) in handlerForUpwardFlag(item)' :x='handlerFlagPosition(flag, i, n).vertex.x' :y='handlerFlagPosition(flag, i, n).vertex.y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate('+ handlerFlagPosition(flag, i, n).angle +', '+ handlerFlagPosition(flag, i, n).vertex.x +' '+ handlerFlagPosition(flag, i, n).vertex.y +')'\" @click.capture.stop='onRoadFlagClick($event, i, flag)' />",
+                    "<image v-for='(flag, n) in handlerForDownFlag(item)' :x='handlerFlagPosition(flag, i, n).vertex.x' :y='handlerFlagPosition(flag, i, n).vertex.y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate('+ handlerFlagPosition(flag, i, n).angle +', '+ handlerFlagPosition(flag, i, n).vertex.x +' '+ handlerFlagPosition(flag, i, n).vertex.y +')'\" @click.capture.stop='onRoadFlagClick($event, i, flag)' />",
                     //公路边界线
                     "<path v-show='item.boundary.left.has' :d='handlerLeftBoundary(i, -1.414213562373095)' stroke-linecap='round' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, i, false)' />",
                     "<path v-show='item.boundary.right.has' :d='handlerRightBoundary(i, -1.414213562373095)' stroke-linecap='round' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, i, true)' />",
@@ -3737,6 +3795,9 @@
                 //机动车停止线点击事件
                 this.$parent.$emit("cross-road-stopline-click", e, no);
             },
+			onRoadFlagClick: function(e, no, flag) {
+                this.$parent.$emit('cross-road-flag-click', e, no, flag);
+			},
             onRoadLanePavementClick: function(e, no, lane) {
                 //机动车道路点击事件
                 this.$parent.$emit("cross-road-pavement-click", e, no, lane);
@@ -3970,14 +4031,14 @@
                     "@on-parterre-safe-area-click='onRoadLaneParterreSafeAreaClick($event, 3, n)'",
                     "@on-lane-mark-click='onRoadLaneMarkClick($event, 3, n, arguments[1])'",
                     "></lane>",
-                "<image v-for='(flag, n) in calcRoadTopForUpwardFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadTopForDownFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-45, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-45, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(45, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(45, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
-                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" />",
+                "<image v-for='(flag, n) in calcRoadTopForUpwardFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 0, flag)' />",
+                "<image v-for='(flag, n) in calcRoadTopForDownFlag' :x='calcRoadTopFlagPosition(flag, n).x' :y='calcRoadTopFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon'  :transform=\"'rotate(-90, '+ calcRoadTopFlagPosition(flag, n).x +' '+ calcRoadTopFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 0, flag)' />",
+                "<image v-for='(flag, n) in calcRoadRightForUpwardFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-45, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
+                "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(-45, '+ calcRoadRightFlagPosition(flag, n).x +' '+ calcRoadRightFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
+                "<image v-for='(flag, n) in calcRoadLeftForUpwardFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(45, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 2, flag)' />",
+                "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(45, '+ calcRoadLeftFlagPosition(flag, n).x +' '+ calcRoadLeftFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 2, flag)' />",
+                "<image v-for='(flag, n) in calcRoadBottomForUpwardFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 3, flag)' />",
+                "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 3, flag)' />",
                 "<g>",
                     //公路边界线
                     "<path v-show='RoadTop.boundary.left.has' :d='calcTopRoadBoundary.left' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, false)'/>",
@@ -4409,8 +4470,8 @@
                 var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, -90);
                 var v2 = { x : v1.x - me.RoadWidth, y : v1.y };
                 var lane = me.RoadTop.Lane && me.RoadTop.Lane.length || 0;
-                var diff = lane <= 2 ? 50 : 0;
-                var w = lane <= 2 ? me.RoadWidth - 50 : ((me.RoadTop.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
+                var after = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : 0;
+                var w = lane <= 2 ? me.RoadWidth - after : ((me.RoadTop.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - after;
                 return { p1: v2, p2 : { x: v2.x + w, y : v2.y } };
             },
             calcRoadRightStopLine: function() {
@@ -4418,9 +4479,10 @@
                 var v = me.getTopIntersection;
                 var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, -45);
                 var lane = me.RoadRight.Lane && me.RoadRight.Lane.length || 0;
-                var diff = lane <= 2 ? 50 : me.calcRoadRightLaneWidth;
-                var w = lane <= 2 ? me.RoadWidth - diff * 2 : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var p1 = utils.calcRadiusAnyPoint(v1.x, v1.y, diff, 45);
+                var before = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.calcRoadRightLaneWidth;
+                var after = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.calcRoadRightLaneWidth;
+                var w = lane <= 2 ? me.RoadWidth - before - after : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var p1 = utils.calcRadiusAnyPoint(v1.x, v1.y, before, 45);
                 var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, w, 45);
                 return { p1: p1, p2: p2 }
             },
@@ -4429,9 +4491,10 @@
                 var v = me.getCrossIntersection;
                 var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, 45);
                 var lane = me.RoadLeft.Lane && me.RoadLeft.Lane.length || 0;
-                var diff = lane <= 2 ? 50 : me.calcRoadLeftLaneWidth;
-                var w = lane <= 2 ? me.RoadWidth - diff * 2 : ((me.RoadLeft.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var p1 = utils.calcRadiusAnyPoint(v1.x, v1.y, diff, 135);
+                var before = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.calcRoadLeftLaneWidth;
+                var after = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.calcRoadLeftLaneWidth;
+                var w = lane <= 2 ? me.RoadWidth - before - after : ((me.RoadLeft.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                var p1 = utils.calcRadiusAnyPoint(v1.x, v1.y, before, 135);
                 var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, w, 135);
                 return { p1: p1, p2: p2 }
             },
@@ -4440,9 +4503,9 @@
                 var v = me.getBottomIntersection;
                 var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, 90);
                 var lane = me.RoadBottom.Lane && me.RoadBottom.Lane.length || 0;
-                var diff = lane <= 2 ? 50 : me.calcRoadBottomLaneWidth;
-                var w = lane <= 2 ? me.RoadWidth - diff : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                return { p1: { x : v1.x - diff, y: v1.y }, p2 : { x : v1.x - diff - w, y : v1.y } }
+                var before = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.calcRoadBottomLaneWidth;
+                var w = lane <= 2 ? me.RoadWidth - before : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
+                return { p1: { x : v1.x - before, y: v1.y }, p2 : { x : v1.x - before - w, y : v1.y } }
             },
             calcPedestrianLength: function() {
                 var me = this;
@@ -4457,23 +4520,27 @@
                 var vr = utils.calcRadiusAnyPoint(v.x, v.y, 80, -45);
                 var vl = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, 45);
                 var vb = utils.calcRadiusAnyPoint(v2.x, v2.y, 80, 90);
-                var rd = rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane;
-                var ld = leftLane - 2 <= 0 ? 50 : me.RoadWidth / leftLane;
+                var before_td = !me.RoadRight.stayArea ? 0 : topLane - 2 <= 0 ? 50 : (me.RoadWidth / topLane);
+                var before_rd = !me.RoadRight.stayArea ? 0 : rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane;
+                var after_rd = !me.RoadLeft.stayArea ? 0 : rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane;
+                var before_ld = !me.RoadLeft.stayArea ? 0 : leftLane - 2 <= 0 ? 50 : me.RoadWidth / leftLane;
+                var after_ld = !me.RoadBottom.stayArea ? 0 : leftLane - 2 <= 0 ? 50 : me.RoadWidth / leftLane;
+                var before_bd = !me.RoadBottom.stayArea ? 0 : bottomLane - 2 <= 0 ? 50 : (me.RoadWidth / bottomLane);
                 return {
                     top : {
-                        p1 : { x : topLane - 2 <= 0 ? vt.x - 50 : vt.x - (me.RoadWidth / topLane), y : vt.y },
+                        p1 : { x : vt.x - before_td, y : vt.y },
                         p2 : { x : topLane - 2 <= 0 ? vt.x - me.RoadWidth : vt.x - me.RoadWidth, y : vt.y }
                     },
                     right: {
-                        p1 : utils.calcRadiusAnyPoint(vr.x, vr.y, rd, 45),
-                        p2 : utils.calcRadiusAnyPoint(vr.x, vr.y, me.RoadWidth - rd, 45)
+                        p1 : utils.calcRadiusAnyPoint(vr.x, vr.y, before_rd, 45),
+                        p2 : utils.calcRadiusAnyPoint(vr.x, vr.y, me.RoadWidth - after_rd, 45)
                     },
                     left : {
-                        p1 : utils.calcRadiusAnyPoint(vl.x, vl.y, ld, 135),
-                        p2 : utils.calcRadiusAnyPoint(vl.x, vl.y, me.RoadWidth - ld, 135)
+                        p1 : utils.calcRadiusAnyPoint(vl.x, vl.y, before_ld, 135),
+                        p2 : utils.calcRadiusAnyPoint(vl.x, vl.y, me.RoadWidth - after_ld, 135)
                     },
                     bottom: {
-                        p1 : { x : bottomLane - 2 <= 0 ? vb.x - 50 : vb.x - (me.RoadWidth / bottomLane), y : vb.y },
+                        p1 : { x : vb.x - before_bd, y : vb.y },
                         p2 : { x : bottomLane - 2 <= 0 ? vb.x - me.RoadWidth : vb.x - me.RoadWidth, y : vb.y }
                     }
                 }
@@ -4731,6 +4798,9 @@
                 //十字路口行人斑马线的点击事件
                 this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
             },
+			onRoadFlagClick: function(e, no, flag) {
+                this.$parent.$emit('cross-road-flag-click', e, no, flag);
+			},
             onRoadStopLineClick: function(e, no) {
                 //机动车停止线点击事件
                 this.$parent.$emit("cross-road-stopline-click", e, no);
