@@ -2374,9 +2374,9 @@
                 "</g>",
                 "<stay-pedestrian v-show='RoadLeft.stayArea && RoadLeft.pedestrian' :width='calcRoadLeftStay.width' :height='calcRoadLeftStay.height' :angle='-90' :x='calcRoadLeftStay.left' :y='calcRoadLeftStay.top' :defs='uuid'  @on-stay-area-click='onCrossStayAreaClick($event, 0)'></stay-pedestrian>",
                 "<stay-pedestrian v-show='RoadBottom.stayArea && RoadBottom.pedestrian' :width='calcRoadBottomStay.width' :height='calcRoadBottomStay.height' :angle='180' :x='calcRoadBottomStay.left' :y='calcRoadBottomStay.top' :defs='uuid' @on-stay-area-click='onCrossStayAreaClick($event, 2)'></stay-pedestrian>",
-                "<text :x='(1920 / 2) + (RoadWidth / 2) + 300' :y='(1080 - RoadWidth) / 2 - 30' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start'> {{ RoadRight.name }} </text>",
-                "<text :x='(1920 / 2) + (RoadWidth / 2) + 30' :y='(1080 / 2) + (RoadWidth / 2) + 300' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(90 ' + ((1920 / 2) + (RoadWidth / 2) + 30) + ', ' + ((1080 / 2) + (RoadWidth / 2) + 300) + ')'\"> {{ RoadBottom.name }} </text>",
-                "<text :x='(1920 - RoadWidth) / 2 - 300' :y='(1080 / 2) + (RoadWidth / 2) + 50' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='end' style='display: block; background-color: red;'> {{ RoadLeft.name }} </text>",
+                "<text :x='(1920 / 2) + (RoadWidth / 2) + 300' :y='(1080 - RoadWidth) / 2 - 30' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' :text-anchor=\"Angle >= 270 || Angle <= 90 ? 'start' : 'end'\" :transform=\"Angle >= 270 || Angle <= 90 ? 'rotate(0 ' + ((1920 / 2) + (RoadWidth / 2) + 300) + ', ' + ((1080 - RoadWidth) / 2 - 30) + ')' : 'rotate(180 ' + ((1920 / 2) + (RoadWidth / 2) + 300) + ', ' + ((1080 - RoadWidth) / 2 - 45) + ')'\"> {{ RoadRight.name }} </text>",
+                "<text :x='(1920 / 2) + (RoadWidth / 2) + 30' :y='(1080 / 2) + (RoadWidth / 2) + 300' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' :text-anchor=\"Angle >= 0 && Angle <= 180 ? 'end' : 'start'\" :transform=\"Angle >= 0 && Angle <= 180 ? 'rotate(-90 ' + ((1920 / 2) + (RoadWidth / 2) + 50) + ', ' + ((1080 / 2) + (RoadWidth / 2) + 290) + ')' : 'rotate(90 ' + ((1920 / 2) + (RoadWidth / 2) + 35) + ', ' + ((1080 / 2) + (RoadWidth / 2) + 300) + ')'\"> {{ RoadBottom.name }} </text>",
+                "<text :x='(1920 - RoadWidth) / 2 - 300' :y='(1080 / 2) + (RoadWidth / 2) + 50' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' :text-anchor=\"Angle >= 270 || Angle <= 90 ? 'end' : 'start'\" :transform=\"Angle >= 270 || Angle <= 90 ? 'rotate(0 ' + ((1920 - RoadWidth) / 2 - 300) + ', ' + ((1080 / 2) + (RoadWidth / 2) + 50) + ')' : 'rotate(180 ' + ((1920 - RoadWidth) / 2 - 300) + ', ' + ((1080 / 2) + (RoadWidth / 2) + 40) + ')'\" style='display: block; background-color: red;'> {{ RoadLeft.name }} </text>",
                 "<rect v-show='Active == 0' :x='-1900 + (1920- RoadWidth) / 2' :y='(1080 - RoadWidth) / 2 - 10' :width='1900' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
@@ -2495,6 +2495,10 @@
                 type: Number
             },
             Active : {
+                default: 0,
+                type: Number
+            },
+            Angle: {
                 default: 0,
                 type: Number
             }
@@ -3050,8 +3054,8 @@
                     "<line v-show='RoadRight.pedestrian && RoadRight.stayArea && RoadRight.stayPedestrian' :x1='calcPedestrianRoadRight.p1.x' :x2='calcPedestrianRoadRight.p2.x' :y1='calcPedestrianRoadRight.p1.y' :y2='calcPedestrianRoadRight.p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, true)'/>",
                 "</g>",
                 "<stay-pedestrian v-show='RoadRight.stayArea && RoadRight.pedestrian' :width='calcRoadRightStay.width' :height='calcRoadRightStay.height' :angle='90' :x='calcRoadRightStay.left' :y='calcRoadRightStay.top' :defs='uuid' @on-stay-area-click='onCrossStayAreaClick($event, 1)'></stay-pedestrian>",
-                "<text :x='(1920 - RoadWidth) / 2 - 30' :y='(1080 - RoadWidth) / 2 - 200' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(-90 ' + ((1920 - RoadWidth) / 2 - 30) + ', ' + ((1080 - RoadWidth) / 2 - 200) + ')'\"> {{ RoadTop.name }} </text>",
-                "<text :x='(1920 / 2) + (RoadWidth / 2) + 300' :y='(1080 - RoadWidth) / 2 - 30' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start'> {{ RoadRight.name }} </text>",
+                "<text :x='(1920 - RoadWidth) / 2 - 30' :y='(1080 - RoadWidth) / 2 - 200' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' :text-anchor=\"Angle >= 0 && Angle <= 180 ? 'start' : 'end'\" :transform=\"Angle >= 0 && Angle <= 180 ? 'rotate(-90 ' + ((1920 - RoadWidth) / 2 - 40) + ', ' + ((1080 - RoadWidth) / 2 - 200) + ')' : 'rotate(90 ' + ((1920 - RoadWidth) / 2 - 40) + ', ' + ((1080 - RoadWidth) / 2 - 220) + ')'\"> {{ RoadTop.name }} </text>",
+                "<text :x='(1920 / 2) + (RoadWidth / 2) + 300' :y='(1080 - RoadWidth) / 2 - 30' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' :text-anchor=\"Angle >= 270 || Angle <= 90 ? 'start' : 'end'\"  :transform=\"Angle >= 270 || Angle <= 90 ? 'rotate(0 ' + ((1920 / 2) + (RoadWidth / 2) + 300) + ', ' + ((1080 - RoadWidth) / 2 - 20) + ')' : 'rotate(180 ' + ((1920 / 2) + (RoadWidth / 2) + 300) + ', ' + ((1080 - RoadWidth) / 2 - 45) + ')'\"> {{ RoadRight.name }} </text>",
                 "<rect v-show='Active == 0' :x='(1920 - RoadWidth) / 2 - 10' :y='-1420 + (1080 - RoadWidth) / 2' :width='RoadWidth + 20' :height='1420' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
@@ -3135,6 +3139,10 @@
                 type: Number
             },
             Active : {
+                default: 0,
+                type: Number
+            },
+            Angle: {
                 default: 0,
                 type: Number
             }
@@ -3543,7 +3551,7 @@
                     //行人安全暂留区斑马线
                     "<line v-show='item.pedestrian && item.stayArea && item.stayPedestrian' :x1='handlerSafeAreaPedestrian(i).p1.x' :x2='handlerSafeAreaPedestrian(i).p2.x' :y1='handlerSafeAreaPedestrian(i).p1.y' :y2='handlerSafeAreaPedestrian(i).p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, i, true)'/>",
                     "<path v-show='item.stayArea && item.pedestrian' :d='handlerSafeAreaStay(i)' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, i)' />",
-                    "<text :x='handlerTextIntersection(i).vertex.x' :y='handlerTextIntersection(i).vertex.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate('+ handlerTextIntersection(i).angle +' ' + handlerTextIntersection(i).vertex.x + ', ' + handlerTextIntersection(i).vertex.y + ')' + ' translate(0,-20)'\"> {{ item.name }} </text>",
+                    "<text :x='handlerTextIntersection(i).vertex.x' :y='handlerTextIntersection(i).vertex.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' :text-anchor=\"calcIncludeAngle(i) >= 0 && calcIncludeAngle(i) <= 180 ? 'start' : 'end'\" :transform=\"calcIncludeAngle(i) >= 0 && calcIncludeAngle(i) <= 180 ? 'rotate('+ handlerTextIntersection(i).angle +' ' + handlerTextIntersection(i).vertex.x + ', ' + handlerTextIntersection(i).vertex.y + ')' + ' translate(0,-20)' : 'rotate('+ (handlerTextIntersection(i).angle + 180) +' ' + handlerTextIntersection(i).vertex.x + ', ' + handlerTextIntersection(i).vertex.y + ')' + ' translate(0, 45)'\"> {{ item.name }} </text>",
                     "<rect v-show='Active == i' :x='handlerActiveRect(i).vertex.x' :y='handlerActiveRect(i).vertex.y' :width='2380' :height='RoadWidth + 20' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10' :transform=\"'rotate('+ handlerActiveRect(i).angle +' ' + handlerActiveRect(i).vertex.x + ', ' + handlerActiveRect(i).vertex.y + ')' + 'translate(0,-10)'\" >",
                         "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                     "</rect>",
@@ -3564,6 +3572,10 @@
                 type: Number
             },
             Active : {
+                default: 0,
+                type: Number
+            },
+            Angle: {
                 default: 0,
                 type: Number
             }
@@ -3589,7 +3601,7 @@
                 return Number((w / (2 * Math.sin(Math.PI / a))).toFixed(7));
             },
             //多边形的内切圆半径
-            calcInsideRadius: function () {
+            calcInsideRadius: function (i) {
                 var me = this;
                 var w = me.RoadWidth;
                 var a = me.getRoadMap && me.getRoadMap.length || 3;
@@ -3690,14 +3702,17 @@
             },
             handlerPedestrian: function (i) {
                 var me = this;
-                var diff = me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length <= 2 ? 50 : me.handlerRoadWidth(i);
+                var next = i + 1 >= me.getRoadMap.length ? 0 : i + 1;
+                var before = !me.getRoadMap[i].stayArea ? 0 : me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length <= 2 ? 50 : me.handlerRoadWidth(i);
+                var after = !me.getRoadMap[next].stayArea ? 0 : me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length <= 2 ? 50 : me.handlerRoadWidth(i);
+
                 var count = me.getRoadMap && me.getRoadMap.length || 3;
                 var a = -90 + (i * (360 / count));
                 var r = me.calcCircumscribeRadius;
                 var c = { x: 1920 / 2, y: 1080 / 2 };
                 var v = utils.calcRadiusAnyPoint(c.x, c.y, r + 20, a);
-                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - diff, a - 90);
-                var v2 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - diff, a + 90);
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - before, a - 90);
+                var v2 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - after, a + 90);
                 return { p1: v1, p2: v2 };
             },
             handlerSafeAreaPedestrian: function (i) {
@@ -3822,6 +3837,14 @@
                 var v = utils.calcRadiusAnyPoint(c.x, c.y, radius, a);
                 var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 60, ar);
                 return { vertex : v1, angle: ar }
+            },
+            calcIncludeAngle: function (i) {
+                var me = this;
+                if (me.Roads && me.Roads.length) {
+                    var a = 360 / me.Roads.length;
+                    return (a * i + me.Angle) % 360;
+                }
+                return 360;
             },
             onRoadPedestrianClick: function(e, no, isStay) {
                 //转盘路口行人斑马线的点击事件
@@ -4097,10 +4120,10 @@
                     "<path v-show='RoadLeft.stayArea && RoadLeft.pedestrian' :d='calcRoadRightStay' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, 2)' />",
                     "<path v-show='RoadBottom.stayArea && RoadBottom.pedestrian' :d='calcRoadLeftStay' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, 3)' />",
                 "</g>",
-                "<text :x='getTopTextIntersection.x' :y='getTopTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(-90 ' + getTopTextIntersection.x + ', ' + getTopTextIntersection.y + ')'\"> {{ RoadTop.name }} </text>",
-                "<text :x='getRightTextIntersection.x' :y='getRightTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(-45 ' + getRightTextIntersection.x + ', ' + getRightTextIntersection.y + ')'\"> {{ RoadRight.name }} </text>",
-                "<text :x='getLeftTextIntersection.x' :y='getLeftTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(45 ' + getLeftTextIntersection.x + ', ' + getLeftTextIntersection.y + ')'\"> {{ RoadLeft.name }} </text>",
-                "<text :x='getBottomTextIntersection.x' :y='getBottomTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' text-anchor='start' :transform=\"'rotate(90 ' + getBottomTextIntersection.x + ', ' + getBottomTextIntersection.y + ')'\"> {{ RoadBottom.name }} </text>",
+                "<text :x='getTopTextIntersection.x' :y='getTopTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' :text-anchor=\"Angle >= 0 && Angle <= 180 ? 'start' : 'end'\" :transform=\"Angle >= 0 && Angle <= 180 ? 'rotate(-90 ' + getTopTextIntersection.x + ', ' + getTopTextIntersection.y + ')' : 'rotate(90 ' + getTopTextIntersection.x + ', ' + getTopTextIntersection.y + ')'\"> {{ RoadTop.name }} </text>",
+                "<text :x='getRightTextIntersection.x' :y='getRightTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' :text-anchor=\"Angle >= 315 || Angle <= 135 ? 'start' : 'end'\" :transform=\"Angle >= 315 || Angle <= 135 ? 'rotate(-45 ' + getRightTextIntersection.x + ', ' + getRightTextIntersection.y + ')' : 'rotate(135 ' + getRightTextIntersection.x + ', ' + getRightTextIntersection.y + ')'\"> {{ RoadRight.name }} </text>",
+                "<text :x='getLeftTextIntersection.x' :y='getLeftTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' :text-anchor=\"Angle >= 225 || Angle <= 45 ? 'start' : 'end'\" :transform=\"Angle >= 225 || Angle <= 45 ? 'rotate(45 ' + getLeftTextIntersection.x + ', ' + getLeftTextIntersection.y + ')' : 'rotate(225 ' + getLeftTextIntersection.x + ', ' + getLeftTextIntersection.y + ')'\"> {{ RoadLeft.name }} </text>",
+                "<text :x='getBottomTextIntersection.x' :y='getBottomTextIntersection.y' font-family='Verdana, Helvetica, Arial, sans-serif' font-size='35' fill='#fff' :text-anchor=\"Angle >= 180 && Angle <= 360 ? 'start' : 'end'\" :transform=\"Angle >= 180 && Angle <= 360 ? 'rotate(90 ' + getBottomTextIntersection.x + ', ' + getBottomTextIntersection.y + ')' : 'rotate(-90 ' + getBottomTextIntersection.x + ', ' + getBottomTextIntersection.y + ')'\"> {{ RoadBottom.name }} </text>",
                 "<rect v-show='Active == 0' :x='getTopActiveRect.x - 10' :y='getTopActiveRect.y' :width='RoadWidth + 20' :transform=\"'rotate(-180 ' + getTopActiveRect.x + ', ' + getTopActiveRect.y + ')'\" :height='1350' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
@@ -4256,6 +4279,10 @@
             Active : {
                 default: 0,
                 type: Number
+            },
+            Angle: {
+                default: 0,
+                type: Number
             }
         },
         data : function() {
@@ -4269,22 +4296,26 @@
         computed: {
             getTopTextIntersection: function() {
                 var me = this;
-                var a = utils.calcRadiusAnyPoint(me.getTopIntersection.x, me.getTopIntersection.y, me.RoadWidth + 20, -180);
+                var dist = me.Angle >= 0 && me.Angle <= 180 ? 30 : 50;
+                var a = utils.calcRadiusAnyPoint(me.getTopIntersection.x, me.getTopIntersection.y, me.RoadWidth + dist, -180);
                 return utils.calcRadiusAnyPoint(a.x, a.y, 180, -90);
             },
             getRightTextIntersection: function() {
                 var me = this;
+                var dist = me.Angle >= 315 || me.Angle <= 135 ? 30 : 50;
                 var a = utils.calcRadiusAnyPoint(me.getTopIntersection.x, me.getTopIntersection.y, 500, -45);
-                return utils.calcRadiusAnyPoint(a.x, a.y, 20, -135);
+                return utils.calcRadiusAnyPoint(a.x, a.y, dist, -135);
             },
             getLeftTextIntersection: function() {
                 var me = this;
+                var dist = me.Angle >= 225 || me.Angle <= 45 ? 30 : 50;
                 var a = utils.calcRadiusAnyPoint(me.getCrossIntersection.x, me.getCrossIntersection.y, 500, 45);
-                return utils.calcRadiusAnyPoint(a.x, a.y, 20, -45);
+                return utils.calcRadiusAnyPoint(a.x, a.y, dist, -45);
             },
             getBottomTextIntersection: function() {
                 var me = this;
-                var a = utils.calcRadiusAnyPoint(me.getBottomIntersection.x, me.getBottomIntersection.y, me.RoadWidth + 40, 180);
+                var dist = me.Angle >= 180 && me.Angle <= 360 ? 50 : 30;
+                var a = utils.calcRadiusAnyPoint(me.getBottomIntersection.x, me.getBottomIntersection.y, me.RoadWidth + dist, 180);
                 return utils.calcRadiusAnyPoint(a.x, a.y, 180, 90);
             },
             getCenterIntersection: function() {
