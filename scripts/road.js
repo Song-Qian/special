@@ -407,7 +407,7 @@
                 var me = this;
                 var angle = ["non-motorized", "uturn", "right", "straight", "straight-uturn", "straight-right", "straight-left", "left-right", "left", "left-uturn"].indexOf(me.Mark) > -1 && me.Reverse ? 90 : ["pedestrian", "distance", "slow"].indexOf(me.Mark) > -1 && me.Reverse ? 180 : ["non-motorized", "uturn", "right", "straight", "straight-uturn", "straight-right", "straight-left", "left-right", "left", "left-uturn"].indexOf(me.Mark) > -1 ? -90 : 0;
                 var scale = me.Area / 200;
-                var x = angle === 180 ||angle === 90 ? me.X + 200 * scale : me.X;
+                var x = angle === 180 || angle === 90 ? me.X + 200 * scale : me.X;
                 var y = angle === -90 || angle === 180 ? me.Y + 200 * scale : me.Y;
                 var m1 = (Math.cos(angle * Math.PI / 180) * scale).toFixed(6);
                 var m2 = (Math.sin(angle * Math.PI / 180) * scale).toFixed(6);
@@ -424,21 +424,18 @@
                 "<g v-if=\"['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(Type) === -1\">",
                     "<rect x='0' y='0' width='1300' :height='Width' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" @click.capture.stop=\"$emit('on-lane-select', $event)\" />",
                     "<rect v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(i)' :x='calcFirstMarkArea(i).x' :y='calcFirstMarkArea(i).y' :width='calcFirstMarkArea(i).width' :height='calcFirstMarkArea(i).height' class='ivsom-lane-mark' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' stroke-width='1' stroke-dasharray='5,5' @click.capture.stop=\"$emit('on-lane-mark-select', $event, i - 1)\" />",
-					"<text v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(i)' :x='calcFirstMarkArea(i).x + calcFirstMarkArea(i).width / 2' :y='calcFirstMarkArea(i).y + calcFirstMarkArea(i).height / 2' text-anchor='middle' fill='#fff'>{{ Reverse ? 12 - i + 1 + '#' : i + '#'}}</text>",
+					"<text v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(i)' :x='calcFirstMarkArea(i).x + calcFirstMarkArea(i).width / 2' :y='Reverse ? calcFirstMarkArea(i).height * 0.6 : calcFirstMarkArea(i).y + calcFirstMarkArea(i).height * 0.6' text-anchor='middle' fill='#fff'>{{ Reverse ? 12 - i + 1 + '#' : i + '#'}}</text>",
                     "<rect v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(calcMarkTotal + calcMarkTotal - i + 1)' :x='calcLastMarkArea(i).x' :y='calcLastMarkArea(i).y' :width='calcLastMarkArea(i).width' :height='calcLastMarkArea(i).height' class='ivsom-lane-mark' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' stroke-width='1' stroke-dasharray='5,5' @click.capture.stop=\"$emit('on-lane-mark-select', $event, calcMarkTotal + calcMarkTotal - i)\" />",
-                    "<text v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(calcMarkTotal + calcMarkTotal - i + 1)' :x='calcLastMarkArea(i).x + calcLastMarkArea(i).width / 2' :y='calcLastMarkArea(i).y + calcLastMarkArea(i).height / 2' text-anchor='middle' fill='#fff'>{{ Reverse ? (12 - (calcMarkTotal + calcMarkTotal - i)) + '#' : calcMarkTotal + calcMarkTotal - i + 1 + '#' }}</text>",
+                    "<text v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(calcMarkTotal + calcMarkTotal - i + 1)' :x='calcLastMarkArea(i).x + calcLastMarkArea(i).width / 2' :y='Reverse ? calcLastMarkArea(i).height * 0.6 : calcLastMarkArea(i).y + calcLastMarkArea(i).height * 0.6' text-anchor='middle' fill='#fff'>{{ Reverse ? (12 - (calcMarkTotal + calcMarkTotal - i)) + '#' : calcMarkTotal + calcMarkTotal - i + 1 + '#' }}</text>",
 					"<lane-mark v-for='(item, i) in calcLaneMark' :x='calcMarkPosition(item).x' :y='calcMarkPosition(item).y' :id='item.id' :mark='item.mark' :seq='item.seq' :area='Math.min(50, Width - 10)' :reverse='Reverse' @on-lanemark-click=\"$emit('on-lane-mark-click', arguments[0], i)\"></lane-mark>",
-                    "<rect v-for='i in calcParkTotal' :x='435 + (i * 30)' :y='Reverse ? Width - 15 : 0' width='30' height='15' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' @click.capture.stop=\"$emit('on-lane-park-click', $event)\" />",
-                    "<text v-if='!!calcText' :x=\"LaneType === 'non-motorized' ? calcText.x - 450 : calcText.x + 180\" :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate=\"Reverse ? '90' : '-90'\" :transform=\"'translate('+ (Reverse ? '-20' : '0') +', 0)'\" text-anchor='middle' textLength='120' lengthadjust='spacingAndGlyphs' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
-                    "<text v-if=\"!!calcText && LaneType === 'non-motorized'\" :x=\"LaneType === 'non-motorized' ? calcText.x + 480 : calcText.x\" :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate='Reverse ? 90 : -90' text-anchor='middle' textLength='120' lengthadjust='spacingAndGlyphs' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
-                    "<line v-if=\"!!calcText && Bus\" :x1=\"LaneType === 'non-motorized' ? (calcText.x - 540) : (calcText.x + 90)\" :x2=\"LaneType === 'non-motorized' ? (calcText.x - 410) : (calcText.x + 220)\" y1='0' y2='0' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
-                    "<line v-if=\"!!calcText && Bus\" :x1=\"LaneType === 'non-motorized' ? (calcText.x - 540) : (calcText.x + 90)\" :x2=\"LaneType === 'non-motorized' ? (calcText.x - 410) : (calcText.x + 220)\" :y1='Width - 5' :y2='Width - 5' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
-                    "<line v-if=\"!!calcText && LaneType === 'non-motorized' && Bus\" :x1=\"(calcText.x + 520)\" :x2=\"(calcText.x + 390)\" y1='0' y2='0' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
-                    "<line v-if=\"!!calcText && LaneType === 'non-motorized' && Bus\" :x1=\"(calcText.x + 520)\" :x2=\"(calcText.x + 390)\" :y1='Width - 5' :y2='Width - 5' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
-                    "<g v-if=\"LaneType !== 'non-motorized' && ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(Type) === -1 && Slow && Slow.isShow\" v-for='i in Slow.total' :key='i'>",
-                        "<line :x1='380 + i * 20' :x2='380 + i * 20' y1='0' :y2='Width' stroke='#fff' stroke-width='2' @click.capture.stop=\"$emit('on-lane-slowline-click', $event, i - 1)\" />",
-                        "<line :x1='384 + i * 20' :x2='384 + i * 20' y1='0' :y2='Width' stroke='#fff' stroke-width='2' @click.capture.stop=\"$emit('on-lane-slowline-click', $event, i - 1)\" />",
-                        "<line :x1='388 + i * 20' :x2='388 + i * 20' y1='0' :y2='Width' stroke='#fff' stroke-width='2' @click.capture.stop=\"$emit('on-lane-slowline-click', $event, i - 1)\" />",
+                    "<rect v-for='i in calcParkTotal' :x='Reverse ? ((i - 1) * 20) : 1300 - (i * 20)' :y='Reverse ? Width - 10 : 0' width='20' height='10' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' @click.capture.stop=\"$emit('on-lane-park-click', $event)\" />",
+                    "<text v-if='!!calcText' :x='calcText.x' :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate='Reverse ? 90 : -90' :transform=\"Reverse ? 'translate(5, 0)' : 'translate(25, 10)'\"  :text-anchor=\"Reverse ? 'start' : 'end'\" textLength='120' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
+                    "<line v-if=\"!!calcText && Bus\" :x1='calcText.x' :x2='Reverse ? calcText.x + 120 : calcText.x - 120' :y1='Reverse ? 5 : Math.max(0, Math.max(10, Width - 50))' :y2='Reverse ? 5 : Math.max(0, Math.max(10, Width - 50))' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
+                    "<line v-if=\"!!calcText && Bus\" :x1='calcText.x' :x2='Reverse ? calcText.x + 120 : calcText.x - 120' :y1='Reverse ? Math.min(50, Width - 10) : Width - 5' :y2='Reverse ? Math.min(50, Width - 10) : Width - 5' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
+                    "<g v-if=\"LaneType !== 'non-motorized' && ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(Type) === -1 && Slow && Slow.isShow\" transform='translate(-4, 0)' v-for='i in Slow.total' :key='i'>",
+                        "<line :x1='calcSlowDist(i)' :x2='calcSlowDist(i)' y1='0' :y2='Width' stroke='#fff' stroke-width='2' @click.capture.stop=\"$emit('on-lane-slowline-click', $event, i - 1)\" />",
+                        "<line :x1='calcSlowDist(i) + 4' :x2='calcSlowDist(i) + 4' y1='0' :y2='Width' stroke='#fff' stroke-width='2' @click.capture.stop=\"$emit('on-lane-slowline-click', $event, i - 1)\" />",
+                        "<line :x1='calcSlowDist(i) + 8' :x2='calcSlowDist(i) + 8' y1='0' :y2='Width' stroke='#fff' stroke-width='2' @click.capture.stop=\"$emit('on-lane-slowline-click', $event, i - 1)\" />",
                     "</g>",
                 "</g>",
                 "<isolation ",
@@ -460,7 +457,7 @@
 
     var Lane = Vue.extend({
         template: LaneRender.apply(this),
-        inject: ["u_slow", "d_slow"],
+        inject: ["u_slow", "d_slow", "isUpwardPenalty", "isDownPenalty"],
         props: {
             Id: {
                 default: '',
@@ -482,6 +479,10 @@
                 default: false,
                 type: Boolean
             },
+            ParkTotal: {
+                default: 1,
+                type: Number
+            },
             Bus: {
                 default: false,
                 type: Boolean
@@ -499,7 +500,7 @@
                 type: Array
             },
             Slow: {
-                default : null,
+                default: null,
                 type: Object
             },
             X: {
@@ -510,82 +511,116 @@
                 default: 0,
                 type: Number
             },
-            Reverse : {
-                default : false,
+            Reverse: {
+                default: false,
                 type: Boolean
             },
-            Width : {
+            Width: {
                 default: 0,
                 type: Number
             }
         },
         computed: {
-            calcIsolationPosition: function() {
+            calcIsolationPosition: function () {
                 var me = this;
                 var x = 0, y = ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(me.Type) === -1 ? me.Width - 15 : 0;
                 if (me.Reverse) {
                     return "translate(0,0)";
                 }
-                return "translate("+ x +","+ y +")";
+                return "translate(" + x + "," + y + ")";
             },
-            calcMarkTotal: function() {
+            calcMarkTotal: function () {
                 var me = this;
-                if(me.LaneType === 'non-motorized') {
+                if (me.LaneType === 'non-motorized') {
                     return 1;
                 }
                 return 6;
             },
-            calcParkTotal: function(){
+            calcParkTotal: function () {
                 var me = this;
-                if(me.Park) {
-                    return 7;
+                if (me.Park) {
+                    return me.ParkTotal > 15 ? 15 : me.ParkTotal;
                 }
                 return 0;
             },
-            calcText: function() {
+            calcText: function () {
                 var me = this;
-                if(!!me.Text || !me.Bus) {
-                    var x = 700;
+                if (!!me.Text || me.Bus) {
+                    var x = me.Reverse ? 0 : 1300;
                     var y = me.Width / 2;
-                    return { x: x, y: me.Reverse ? y - 13 : y + 13, text : me.Bus ? "公交车站".split('').reverse().join('') : me.Text.substr(0, 8).split('').reverse().join('') }
+                    return { x: x, y: me.Reverse ? 10 : y + 13, text: me.Bus ? "公交车站".split('').reverse().join('') : me.Text.substr(0, 8).split('').reverse().join('') }
                 }
                 return null;
             },
-            calcLaneMark : function() {
+            calcLaneMark: function () {
                 var me = this;
-                if(me.LaneType === 'non-motorized') {
-                    return me.Lanemark.filter(function(it, n) { return it.mark === 'non-motorized'}).slice(0, 2);
+                if (me.LaneType === 'non-motorized') {
+                    return me.Lanemark.filter(function (it, n) { return it.mark === 'non-motorized' }).slice(0, 2);
                 }
                 return me.Lanemark;
             }
         },
         components: {
-            "Isolation" : Isolation,
-            "LaneMark" : LaneMark
+            "Isolation": Isolation,
+            "LaneMark": LaneMark
         },
         methods: {
-            calcFirstMarkArea: function(i) {
+            calcFirstMarkArea: function (i) {
                 var me = this;
-                var h = me.Width;
-                return { x : 10 + ((i - 1) * 60), y : 5, width: 50, height: h - 10 };
+                var w = (1300 - 80) / 2;
+                var diff = me.calcText && me.calcText.text && me.Reverse ? 120 : 0;
+                var penaltyWidth = !me.Reverse && me.isUpwardPenalty ? 80 : 0;
+                w -= diff;
+                w -= penaltyWidth;
+                var dist = w / 6;
+                var dw = Math.min(50, me.Width - 10);
+                var x = me.Reverse ? diff + (dist - dw) / 2 + ((i - 1) * dist) : (dist - dw) / 2 + ((i - 1) * dist);
+                var y = me.Reverse ? 0 : (me.Width - Math.min(50, me.Width - 10));
+                return { x: x, y: y, width: dw, height: dw };
             },
-            calcLastMarkArea: function(i) {
+            calcLastMarkArea: function (i) {
                 var me = this;
-                var h = me.Width;
-                return { x : 1240 - ((i - 1) * 60), y : 5, width: 50, height: h - 10 };
+                var w = (1300 - 80) / 2;
+                var diff = me.calcText && me.calcText.text && !me.Reverse ? 120 : 0;
+                var penaltyWidth = me.Reverse && me.isDownPenalty ? 80 : 0;
+                w -= diff;
+                w -= penaltyWidth;
+                var dist = w / 6;
+                var dw = Math.min(50, me.Width - 10);
+                var after = me.calcText && me.calcText.text && !me.Reverse ? 120 + ((dist - dw) / 2 + dw) : ((dist - dw) / 2 + dw);
+                var y = me.Reverse ? 0 : (me.Width - Math.min(50, me.Width - 10));
+                return { x: 1300 - after - ((i - 1) * dist), y: y, width: dw, height: dw };
             },
-            calcMarkPosition: function(mark) {
+            calcMarkPosition: function (mark) {
                 var me = this;
-                var diff = (50 - Math.min(50, me.Width - 10)) / 2;
-                var y = (me.Width - Math.min(50, me.Width - 10)) / 2;
+                var y = me.Reverse ? 0 : (me.Width - Math.min(50, me.Width - 10));
+                var w = (1300 - 80) / 2;
+                var dist = w / 6;
+                var dw = Math.min(50, me.Width - 10);
                 if (me.LaneType === 'non-motorized' && mark.mark === 'non-motorized') {
-                    return mark.seq == 1 ? { x : 10 + diff, y : y } : { x : 1240 + diff, y : y };
+                    var dist_1 = (w - 120) / 6;
+                    var dist_2 = w / 6;
+                    var isBeforeText = me.calcText && me.calcText.text && me.Reverse;
+                    var isAfterText = me.calcText && me.calcText.text && !me.Reverse;
+                    var before = isBeforeText ? (dist_1 - dw) / 2 + 120 : (dist_2 - dw) / 2;
+                    var after = isAfterText ? (dist_1 - dw) / 2 + dw + 120 : (dist_2 - dw) / 2 + dw;
+                    return mark.seq == 1 ? { x : before, y : y } : { x : 1300 - after, y : y };
                 }
 
                 if ((mark.seq - 1) < 6) {
-                    return { x : 10 + diff + ((mark.seq - 1) * 60), y : y };
+                    var diff = me.calcText && me.calcText.text && me.Reverse ? 120 : 0;
+                    var penaltyWidth = !me.Reverse && me.isUpwardPenalty ? 80 : 0;
+                    w -= diff;
+                    w -= penaltyWidth;
+                    dist = w / 6;
+                    return { x : diff + (dist - dw) / 2 + ((mark.seq - 1) * dist), y : y };
                 }
-                return { x : 940 + diff + ((mark.seq - 7) * 60), y : y };
+                var diff = me.calcText && me.calcText.text && !me.Reverse ? 120 : 0;
+                var penaltyWidth = me.Reverse && me.isDownPenalty ? 80 : 0;
+                w -= diff;
+                w -= penaltyWidth;
+                dist = w / 6;
+                return { x : 690 + penaltyWidth + ((dist - 50) / 2) + ((mark.seq - 7) * dist), y : y };
             },
             calcLaneMarkVisible: function(seq) {
                 var me = this;
@@ -593,6 +628,15 @@
                     return !me.Lanemark.some(function(it, index) { return it.seq == seq });
                 }
                 return true;
+            },
+            calcSlowDist: function (i) {
+                var me = this;
+                var start = me.Reverse ? 0 : 1300 / 2 + 40;
+                start += me.calcText && me.calcText.text && me.Reverse ? 120 : 0;
+                var w = (1300 - 80) / 2;
+                w -= me.calcText && me.calcText.text ? 120 : 0;
+                var dw = w / 6;
+                return start + dw + ((i - 1) * 2) * dw;
             }
         }
     })
@@ -602,8 +646,8 @@
             "<g>",
                 "<image v-for='(flag, n) in getUpwardFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n, true)\" />",
                 "<image v-for='(flag, n) in getDownFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n, false)\" />",
-                "<text :x='X + 600' :y='Y - 30' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Upward.name }}</text>",
-                "<text :x='X + 600' :y='Y + RoadWidth + 30' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Down.name }}</text>",
+                "<text :x='X + 1300 / 2' :y='Y - 10' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Pedestrian.name }}</text>",
+                "<text :x='X + 1300 / 2' :y='Y + RoadWidth + 15' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Pedestrian.name }}</text>",
                 "<isolation ",
                     ":length='1300' ",
                     ":transform=\"'translate('+ X + ',' + Y +')'\" ",
@@ -649,6 +693,7 @@
                     ":lane-type='item.laneType' ",
                     ":has-boundary='item.hasBoundary' ",
                     ":park='item.park' ",
+                    ":park-total='item.parkTotal || 0' ",
                     ":bus='item.bus' ",
                     ":privileged='item.privileged' ",
                     ":text='item.text' ",
@@ -659,7 +704,7 @@
                     "@on-lane-slowline-click=\"$emit('on-road-slowline-click', arguments[0], arguments[1], true)\" ",
                     "@on-lane-park-click=\"$emit('on-road-lanepark-click', arguments[0], i, true)\" ",
                     "@on-lane-isolation-click=\"$emit('on-road-isolation-click', arguments[0], i, arguments[1], arguments[2], true)\" ",
-                "></lane>",
+                    "></lane>",
                 "<lane ",
                     "v-for='(item, i) in calcDownLane' ",
                     ":x='calcDownLanePosition(i).x' ",
@@ -672,6 +717,7 @@
                     ":lane-type='item.laneType' ",
                     ":has-boundary='item.hasBoundary' ",
                     ":park='item.park' ",
+                    ":park-total='item.parkTotal || 0' ",
                     ":bus='item.bus' ",
                     ":privileged='item.privileged' ",
                     ":text='item.text' ",
@@ -685,10 +731,10 @@
                     "></lane>",
                 "<use href='#penalty' :x='0' :y='0' :transform='calcUpwardPenaltyMatrix'  v-show='Upward && Upward.frame && Upward.frame.penalty && Upward.frame.penalty.isShow' @click.capture.stop=\"$emit('on-lane-penalty', true)\" />",
                 "<use href='#penalty' :x='0' :y='0' :transform='calcDownPenaltyMatrix'  v-show='Down && Down.frame && Down.frame.penalty && Down.frame.penalty.isShow' @click.capture.stop=\"$emit('on-lane-penalty', false)\" />",
-                "<rect :x='X - 5' :y='calcUpwardLanePosition(0).y' width='1310' v-show='editState.isUpward && editState.laneIndex == LaneIndex' :height='calcUpwardRoadWidth' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect :x='X - 5' :y='(1080 - RoadWidth) / 2' width='1310' :height='RoadWidth / 2' v-show='editState.isUpward && editState.laneIndex == LaneIndex' stroke='red' stroke-width='6' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
-                "<rect :x='X - 5' :y='calcDownLanePosition(0).y' width='1310' v-show='!editState.isUpward && editState.laneIndex == LaneIndex' :height='calcDownRoadWidth' stroke='red' stroke-width='3' fill='none' stroke-dasharray='10 10'>",
+                "<rect :x='X - 5' :y='1080 / 2' width='1310' :height='RoadWidth / 2' v-show='!editState.isUpward && editState.laneIndex == LaneIndex' stroke='red' stroke-width='6' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
                 "<pedestrians ",
@@ -701,7 +747,7 @@
                     ":is-show='true' ",
                     ":is-never='!Pedestrian.isShow' ",
                     ":height='RoadWidth' ",
-                    ":offset='{ x: X + 700, y: Y }' ",
+                    ":offset='{ x: X + 610, y: Y }' ",
                     "@on-pedestrian-stop-click=\"$emit('on-road-pedestrian-stop-click', $event, arguments[0])\" ",
                     "@on-pedestrian-click=\"$emit('on-road-pedestrian-click', $event)\" ",
                     "></pedestrians>",
@@ -713,6 +759,13 @@
     var RoadSection = Vue.extend({
         template: RoadSectionRender.apply(this),
         inject: ['editState'],
+        provide: function() {
+            var me = this;
+            return {
+                'isUpwardPenalty': me.Upward && me.Upward.frame && me.Upward.frame.penalty && me.Upward.frame.penalty.isShow,
+                'isDownPenalty' : me.Down && me.Down.frame && me.Down.frame.penalty && me.Down.frame.penalty.isShow
+            }
+        },
         props: {
             Upward : {
                 default: null,
@@ -917,11 +970,11 @@
                 var d = height.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) === -1 }).length
                 var h = c * 15 + d * me.calcUpwardLaneWidth;
 
-                var m1 = (Math.cos(0 * Math.PI / 180) * 0.5).toFixed(6);
+                var m1 = (Math.cos(0 * Math.PI / 180) * 0.2).toFixed(6);
                 var m2 = (Math.sin(0 * Math.PI / 180) * 1).toFixed(6);
                 var m3 = (-1 * (Math.sin(0 * Math.PI / 180) * 1)).toFixed(6);
                 var m4 = (Math.cos(0 * Math.PI / 180) * (h / 400)).toFixed(6);
-                return "matrix("+ m1 +","+ m2 +","+ m3 +","+ m4 +","+ (me.X + 480) +","+ (me.Y + w) +")";
+                return "matrix("+ m1 +","+ m2 +","+ m3 +","+ m4 +","+ (me.X + 530) +","+ (me.Y + w) +")";
             },
             //计算下行禁区大小
             calcDownPenaltyMatrix: function() {
@@ -964,11 +1017,11 @@
                     var d = height.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) === -1 }).length
                     var h = c * 15 + d * me.calcDownLaneWidth;
 
-                    var m1 = (Math.cos(180 * Math.PI / 180) * 0.5).toFixed(6);
+                    var m1 = (Math.cos(180 * Math.PI / 180) * 0.2).toFixed(6);
                     var m2 = (Math.sin(180 * Math.PI / 180) * 1).toFixed(6);
                     var m3 = (-1 * (Math.sin(180 * Math.PI / 180) * 1)).toFixed(6);
                     var m4 = (Math.cos(180 * Math.PI / 180) * (h / 400)).toFixed(6);
-                    return "matrix("+ m1 +","+ m2 +","+ m3 +","+ m4 +","+ (me.X + 480 + 200) +","+ (me.Y + me.RoadWidth - w) +")";
+                    return "matrix("+ m1 +","+ m2 +","+ m3 +","+ m4 +","+ (me.X + 770) +","+ (me.Y + me.RoadWidth - w) +")";
                 }
                 return "";
             },
@@ -1049,7 +1102,7 @@
             },
             calcFlagListPosition: function(it, i) {
                 var me = this;
-                var top = !!it.isUpward ? ((1080 - me.RoadWidth) / 2 - 130) - 90 * Math.floor(i / 10) - 60 : (1080 / 2 + me.RoadWidth / 2) + 90 * Math.floor(i / 10) + 60;
+                var top = !!it.isUpward ? ((1080 - me.RoadWidth) / 2 - 60) - 90 * Math.floor(i / 10) - 60 : (1080 / 2 + me.RoadWidth / 2) + 90 * Math.floor(i / 10) + 30;
                 var left = !!it.isUpward ? me.X + Math.floor(i % 10) * 130 : me.X + Math.floor(9 - i % 10) * 130;
                 return { x : left, y :  top  };
             }
@@ -1156,12 +1209,11 @@
                         "@on-road-separation-click=\"$parent.$emit('on-pavement-separation-click', arguments[0], n, arguments[1], arguments[2])\" ",
                         "@on-road-pedestrian-stop-click=\"$parent.$emit('on-pedestrian-stop-click', arguments[0], n, arguments[1], 'road')\" ",
                         "@on-road-pedestrian-click=\"$parent.$emit('on-pedestrian-click', arguments[0], n, 'road')\" ",
-                        ">",
-                    "</road-section>",
-                    "<text :x='(1920 / 2 - getPavementLength / 2) - 80' :y='1080 / 2 - RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold;' fill='rgb(214, 203, 10)'>上行</text>",
-                    "<text :x='(1920 / 2 - getPavementLength / 2) - 80' :y='1080 / 2 + RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold;' fill='rgb(214, 203, 10)'>下行</text>",
-                    "<text :x='(1920 / 2 + getPavementLength / 2) + 80' :y='1080 / 2 - RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold;' fill='rgb(214, 203, 10)'>上行</text>",
-                    "<text :x='(1920 / 2 + getPavementLength / 2) + 80' :y='1080 / 2 + RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold;' fill='rgb(214, 203, 10)'>下行</text>",
+                        "></road-section>",
+                    "<text :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 - RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:end; font-weight:bold;' fill='rgb(214, 203, 10)'>{{ getUpwardIntersectionBeforeText }}</text>",
+                    "<text :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 + RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:end; font-weight:bold;' fill='rgb(214, 203, 10)'>{{ getDownIntersectionBeforeText }}</text>",
+                    "<text :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 - RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:start; font-weight:bold;' fill='rgb(214, 203, 10)'>{{ getUpwardIntersectionAfterText }}</text>",
+                    "<text :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 + RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:start; font-weight:bold;' fill='rgb(214, 203, 10)'>{{ getDownIntersectionAfterText }}</text>",
                 "</g>",
             "</g>"
         ];
@@ -1200,6 +1252,22 @@
             getPedestrians: function() {
                 var me = this;
                 return me.Pedestrian.splice(0, me.Roads.length - 1);
+            },
+            getUpwardIntersectionBeforeText: function () {
+                var me = this;
+                return me.Roads && me.Roads[0].upward.name || "";
+            },
+            getUpwardIntersectionAfterText: function () {
+                var me = this;
+                return me.Roads && me.Roads[me.Roads.length - 1].upward.name || "";
+            },
+            getDownIntersectionBeforeText: function () {
+                var me = this;
+                return me.Roads && me.Roads[0].down.name || "";
+            },
+            getDownIntersectionAfterText: function () {
+                var me = this;
+                return me.Roads && me.Roads[me.Roads.length - 1].down.name || "";
             }
         },
         components: {
