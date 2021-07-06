@@ -86,8 +86,8 @@
         var template = [
             "<g :transform=\"'translate(' + Offset.x + ',' + Offset.y + ')'\"  :style=\"{ display: IsNever ? 'none' : 'block'}\" > ",
                 "<rect x='0' y='0' width='80' :height='Height' fill='#333' />",
-                "<text :x='30' :y='-70' text-anchor='middle' transform='rotate(90, 30 -70)' font-size='24' fill='rgb(214, 203, 10)' v-show='(IsShow && !IsNever) && !!Name'>{{ Name }}</text>",
-                "<text :x='30' :y='Height + 70' text-anchor='middle' :transform=\"'rotate(90, 30 '+ (Height + 70) +')'\" font-size='24' fill='rgb(214, 203, 10)' v-show='(IsShow && !IsNever) && !!Name'>{{ Name }}</text>",
+                "<text :x='30' :y='10' text-anchor='end' rotate='-90' transform='rotate(90, 30 10)' font-size='24' fill='rgb(214, 203, 10)' v-show='(IsShow && !IsNever) && !!UpwardName'>{{ UpwardName }}</text>",
+                "<text :x='30' :y='Height + 25' text-anchor='start' rotate='-90' :transform=\"'rotate(90, 30 '+ (Height + 25) +')'\" font-size='24' fill='rgb(214, 203, 10)' v-show='(IsShow && !IsNever) && !!DownName'>{{ DownName }}</text>",
                 "<line x1='1.5' x2='1.5' y1='0' :y2='Height' stroke='#fff' stroke-width='3' style='pointer-events:visibleStroke;' @click.capture.stop=\"$emit('on-pedestrian-stop-click', true)\" />",
                 "<line x1='78.5' x2='78.5' y1='0' :y2='Height' stroke='#fff' stroke-width='3' style='pointer-events:visibleStroke;' @click.capture.stop=\"$emit('on-pedestrian-stop-click', false)\" />",
                 "<line x1='40' x2='40' y1='0' :y2='Height' v-show='IsShow' stroke='#fff' stroke-width='50' stroke-dasharray='8,16' style='pointer-events:visibleStroke;' @click.capture.stop=\"$emit('on-pedestrian-click')\" />",
@@ -119,7 +119,11 @@
                 default: 0,
                 type: Number
             },
-            Name: {
+            UpwardName: {
+                default: '',
+                type: String
+            },
+            DownName: {
                 default: '',
                 type: String
             },
@@ -646,8 +650,8 @@
             "<g>",
                 "<image v-for='(flag, n) in getUpwardFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n, true)\" />",
                 "<image v-for='(flag, n) in getDownFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n, false)\" />",
-                "<text :x='X + 1300 / 2' :y='Y - 10' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Pedestrian.name }}</text>",
-                "<text :x='X + 1300 / 2' :y='Y + RoadWidth + 15' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Pedestrian.name }}</text>",
+                "<text :x='X + 1300 / 2' :y='Y - 10' font-size='24' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Pedestrian.name }}</text>",
+                "<text :x='X + 1300 / 2' :y='Y + RoadWidth + 15' font-size='24' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='rgb(214, 203, 10)'>{{ Pedestrian.name }}</text>",
                 "<isolation ",
                     ":length='1300' ",
                     ":transform=\"'translate('+ X + ',' + Y +')'\" ",
@@ -1178,7 +1182,8 @@
                     ":len='item.len' ",
                     ":width='item.width' ",
                     ":area='item.area' ",
-                    ":name='item.name' ",
+                    ":upward-name='getUpwardPedestriansName(n + 1, item)' ",
+                    ":down-name='getDownPedestriansName(n, item)' ",
                     ":is-show='item.isShow' ",
                     ":height='RoadWidth' ",
                     ":offset='{ x: getPavementPosition.x + (1380 * (n + 1) - 80), y: getPavementPosition.y }' ",
@@ -1278,13 +1283,39 @@
             getRoadSectionPosition: function(i) {
                 var me = this;
                 return { x : me.getPavementPosition.x + i * 1380, y : me.getPavementPosition.y };
+            },
+            getUpwardPedestriansName: function (i, item) {
+                var me = this;
+                var intersection = me.Roads && me.Roads[i] && me.Roads[i] || null;
+                if (intersection && intersection.pedestrian && intersection.pedestrian.name) {
+                    return intersection.pedestrian.name + " 到 " + item.name;
+                }
+
+                if (intersection && intersection.upward && intersection.upward.name) {
+                    return intersection.upward.name + " 到 " + item.name;
+                }
+
+                return item.name;
+            },
+            getDownPedestriansName: function (i, item) {
+                var me = this;
+                var intersection = me.Roads && me.Roads[i] && me.Roads[i] || null;
+                if (intersection && intersection.pedestrian && intersection.pedestrian.name) {
+                    return intersection.pedestrian.name + " 到 " + item.name;
+                }
+
+                if (intersection && intersection.down && intersection.down.name) {
+                    return intersection.down.name + " 到 " + item.name;
+                }
+
+                return item.name;
             }
         }
     })
 
     var render = function() {
         var template = [
-            "<svg xmlns='http://wwW.w3.org/2000/svg' class='ivsom-road' version='1.1' viewBox='0 0 1920 1080' preserveAspectRatio='none meet' style='width:100%; height:100%;  background-color: #111;' @mousedown.stop='onEnabledDrag' @mouseup.stop='onDragDrop' @mouseleave.stop='onDragDrop' @mousemove.stop='onDragMove' @mousewheel.prevent.stop='onScaleView'>",
+            "<svg ref='image' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ivsom-road' version='1.1' viewBox='0 0 1920 1080' preserveAspectRatio='none meet' style='width:100%; height:100%;  background-color: #111;' @mousedown.stop='onEnabledDrag' @mouseup.stop='onDragDrop' @mouseleave.stop='onDragDrop' @mousemove.stop='onDragMove' @mousewheel.prevent.stop='onScaleView'>",
                 "<pavement ",
                     ":pedestrian='Pedestrian' ",
                     ":roads='Roads' ",
@@ -1412,6 +1443,30 @@
                 var me = this;
                 me.editor.isUpward = isUpward;
                 me.editor.laneIndex = index;
+            },
+            toImage: function () {
+                var me = this;
+                return new Promise(function (resolve, reject) {
+                    var image = new Image();
+                    image.width = me.$refs.image.clientWidth;
+                    image.height = me.$refs.image.clientHeight;
+                    var canvas = document.createElement("canvas");
+                    var ctx = canvas.getContext("2d");
+                    try {
+                        image.onload = function () {
+                            canvas.width = me.$refs.image.clientWidth;
+                            canvas.height = me.$refs.image.clientHeight;
+                            ctx.drawImage(image, 0, 0);
+                            resolve(canvas.toDataURL());
+                        }
+                        image.onerror = function () {
+                            reject("");
+                        }
+                        image.src = 'data:image/svg+xml;base64,' + window.btoa(unescape(encodeURIComponent(me.$refs.image.outerHTML)));
+                    } catch (e) {
+                        reject("");
+                    }
+                })
             }
         }
     })
