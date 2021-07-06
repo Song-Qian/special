@@ -154,7 +154,6 @@
         var template = [
             "<g>",
                 "<line v-if='isSimpleLine' :x1='calcSimpleLinePosition.p1.x' :x2='calcSimpleLinePosition.p2.x' :y1='calcSimpleLinePosition.p1.y' :y2='calcSimpleLinePosition.p2.y' :stroke-dasharray=\"['dotted', 'y_dotted'].indexOf(Type) > -1 ? '45,45' : ''\" :stroke='calcLineColor' stroke-width='3' @click.capture.stop=\"$emit('on-simple-line-click', $event)\" />",
-                
                 "<line v-if='isDoubleLine' :x1='calcDoubleLinePosition.top.p1.x' :x2='calcDoubleLinePosition.top.p2.x' :y1='calcDoubleLinePosition.top.p1.y' :y2='calcDoubleLinePosition.top.p2.y' :stroke-dasharray='calcDoublieLineStrokeDasharray[0]' :stroke='calcDoubleLineStrokeColor[0]' :stroke-width='caclDoubleLineStrokeWidth[0]' @click.capture.stop=\"$emit('on-right-line-click', $event)\" />",
                 "<line v-if='isDoubleLine' :x1='calcDoubleLinePosition.bottom.p1.x' :x2='calcDoubleLinePosition.bottom.p2.x' :y1='calcDoubleLinePosition.bottom.p1.y' :y2='calcDoubleLinePosition.bottom.p2.y' :stroke-dasharray='calcDoublieLineStrokeDasharray[1]' :stroke='calcDoubleLineStrokeColor[1]' :stroke-width='caclDoubleLineStrokeWidth[1]' @click.capture.stop=\"$emit('on-left-line-click', $event)\" />",
 
@@ -446,7 +445,7 @@
                     "v-if='HasBoundary' ",
                     ":type='Type' ",
                     ":transform=\"calcIsolationPosition\" ",
-                    "length='1300' ",
+                    ":length='1300' ",
                     ":reverse='Reverse' ",
                     "@on-simple-line-click=\"$emit('on-lane-isolation-click', arguments[0], Type, 'none')\" ",
                     "@on-right-line-click=\"$emit('on-lane-isolation-click', arguments[0], Type, 'right')\" ",
