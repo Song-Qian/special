@@ -734,12 +734,6 @@
                     "></lane>",
                 "<use href='#penalty' :x='0' :y='0' :transform='calcUpwardPenaltyMatrix'  v-show='Upward && Upward.frame && Upward.frame.penalty && Upward.frame.penalty.isShow' @click.capture.stop=\"$emit('on-lane-penalty', true)\" />",
                 "<use href='#penalty' :x='0' :y='0' :transform='calcDownPenaltyMatrix'  v-show='Down && Down.frame && Down.frame.penalty && Down.frame.penalty.isShow' @click.capture.stop=\"$emit('on-lane-penalty', false)\" />",
-                "<rect :x='X - 5' :y='(1080 - RoadWidth) / 2' width='1310' :height='RoadWidth / 2' v-show='editState.isUpward && editState.laneIndex == LaneIndex' stroke='red' stroke-width='6' fill='none' stroke-dasharray='10 10'>",
-                    "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
-                "</rect>",
-                "<rect :x='X - 5' :y='1080 / 2' width='1310' :height='RoadWidth / 2' v-show='!editState.isUpward && editState.laneIndex == LaneIndex' stroke='red' stroke-width='6' fill='none' stroke-dasharray='10 10'>",
-                    "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
-                "</rect>",
                 "<pedestrians ",
                     ":id='Pedestrian.id' ",
                     ":x='Pedestrian.x' ",
@@ -754,6 +748,12 @@
                     "@on-pedestrian-stop-click=\"$emit('on-road-pedestrian-stop-click', $event, arguments[0])\" ",
                     "@on-pedestrian-click=\"$emit('on-road-pedestrian-click', $event)\" ",
                     "></pedestrians>",
+                "<rect :x='X - 5' :y='(1080 - RoadWidth) / 2' width='1310' :height='RoadWidth / 2' v-show='editState.isUpward && editState.laneIndex == LaneIndex' stroke='red' stroke-width='6' fill='none' stroke-dasharray='10 10'>",
+                    "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
+                "</rect>",
+                "<rect :x='X - 5' :y='1080 / 2' width='1310' :height='RoadWidth / 2' v-show='!editState.isUpward && editState.laneIndex == LaneIndex' stroke='red' stroke-width='6' fill='none' stroke-dasharray='10 10'>",
+                    "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
+                "</rect>",
             "</g>"
         ];
         return template.join('');
