@@ -3160,13 +3160,6 @@
             "Lane" : Lane
         },
         computed: {
-            calcRoadTopLaneWidth: function() {
-                var me = this;
-                if(me.RoadTop.Lane && me.RoadTop.Lane.length) {
-                    return me.RoadWidth / me.RoadTop.Lane.length;
-                }
-                return me.RoadWidth;
-            },
             calcRoadRightWidth: function() {
                 var me = this;
                 if(me.RoadRight.Lane && me.RoadRight.Lane.length) {
@@ -3331,7 +3324,7 @@
                 layout.left = topLane <= 2 ? ((1920 /2 + me.RoadWidth / 2) - 50 + layout.height) : 1920 / 2 + me.RoadWidth / 2 + (me.RoadWidth / topLane) + 1;
                 layout.top = rightLane <= 2 ? (1080 / 2 - me.RoadWidth / 2 + 50 - layout.width) : (1080 - me.RoadWidth) / 2 + (me.RoadWidth / rightLane) - layout.width - 1;
                 return layout;
-            },
+            }
         },
         methods: {
             crossTopMoveTo: function(n) {
@@ -3848,10 +3841,6 @@
                     return (a * i + me.Angle) % 360;
                 }
                 return 360;
-            },
-            onRoadPedestrianClick: function(e, no, isStay) {
-                //转盘路口行人斑马线的点击事件
-                this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
             },
             onRoadStopLineClick: function(e, no) {
                 //机动车停止线点击事件
