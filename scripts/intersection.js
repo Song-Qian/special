@@ -109,6 +109,9 @@
                 "<circle v-if=\"type === 'parterre' && hasSafeArea\" cx='50' cy='-80' r='42.5' fill='#0075c5' stroke='#fff' stroke-width='5' @click.capture.stop='onParterreSafeAreaClick' />",
                 "<rect v-if=\"type === 'parterre' && hasSafeArea\" x='7.5' y='-80' width='85' height='80' fill='#0075c5' stroke='#fff' stroke-width='5' @click.capture.stop='onParterreSafeAreaClick' />",
                 "<path v-if=\"type !== 'parterre' && type != 'y_solid_area' \" v-for='(item, i) in calcLaneMark' :d='item.path' fill='#fff' :stroke-width='item.highlight ? 3 : 0' :stroke=\"item.highlight ? '#ff0000' : '#333'\" @click.capture.stop='onLaneMarkClick($event, i)' />",
+                "<g v-for='(item, i) in calcLaneMark' :key='i'>",
+                    "<line v-if=\"['uturn', 'straight-uturn', 'left-uturn'].indexOf(item.mark) > -1\" :x1='!reverse && markright ? 0 : 100' :x2='!reverse && markright ? 1 : 100' :y1='180 + i * 260' :y2='180 + i * 260 - 100' stroke='#333' :stroke-width=\"['y_double_solid', 'y_double_dashed'].indexOf(type) > -1 ? 7 : 4\" :transform=\"['y_double_solid', 'y_double_dashed'].indexOf(type) > -1 ? 'translate(3, 0)' : 'translate(2, 0)'\" stroke-dasharray='10,10' style='pointer-events:none;' />",
+                "</g>",
             "</g>"
         ]
         return template.join("");
@@ -191,7 +194,7 @@
                         var mark = me.landmark[item].mark;
 						var highlight = me.landmark[item].highlight;
                         if (seq < 0 || seq > 2 || !mark) continue;
-                        landmarks.push({ path: landpath[seq][mark], highlight: highlight })
+                        landmarks.push({ path: landpath[seq][mark], seq : seq, mark: mark, highlight: highlight })
                     }
                     return landmarks;
                 }

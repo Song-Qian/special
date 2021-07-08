@@ -153,12 +153,12 @@
     var IsolationRender = function(){
         var template = [
             "<g>",
-                "<line v-if='isSimpleLine' :x1='calcSimpleLinePosition.p1.x' :x2='calcSimpleLinePosition.p2.x' :y1='calcSimpleLinePosition.p1.y' :y2='calcSimpleLinePosition.p2.y' :stroke-dasharray=\"['dotted', 'y_dotted'].indexOf(Type) > -1 ? '45,45' : ''\" :stroke='calcLineColor' stroke-width='3' @click.capture.stop=\"$emit('on-simple-line-click', $event)\" />",
+                "<line v-if='isSimpleLine' :x1='calcSimpleLinePosition.p1.x' :x2='calcSimpleLinePosition.p2.x' :y1='calcSimpleLinePosition.p1.y' :y2='calcSimpleLinePosition.p2.y' :stroke-dasharray=\"['dotted', 'y_dotted'].indexOf(Type) > -1 ? '20,20' : ''\" :stroke='calcLineColor' stroke-width='3' @click.capture.stop=\"$emit('on-simple-line-click', $event)\" />",
                 "<line v-if='isDoubleLine' :x1='calcDoubleLinePosition.top.p1.x' :x2='calcDoubleLinePosition.top.p2.x' :y1='calcDoubleLinePosition.top.p1.y' :y2='calcDoubleLinePosition.top.p2.y' :stroke-dasharray='calcDoublieLineStrokeDasharray[0]' :stroke='calcDoubleLineStrokeColor[0]' :stroke-width='caclDoubleLineStrokeWidth[0]' @click.capture.stop=\"$emit('on-right-line-click', $event)\" />",
                 "<line v-if='isDoubleLine' :x1='calcDoubleLinePosition.bottom.p1.x' :x2='calcDoubleLinePosition.bottom.p2.x' :y1='calcDoubleLinePosition.bottom.p1.y' :y2='calcDoubleLinePosition.bottom.p2.y' :stroke-dasharray='calcDoublieLineStrokeDasharray[1]' :stroke='calcDoubleLineStrokeColor[1]' :stroke-width='caclDoubleLineStrokeWidth[1]' @click.capture.stop=\"$emit('on-left-line-click', $event)\" />",
 
                 "<g v-if='isBarrier' @click.capture.stop=\"$emit('on-barrier-click', $event)\">",
-                    "<line v-if=\"['barrier_dashed', 'y_barrier_dashed'].indexOf(Type) > -1\" x1='0' :x2='Length' :y1='Reverse ? 14 : 1' :y2='Reverse ? 14 : 1' :stroke='calcBarrierColor[0]' :stroke-dasharray=\"['barrier_dashed', 'y_barrier_dashed'].indexOf(Type) > -1 ? '45,45' : ''\" stroke-width='3' />",
+                    "<line v-if=\"['barrier_dashed', 'y_barrier_dashed'].indexOf(Type) > -1\" x1='0' :x2='Length' :y1='Reverse ? 14 : 1' :y2='Reverse ? 14 : 1' :stroke='calcBarrierColor[0]' :stroke-dasharray=\"['barrier_dashed', 'y_barrier_dashed'].indexOf(Type) > -1 ? '20,20' : ''\" stroke-width='3' />",
                     "<line x1='0' :x2='Length' :y1='Reverse ? 5 : 10' :y2='Reverse ? 5 : 10' stroke='#fff' stroke-width='10' />",
                     "<line x1='0' :x2='Length' :y1='Reverse ? 5 : 10' :y2='Reverse ? 5 : 10' stroke='#333' :stroke-dasharray='calcBarrierDasharray[0]'  stroke-width='8' />",
                     "<line x1='0' :x2='Length' :y1='Reverse ? 5 : 10' :y2='Reverse ? 5 : 10' stroke='#333' :stroke-dasharray='calcBarrierDasharray[1]'  stroke-width='6' />",
@@ -276,15 +276,15 @@
                 var me = this;
                 var dasharray = { 
                     'y_double_solid' : ['', ''], 
-                    'y_double_dashed': ['45,45', ''], 
-                    'y_w_dashed' : ['45,45', ''], 
-                    'y_w_dotted' : ['', '45,45'], 
+                    'y_double_dashed': ['20,20', ''], 
+                    'y_w_dashed' : ['20,20', ''], 
+                    'y_w_dotted' : ['', '20,20'], 
                     'y_w_double_solid' : ['', ''], 
-                    'y_w_double_dashed' : ['45,45', '45,45'], 
-                    'w_y_dashed': ['45,45', ''], 
-                    'w_y_dotted' : ['', '45,45'], 
+                    'y_w_double_dashed' : ['20,20', '20,20'], 
+                    'w_y_dashed': ['20,20', ''], 
+                    'w_y_dotted' : ['', '20,20'], 
                     'w_y_double_solid' : ['', ''], 
-                    'w_y_double_dashed' : ['45,45', '45,45'] 
+                    'w_y_double_dashed' : ['20,20', '20,20'] 
                 };
                 if (me.isDoubleLine && me.Reverse) {
                     return dasharray[me.Type].reverse();
@@ -433,9 +433,9 @@
 					"<lane-mark v-for='(item, i) in calcLaneMark' :x='calcMarkPosition(item).x' :y='calcMarkPosition(item).y' :id='item.id' :mark='item.mark' :seq='item.seq' :area='Math.min(50, Width - 10)' :reverse='Reverse' @on-lanemark-click=\"$emit('on-lane-mark-click', arguments[0], i)\"></lane-mark>",
                     "<rect v-for='i in calcParkTotal' :x='Reverse ? ((i - 1) * 20) : 1300 - (i * 20)' :y='Reverse ? Width - 10 : 0' width='20' height='10' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' @click.capture.stop=\"$emit('on-lane-park-click', $event)\" />",
                     "<text v-if='!!calcText' :x='calcText.x' :y='calcText.y' :fill=\"Bus ? '#D6CB0A' : '#fff'\" :rotate='Reverse ? 90 : -90' :transform=\"Reverse ? 'translate(5, 0)' : 'translate(25, 10)'\"  :text-anchor=\"Reverse ? 'start' : 'end'\" textLength='120' style='font-family: Times New Roman;font-size: 30px;'>{{ calcText.text }}</text>",
-                    "<line v-if=\"!!calcText && Bus\" :x1='calcText.x' :x2='Reverse ? calcText.x + 120 : calcText.x - 120' :y1='Reverse ? 5 : Math.max(0, Math.max(10, Width - 50))' :y2='Reverse ? 5 : Math.max(0, Math.max(10, Width - 50))' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
-                    "<line v-if=\"!!calcText && Bus\" :x1='calcText.x' :x2='Reverse ? calcText.x + 120 : calcText.x - 120' :y1='Reverse ? Math.min(50, Width - 10) : Width - 5' :y2='Reverse ? Math.min(50, Width - 10) : Width - 5' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
-                    "<g v-if=\"LaneType !== 'non-motorized' && ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(Type) === -1 && Slow && Slow.isShow\" transform='translate(-4, 0)' v-for='i in Slow.total' :key='i'>",
+                    "<line v-if=\"!!calcText && Bus\" :x1='calcText.x' :x2='Reverse ? calcText.x + 120 : calcText.x - 120' :y1='Reverse ? 15 : Math.max(0, Math.max(10, Width - 55))' :y2='Reverse ? 15 : Math.max(0, Math.max(10, Width - 55))' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
+                    "<line v-if=\"!!calcText && Bus\" :x1='calcText.x' :x2='Reverse ? calcText.x + 120 : calcText.x - 120' :y1='Reverse ? Math.min(55, Width - 10) : Width - 15' :y2='Reverse ? Math.min(55, Width - 10) : Width - 15' stroke-dasharray='10,5' stroke='#D6CB0A' stroke-width='3' fill='#D6CB0A' />",
+                    "<g v-for='i in calcLaneSlow.total' :key='i'>",
                         "<line :x1='calcSlowDist(i)' :x2='calcSlowDist(i)' y1='0' :y2='Width' stroke='#fff' stroke-width='2' @click.capture.stop=\"$emit('on-lane-slowline-click', $event, i - 1)\" />",
                         "<line :x1='calcSlowDist(i) + 4' :x2='calcSlowDist(i) + 4' y1='0' :y2='Width' stroke='#fff' stroke-width='2' @click.capture.stop=\"$emit('on-lane-slowline-click', $event, i - 1)\" />",
                         "<line :x1='calcSlowDist(i) + 8' :x2='calcSlowDist(i) + 8' y1='0' :y2='Width' stroke='#fff' stroke-width='2' @click.capture.stop=\"$emit('on-lane-slowline-click', $event, i - 1)\" />",
@@ -453,6 +453,7 @@
                     "@on-barrier-click=\"$emit('on-lane-isolation-click', arguments[0], Type, 'none')\" ",
                     "@on-parterre-click=\"$emit('on-lane-isolation-click', arguments[0], Type, 'none')\" ",
                     "></isolation>",
+                "<line v-for='(item, i) in calcLaneMark' v-show=\"['uturn', 'straight-uturn', 'left-uturn'].indexOf(item.mark) > -1 && ['solid', 'y_solid', 'y_double_solid', 'y_w_double_solid', 'w_y_double_solid', 'parterre', 'y_parterre_solid'].indexOf(Type) > -1\" :x1='calcMarkPosition(item).x' :x2='calcMarkPosition(item).x + Math.min(50, Width - 10)' :y1='!Reverse ? Width : 0' :y2='!Reverse ? Width : 0' stroke-dasharray='5,5' stroke='#333' :stroke-width='calcUturnGap.width' :transform='calcUturnGap.transform' />",
             "</g>"
         ];
         return template.join("");
@@ -551,16 +552,32 @@
                 if (!!me.Text || me.Bus) {
                     var x = me.Reverse ? 0 : 1300;
                     var y = me.Width / 2;
-                    return { x: x, y: me.Reverse ? 10 : y + 13, text: me.Bus ? "公交车站".split('').reverse().join('') : me.Text.substr(0, 8).split('').reverse().join('') }
+                    return { x: x, y: me.Reverse ? 20 : y + 3, text: me.Bus ? "公交车站".split('').reverse().join('') : me.Text.substr(0, 8).split('').reverse().join('') }
                 }
                 return null;
+            },
+            calcUturnGap: function () {
+                var me = this;
+                if (['y_double_solid', 'w_y_double_solid', 'y_w_double_solid'].indexOf(me.Type) > -1) {
+                    return { width: 13, transform: !me.Reverse ? 'translate(0, -5)' : 'translate(0, 5)' }
+                }
+                return { width: 5, transform: !me.Reverse ? 'translate(0, -1)' : 'translate(0, 1)' }
             },
             calcLaneMark: function () {
                 var me = this;
                 if (me.LaneType === 'non-motorized') {
-                    return me.Lanemark.filter(function (it, n) { return it.mark === 'non-motorized' }).slice(0, 2);
+                    return me.Lanemark && me.Lanemark.filter(function (it, n) { return it.mark === 'non-motorized' }).slice(0, 2) || [];
                 }
                 return me.Lanemark;
+            },
+            calcLaneSlow: function () {
+                var me = this;
+                if (me.LaneType !== 'non-motorized' && ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(me.Type) === -1 && me.Slow && me.Slow.isShow) {
+                    me.Slow.total = me.Slow.total || 0;
+                    return me.Slow;
+                }
+                me.Slow = { id: me.Slow && me.Slow.id || '', isShow: false, total: 0 };
+                return me.Slow;
             }
         },
         components: {
@@ -596,7 +613,7 @@
             },
             calcMarkPosition: function (mark) {
                 var me = this;
-                var y = me.Reverse ? 0 : (me.Width - Math.min(50, me.Width - 10));
+                var y = me.Reverse ? 10 : (me.Width - Math.min(60, me.Width - 10));
                 var w = (1300 - 80) / 2;
                 var dist = w / 6;
                 var dw = Math.min(50, me.Width - 10);
@@ -801,7 +818,7 @@
             LaneIndex: {
                 default: 0,
                 type: Number
-            },
+            }
         },
         computed : {
             //是否单向道
@@ -845,9 +862,9 @@
             //上行车道边界线
             calcUpwardIsolation: function() {
                 var me = this;
-                var type = me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.type;
-                var isShow = me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow;
-                var isLine = me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow;
+                var type = me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.type;
+                var isShow = me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow;
+                var isLine = me.Upward && me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow;
                 if (type === 'prohibit' && isLine && isShow) {
                     return 'y_w_double_solid'
                 }
@@ -1255,23 +1272,23 @@
             },
             getPedestrians: function() {
                 var me = this;
-                return me.Pedestrian.splice(0, me.Roads.length - 1);
+                return me.Pedestrian && me.Pedestrian.splice(0, me.Roads.length - 1) || [];
             },
             getUpwardIntersectionBeforeText: function () {
                 var me = this;
-                return me.Roads && me.Roads[0].upward.name || "";
+                return me.Roads && me.Roads[0].upward && me.Roads[0].upward.name || "";
             },
             getUpwardIntersectionAfterText: function () {
                 var me = this;
-                return me.Roads && me.Roads[me.Roads.length - 1].upward.name || "";
+                return me.Roads && me.Roads[me.Roads.length - 1].upward && me.Roads[me.Roads.length - 1].upward.name || "";
             },
             getDownIntersectionBeforeText: function () {
                 var me = this;
-                return me.Roads && me.Roads[0].down.name || "";
+                return me.Roads && me.Roads[0].down && me.Roads[0].down.name || "";
             },
             getDownIntersectionAfterText: function () {
                 var me = this;
-                return me.Roads && me.Roads[me.Roads.length - 1].down.name || "";
+                return me.Roads && me.Roads[me.Roads.length - 1].down && me.Roads[me.Roads.length - 1].down.name || "";
             }
         },
         components: {
@@ -1316,9 +1333,9 @@
         var template = [
             "<svg ref='image' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ivsom-road' version='1.1' viewBox='0 0 1920 1080' preserveAspectRatio='none meet' style='width:100%; height:100%;  background-color: #111;' @mousedown.stop='onEnabledDrag' @mouseup.stop='onDragDrop' @mouseleave.stop='onDragDrop' @mousemove.stop='onDragMove' @mousewheel.prevent.stop='onScaleView'>",
                 "<pavement ",
-                    ":pedestrian='Pedestrian' ",
-                    ":roads='Roads' ",
-                    ":road-width='RoadWidth' ",
+                    ":pedestrian='Pedestrian || []' ",
+                    ":roads='Roads || []' ",
+                    ":road-width='RoadWidth || 600' ",
                     ":style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ",
                     "></pavement>",
                 "<g>",
@@ -1363,7 +1380,8 @@
                 type: Number
             },
             RoadWidth : {
-                default: 600
+                default: 600,
+                type: Number
             }
         },
         data: function() {
