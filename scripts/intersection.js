@@ -106,8 +106,8 @@
                 "<rect v-if=\"type === 'parterre'\" x='5' y='0' width='90' height='499999.5' fill='#359f40' @click.capture.stop='onParterreClick' />",
                 "<line v-if=\"type === 'parterre'\" x1='25' x2='25' y1='0' y2='499999.5' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onParterreLineClick($event, true)' />",
                 "<line v-if=\"type === 'parterre'\" x1='75' x2='75' y1='0' y2='499999.5' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onParterreLineClick($event, false)'/>",
-                "<circle v-if=\"type === 'parterre' && hasSafeArea\" cx='50' cy='-80' r='42.5' fill='#0075c5' stroke='#fff' stroke-width='5' @click.capture.stop='onParterreSafeAreaClick' />",
-                "<rect v-if=\"type === 'parterre' && hasSafeArea\" x='7.5' y='-80' width='85' height='80' fill='#0075c5' stroke='#fff' stroke-width='5' @click.capture.stop='onParterreSafeAreaClick' />",
+                "<circle v-if=\"['parterre', 'y_solid_area'].indexOf(type) > -1 && hasSafeArea\" cx='50' cy='-80' r='42.5' fill='#0075c5' stroke='#fff' stroke-width='5' @click.capture.stop='onParterreSafeAreaClick' />",
+                "<rect v-if=\"['parterre', 'y_solid_area'].indexOf(type) > -1 && hasSafeArea\" x='7.5' y='-80' width='85' height='80' fill='#0075c5' stroke='#fff' stroke-width='5' @click.capture.stop='onParterreSafeAreaClick' />",
                 "<path v-if=\"type !== 'parterre' && type != 'y_solid_area' \" v-for='(item, i) in calcLaneMark' :d='item.path' fill='#fff' :stroke-width='item.highlight ? 3 : 0' :stroke=\"item.highlight ? '#ff0000' : '#333'\" @click.capture.stop='onLaneMarkClick($event, i)' />",
                 "<g v-for='(item, i) in calcLaneMark' :key='i'>",
                     "<line v-if=\"['uturn', 'straight-uturn', 'left-uturn'].indexOf(item.mark) > -1\" :x1='!reverse && markright ? 0 : 100' :x2='!reverse && markright ? 1 : 100' :y1='180 + i * 260' :y2='180 + i * 260 - 100' stroke='#333' :stroke-width=\"['y_double_solid', 'y_double_dashed'].indexOf(type) > -1 ? 7 : 4\" :transform=\"['y_double_solid', 'y_double_dashed'].indexOf(type) > -1 ? 'translate(3, 0)' : 'translate(2, 0)'\" stroke-dasharray='10,10' style='pointer-events:none;' />",
@@ -348,6 +348,17 @@
                     "<path :d='calcRoadLeftBottomBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='5' />",
                 "</g>",
                 "<g>",
+                    //机动车斑马线
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 40' :y2='(1080 - RoadWidth) / 2 - 40' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2' :y2='(1080 - RoadWidth) / 2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2 + 40' :x2='1920 / 2 + RoadWidth / 2 + 40' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2' :x2='1920 / 2 + RoadWidth / 2' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 40' :y2='1080 / 2 + RoadWidth / 2 + 40 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2' :y2='1080 / 2 + RoadWidth / 2 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2 - 40' :x2='(1920 - RoadWidth) / 2 - 40' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2' :x2='(1920 - RoadWidth) / 2' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
+                "</g>",
+                "<g>",
                     //行人斑马线
                     "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 20' :y2='(1080 - RoadWidth) / 2 - 20' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
                     "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
@@ -541,6 +552,8 @@
                         has: { default: true, type: Boolean }
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -573,6 +586,8 @@
                         has: { default: true, type: Boolean }
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -605,6 +620,8 @@
                         has: { default: true, type: Boolean }
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -637,6 +654,8 @@
                         has: { default: true, type: Boolean }
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -1211,6 +1230,10 @@
                 //十字路口公路边界线的点击事件
                 this.$parent.$emit('cross-road-boundary-click', e, no, isRight ? 'right' : 'left');
             },
+            onRoadNonMotorPedestrianClick: function (e, no) {
+                //路口机动车斑马线点击事件
+                this.$parent.$emit('cross-road-motor-click', e, no);
+            },
             onRoadPedestrianClick: function (e, no, isStay) {
                 //十字路口行人斑马线的点击事件
                 this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
@@ -1375,6 +1398,15 @@
                     "<path :d='calcRightRoadBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='5' transform='translate(1.732050807568877, 1.732050807568877)' />",
                 "</g>",
                 "<g>",
+                    //机动车斑马线
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='calcLeftNonMotorPedestrian.p1.x' :x2='calcLeftNonMotorPedestrian.p2.x' :y1='calcLeftNonMotorPedestrian.p1.y' :y2='calcLeftNonMotorPedestrian.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='calcLeftNonMotorPedestrian.p3.x' :x2='calcLeftNonMotorPedestrian.p4.x' :y1='calcLeftNonMotorPedestrian.p3.y' :y2='calcLeftNonMotorPedestrian.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='calcRightNonMotorPedestrian.p1.x' :x2='calcRightNonMotorPedestrian.p2.x' :y1='calcRightNonMotorPedestrian.p1.y' :y2='calcRightNonMotorPedestrian.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='calcRightNonMotorPedestrian.p3.x' :x2='calcRightNonMotorPedestrian.p4.x' :y1='calcRightNonMotorPedestrian.p3.y' :y2='calcRightNonMotorPedestrian.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcBottomNonMotorPedestrian.p1.x' :x2='calcBottomNonMotorPedestrian.p2.x' :y1='calcBottomNonMotorPedestrian.p1.y' :y2='calcBottomNonMotorPedestrian.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcBottomNonMotorPedestrian.p3.x' :x2='calcBottomNonMotorPedestrian.p4.x' :y1='calcBottomNonMotorPedestrian.p3.y' :y2='calcBottomNonMotorPedestrian.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                "</g>",
+                "<g>",
                     //行人斑马线
                     "<line v-show='RoadLeft.pedestrian' :x1='calcLeftPedestrian.p1.x' :x2='calcLeftPedestrian.p2.x' :y1='calcLeftPedestrian.p1.y' :y2='calcLeftPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
                     "<line v-show='RoadRight.pedestrian' :x1='calcRightPedestrian.p1.x' :x2='calcRightPedestrian.p2.x' :y1='calcRightPedestrian.p1.y' :y2='calcRightPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
@@ -1531,6 +1563,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -1563,6 +1597,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -1595,6 +1631,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -1951,6 +1989,62 @@
                     .replace(/(\$\{c2x\})/g, c2.x).replace(/(\$\{c2y\})/g, c2.y).replace(/(\$\{d1x\})/g, d1.x).replace(/(\$\{d1y\})/g, d1.y)
                     .replace(/(\$\{d2x\})/g, d2.x).replace(/(\$\{d2y\})/g, d2.y);
             },
+            //计算Y字路口机动车斑马线长度
+            calcLeftNonMotorPedestrian: function() {
+                var me = this;
+                var v1 = me.getLeftIntersection;
+                var v2 = me.getTopIntersection;
+                var lw = !me.RoadLeft.stayArea ? 0 : me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
+                var rw = !me.RoadRight.stayArea ? 0 : me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
+                // var bw = !me.RoadBottom.stayArea && !me.RoadLeft.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 60, -150);
+                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 60, -150);
+                var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, lw, -60);
+                var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, rw, 120);
+                
+                var r3 = utils.calcRadiusAnyPoint(v1.x, v1.y, 20, -150);
+                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, 20, -150);
+                var p3 = utils.calcRadiusAnyPoint(r3.x, r3.y, lw, -60);
+                var p4 = utils.calcRadiusAnyPoint(r4.x, r4.y, rw, 120);
+                return { p1 : p1, p2 : p2, p3 : p3, p4 : p4 };
+            },
+            //计算Y字路口机动车斑马线长度
+            calcRightNonMotorPedestrian: function() {
+                var me = this;
+                var v1 = me.getTopIntersection;
+                var v2 = me.getRightIntersection;
+                var rw = !me.RoadRight.stayArea ? 0 : me.RoadRight.Lane && me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
+                var bw = !me.RoadBottom.stayArea ? 0 : me.RoadRight.Lane && me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 60, -30);
+                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 60, -30);
+                var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, rw, 60);
+                var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, bw, -120);
+                
+                var r3 = utils.calcRadiusAnyPoint(v1.x, v1.y, 20, -30);
+                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, 20, -30);
+                var p3 = utils.calcRadiusAnyPoint(r3.x, r3.y, rw, 60);
+                var p4 = utils.calcRadiusAnyPoint(r4.x, r4.y, bw, -120);
+                return { p1 : p1, p2 : p2, p3 : p3, p4 : p4 };
+            },
+            //计算Y字路口下侧机动车斑马线长度
+            calcBottomNonMotorPedestrian: function() {
+                var me = this;
+                var v1 = me.getRightIntersection;
+                var v2 = me.getLeftIntersection;
+                var bw = !me.RoadBottom.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
+                var lw = !me.RoadLeft.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
+                var rw = !me.RoadRight.stayArea && !me.RoadBottom.stayArea ? 0 : me.RoadRight.Lane &&me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 60, 90);
+                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 60, 90);
+                var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, bw, 180);
+                var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, lw, 0);
+                
+                var r3 = utils.calcRadiusAnyPoint(v1.x, v1.y, 20, 90);
+                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, 20, 90);
+                var p3 = utils.calcRadiusAnyPoint(r3.x, r3.y, bw, 180);
+                var p4 = utils.calcRadiusAnyPoint(r4.x, r4.y, lw, 0);
+                return { p1 : p1, p2 : p2, p3 : p3, p4 : p4 };
+            },
             //计算Y字路口左侧行人斑马线长度
             calcLeftPedestrian: function() {
                 var me = this;
@@ -2105,6 +2199,10 @@
                 var d = utils.calcRadiusAnyPoint(v.x, v.y, 80, 90);
                 var width = me.calcRoadBottomLaneWidth;
                 return utils.calcRadiusAnyPoint(d.x, d.y, (n + 1) * width, 180);
+            },
+            onRoadNonMotorPedestrianClick: function (e, no) {
+                //路口机动车斑马线点击事件
+                this.$parent.$emit('cross-road-motor-click', e, no);
             },
             onRoadPedestrianClick: function(e, no, isStay) {
                 //十字路口行人斑马线的点击事件
@@ -2263,6 +2361,15 @@
                     "<path :d='calcRoadBottomBoundary.outRight' fill='none' stroke='#8e8e8e' stroke-width='5' />",
                 "</g>",
                 "<g>",
+                    //机动车斑马线
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2 - 40' :x2='(1920 - RoadWidth) / 2 - 40' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2' :x2='(1920 - RoadWidth) / 2' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2 + 40' :x2='1920 / 2 + RoadWidth / 2 + 40' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2' :x2='1920 / 2 + RoadWidth / 2' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 40' :y2='1080 / 2 + RoadWidth / 2 + 40 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2' :y2='1080 / 2 + RoadWidth / 2 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                "</g>",
+                "<g>",
                     //行人斑马线
                     "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 - 20' :x2='(1920 - RoadWidth) / 2 - 20' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
                     "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
@@ -2415,6 +2522,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -2447,6 +2556,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -2479,6 +2590,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -2822,6 +2935,10 @@
                 var width = me.calcRoadBottomLaneWidth;
                 return { x : v.x - ((n + 1) * width), y: v.y + 60 }
             },
+            onRoadNonMotorPedestrianClick: function (e, no) {
+                //路口机动车斑马线点击事件
+                this.$parent.$emit('cross-road-motor-click', e, no);
+            },
             onRoadPedestrianClick: function(e, no, isStay) {
                 //十字路口行人斑马线的点击事件
                 this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
@@ -2978,6 +3095,13 @@
                     "<path :d='calcRoadRightBottomBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='5' />",
                 "</g>",
                 "<g>",
+                    //机动车斑马线
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 40' :y2='(1080 - RoadWidth) / 2 - 40' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2' :y2='(1080 - RoadWidth) / 2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2 + 40' :x2='1920 / 2 + RoadWidth / 2 + 40' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2' :x2='1920 / 2 + RoadWidth / 2' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                "</g>",
+                "<g>",
                     //行人斑马线
                     "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 20' :y2='(1080 - RoadWidth) / 2 - 20' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
                     "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
@@ -3091,6 +3215,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -3123,6 +3249,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -3341,6 +3469,10 @@
                 var width = me.calcRoadRightWidth;
                 return { x : left, y : (n + 1) * width + top };
             },
+            onRoadNonMotorPedestrianClick: function (e, no) {
+                //路口机动车斑马线点击事件
+                this.$parent.$emit('cross-road-motor-click', e, no);
+            },
             onRoadPedestrianClick: function(e, no, isStay) {
                 //L字路口行人斑马线的点击事件
                 this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
@@ -3508,6 +3640,9 @@
                     "</g>",
                 "</g>",
                 "<g v-for='(item, i) in getRoadMap' :key='i'>",
+                    //机动车斑马线
+                    "<line v-show='item.nonMotorPedestrian' :x1='handlerNonMotorPedestrian(i).p1.x' :x2='handlerNonMotorPedestrian(i).p2.x' :y1='handlerNonMotorPedestrian(i).p1.y' :y2='handlerNonMotorPedestrian(i).p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, i)' />",
+                    "<line v-show='item.nonMotorPedestrian' :x1='handlerNonMotorPedestrian(i).p3.x' :x2='handlerNonMotorPedestrian(i).p4.x' :y1='handlerNonMotorPedestrian(i).p3.y' :y2='handlerNonMotorPedestrian(i).p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, i)' />",
                     //行人斑马线
                     "<line v-show='item.pedestrian' :x1='handlerPedestrian(i).p1.x' :x2='handlerPedestrian(i).p2.x' :y1='handlerPedestrian(i).p1.y' :y2='handlerPedestrian(i).p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, i, false)' />",
                     //机动车停止线
@@ -3695,6 +3830,24 @@
                     return Number((me.RoadWidth / me.getRoadMap[i].Lane.length).toFixed(5));
                 }
                 return me.RoadWidth;
+            },
+            handlerNonMotorPedestrian: function (i) {
+                var me = this;
+                var next = i + 1 >= me.getRoadMap.length ? 0 : i + 1;
+                var before = !me.getRoadMap[i].stayArea ? 0 : me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length <= 2 ? 50 : me.handlerRoadWidth(i);
+                var after = !me.getRoadMap[next].stayArea ? 0 : me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length <= 2 ? 50 : me.handlerRoadWidth(i);
+
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + (i * (360 / count));
+                var r = me.calcCircumscribeRadius;
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r, a);
+                var v1 = utils.calcRadiusAnyPoint(c.x, c.y, r + 40, a);
+                var p1 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - before, a - 90);
+                var p2 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - after, a + 90);
+                var p3 = utils.calcRadiusAnyPoint(v1.x, v1.y, me.RoadWidth / 2 - before, a - 90);
+                var p4 = utils.calcRadiusAnyPoint(v1.x, v1.y, me.RoadWidth / 2 - after, a + 90);
+                return { p1: p1, p2: p2, p3 : p3, p4 : p4 };
             },
             handlerPedestrian: function (i) {
                 var me = this;
@@ -3908,6 +4061,10 @@
                 //O字路口公路边界线的点击事件
                 this.$parent.$emit('cross-road-boundary-click', e, no, isRight ? 'right' : 'left');
             },
+            onRoadNonMotorPedestrianClick: function (e, no) {
+                //路口机动车斑马线点击事件
+                this.$parent.$emit('cross-road-motor-click', e, no);
+            },
             onRoadPedestrianClick: function(e, no, isStay) {
                 //O字路口行人斑马线的点击事件
                 this.$parent.$emit('cross-road-pedestrian-click', e, no, isStay);
@@ -3959,6 +4116,17 @@
                     "<path :d='calcLeftRoadBoudary.outLeft' fill='none' stroke='#8e8e8e' stroke-width='5' />",
                     "<path :d='calcBottomRoadBoudary.outRight' fill='none' stroke='#8e8e8e' stroke-width='5' />",
                     "<circle :cx='getCenterIntersection.x' :cy='getCenterIntersection.y' r='15' fill='#fff' />",
+                "</g>",
+                "<g>",
+                    //机动车斑马线
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.top.p1.x' :x2='calcNonMotorPedestrianLength.top.p2.x' :y1='calcNonMotorPedestrianLength.top.p1.y' :y2='calcNonMotorPedestrianLength.top.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.top.p3.x' :x2='calcNonMotorPedestrianLength.top.p4.x' :y1='calcNonMotorPedestrianLength.top.p3.y' :y2='calcNonMotorPedestrianLength.top.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.right.p1.x' :x2='calcNonMotorPedestrianLength.right.p2.x' :y1='calcNonMotorPedestrianLength.right.p1.y' :y2='calcNonMotorPedestrianLength.right.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.right.p3.x' :x2='calcNonMotorPedestrianLength.right.p4.x' :y1='calcNonMotorPedestrianLength.right.p3.y' :y2='calcNonMotorPedestrianLength.right.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.left.p1.x' :x2='calcNonMotorPedestrianLength.left.p2.x' :y1='calcNonMotorPedestrianLength.left.p1.y' :y2='calcNonMotorPedestrianLength.left.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.left.p3.x' :x2='calcNonMotorPedestrianLength.left.p4.x' :y1='calcNonMotorPedestrianLength.left.p3.y' :y2='calcNonMotorPedestrianLength.left.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.bottom.p1.x' :x2='calcNonMotorPedestrianLength.bottom.p2.x' :y1='calcNonMotorPedestrianLength.bottom.p1.y' :y2='calcNonMotorPedestrianLength.bottom.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.bottom.p3.x' :x2='calcNonMotorPedestrianLength.bottom.p4.x' :y1='calcNonMotorPedestrianLength.bottom.p3.y' :y2='calcNonMotorPedestrianLength.bottom.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
                 "</g>",
                 "<g>",
                     //行人斑马线
@@ -4154,6 +4322,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -4186,6 +4356,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -4218,6 +4390,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -4250,6 +4424,8 @@
                         has: { default: true, type: Boolean } 
                     }
                 },
+                //default: false, 是否具有非机动车斑马线
+                nonMotorPedestrian: { default: false, type: Boolean },
                 //deafult: true 是否具有人行班马线
                 pedestrian: { default: true, type: Boolean },
                 //default: true 是否具有人行暂留区
@@ -4566,6 +4742,54 @@
                 var w = lane <= 2 ? me.RoadWidth - before : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
                 return { p1: { x : v1.x - before, y: v1.y }, p2 : { x : v1.x - before - w, y : v1.y } }
             },
+            calcNonMotorPedestrianLength: function () {
+                var me = this;
+                var topLane = me.RoadTop.Lane.length || 0;
+                var rightLane = me.RoadRight.Lane.length || 0;
+                var leftLane = me.RoadLeft.Lane.length || 0;
+                var bottomLane = me.RoadBottom.Lane.length || 0;
+                var v = me.getTopIntersection;
+                var v1 = me.getCrossIntersection;
+                var v2 = me.getBottomIntersection;
+                var vt = utils.calcRadiusAnyPoint(v.x, v.y, 80, -90);
+                var vr = utils.calcRadiusAnyPoint(v.x, v.y, 60, -45);
+                var vr1 = utils.calcRadiusAnyPoint(v.x, v.y, 100, -45);
+                var vl = utils.calcRadiusAnyPoint(v1.x, v1.y, 60, 45);
+                var vl1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 100, 45);
+                var vb = utils.calcRadiusAnyPoint(v2.x, v2.y, 80, 90);
+                var before_td = !me.RoadRight.stayArea ? 0 : topLane - 2 <= 0 ? 50 : (me.RoadWidth / topLane);
+                var before_rd = !me.RoadRight.stayArea ? 0 : rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane;
+                var after_rd = !me.RoadLeft.stayArea ? 0 : rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane;
+                var before_ld = !me.RoadLeft.stayArea ? 0 : leftLane - 2 <= 0 ? 50 : me.RoadWidth / leftLane;
+                var after_ld = !me.RoadBottom.stayArea ? 0 : leftLane - 2 <= 0 ? 50 : me.RoadWidth / leftLane;
+                var before_bd = !me.RoadBottom.stayArea ? 0 : bottomLane - 2 <= 0 ? 50 : (me.RoadWidth / bottomLane);
+                return {
+                    top : {
+                        p1: { x : vt.x - before_td, y : vt.y - 20 },
+                        p2: { x: topLane - 2 <= 0 ? vt.x - me.RoadWidth : vt.x - me.RoadWidth, y: vt.y - 20 },
+                        p3: { x: vt.x - before_td, y: vt.y + 20 },
+                        p4: { x: topLane - 2 <= 0 ? vt.x - me.RoadWidth : vt.x - me.RoadWidth, y: vt.y + 20 }
+                    },
+                    right: {
+                        p1 : utils.calcRadiusAnyPoint(vr.x, vr.y, before_rd, 45),
+                        p2 : utils.calcRadiusAnyPoint(vr.x, vr.y, me.RoadWidth - after_rd, 45),
+                        p3 : utils.calcRadiusAnyPoint(vr1.x, vr1.y, before_rd, 45),
+                        p4 : utils.calcRadiusAnyPoint(vr1.x, vr1.y, me.RoadWidth - after_rd, 45),
+                    },
+                    left : {
+                        p1 : utils.calcRadiusAnyPoint(vl.x, vl.y, before_ld, 135),
+                        p2 : utils.calcRadiusAnyPoint(vl.x, vl.y, me.RoadWidth - after_ld, 135),
+                        p3 : utils.calcRadiusAnyPoint(vl1.x, vl1.y, before_ld, 135),
+                        p4 : utils.calcRadiusAnyPoint(vl1.x, vl1.y, me.RoadWidth - after_ld, 135)
+                    },
+                    bottom: {
+                        p1 : { x : vb.x - before_bd, y : vb.y + 20 },
+                        p2 : { x : bottomLane - 2 <= 0 ? vb.x - me.RoadWidth : vb.x - me.RoadWidth, y : vb.y + 20 },
+                        p3 : { x : vb.x - before_bd, y : vb.y - 20 },
+                        p4 : { x : bottomLane - 2 <= 0 ? vb.x - me.RoadWidth : vb.x - me.RoadWidth, y : vb.y - 20 },
+                    }
+                }
+            },
             calcPedestrianLength: function() {
                 var me = this;
                 var topLane = me.RoadTop.Lane.length || 0;
@@ -4852,6 +5076,10 @@
                 var v = utils.calcRadiusAnyPoint(v1.x, v1.y, 120, 90);
                 var diff = (n + 1) * me.calcRoadBottomLaneWidth;
                 return utils.calcRadiusAnyPoint(v.x, v.y, diff, 180);
+            },
+            onRoadNonMotorPedestrianClick: function (e, no) {
+                //路口机动车斑马线点击事件
+                this.$parent.$emit('cross-road-motor-click', e, no);
             },
             onRoadPedestrianClick: function(e, no, isStay) {
                 //十字路口行人斑马线的点击事件
