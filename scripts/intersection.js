@@ -106,6 +106,9 @@
                 "<rect v-if=\"type === 'parterre'\" x='5' y='0' width='90' height='499999.5' fill='#359f40' @click.capture.stop='onParterreClick' />",
                 "<line v-if=\"type === 'parterre'\" x1='25' x2='25' y1='0' y2='499999.5' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onParterreLineClick($event, true)' />",
                 "<line v-if=\"type === 'parterre'\" x1='75' x2='75' y1='0' y2='499999.5' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onParterreLineClick($event, false)'/>",
+                // "<rect v-if=\"type === 'diversion'\" x='5' y='0' width='90' height='499999.5' fill='#fff' stroke-width='5' stroke='#fff' />",
+                // "<line v-if=\"type === 'diversion'\" x1='25' x2='25' y1='0' y2='499999.5' :stroke-width='40' stroke='#333' stroke-dasharray='15, 20' style='transform: skewX(45deg) rotate(45deg) scale(.8);' />",
+                // "<line v-if=\"type === 'diversion'\" x1='65' x2='65' y1='0' y2='499999.5' :stroke-width='40' stroke='#333' stroke-dasharray='15, 20' style='transform: skewX(-45deg) rotate(-45deg) scale(.8);' />",
                 "<circle v-if=\"['parterre', 'y_solid_area'].indexOf(type) > -1 && hasSafeArea\" cx='50' cy='-80' r='42.5' fill='#0075c5' stroke='#fff' stroke-width='5' @click.capture.stop='onParterreSafeAreaClick' />",
                 "<rect v-if=\"['parterre', 'y_solid_area'].indexOf(type) > -1 && hasSafeArea\" x='7.5' y='-80' width='85' height='80' fill='#0075c5' stroke='#fff' stroke-width='5' @click.capture.stop='onParterreSafeAreaClick' />",
                 "<path v-if=\"type !== 'parterre' && type != 'y_solid_area' \" v-for='(item, i) in calcLaneMark' :d='item.path' fill='#fff' :stroke-width='item.highlight ? 3 : 0' :stroke=\"item.highlight ? '#ff0000' : '#333'\" @click.capture.stop='onLaneMarkClick($event, i)' />",
@@ -120,7 +123,7 @@
     var Lane = Vue.extend({
         template: LaneRenderer.apply(this),
         props: {
-            //type : 'solid' | 'dotted' | 'parterre' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed' | 'y_solid_area',
+            //type : 'solid' | 'dotted' | 'parterre' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed' | 'y_solid_area' | 'diversion',
             type : { default : 'solid' },
             assist: { default: false, type: Boolean }, // default: false, 是否辅道
             reverse: { default: false, type: Boolean }, // default: false, 是否逆向车道
@@ -349,21 +352,21 @@
                 "</g>",
                 "<g>",
                     //行人斑马线
-                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 20' :y2='(1080 - RoadWidth) / 2 - 20' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
-                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 20' :y2='1080 / 2 + RoadWidth / 2 + 20 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
-                    "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 - 20' :x2='(1920 - RoadWidth) / 2 - 20' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
+                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.nonMotorPedestrian && !RoadTop.stayArea ? (1080 - RoadWidth) / 2 - 55 : (1080 - RoadWidth) / 2 - 25' :y2='RoadTop.nonMotorPedestrian && !RoadTop.stayArea ? (1080 - RoadWidth) / 2 - 55 : (1080 - RoadWidth) / 2 - 25' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 55 : 1920 / 2 + RoadWidth / 2 + 25' :x2='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 55 : 1920 / 2 + RoadWidth / 2 + 25' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='RoadBottom.nonMotorPedestrian && !RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 55 : 1080 / 2 + RoadWidth / 2 + 25' :y2='RoadBottom.nonMotorPedestrian && !RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 55 : 1080 / 2 + RoadWidth / 2 + 25 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
+                    "<line v-show='RoadLeft.pedestrian' :x1='RoadLeft.nonMotorPedestrian && !RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 55 : (1920 - RoadWidth) / 2 - 25' :x2='RoadLeft.nonMotorPedestrian && !RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 55 : (1920 - RoadWidth) / 2 - 25' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
                 "</g>",
                 "<g>",
-                    //机动车斑马线
-                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 40' :y2='(1080 - RoadWidth) / 2 - 40' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
-                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2' :y2='(1080 - RoadWidth) / 2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
-                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2 + 40' :x2='1920 / 2 + RoadWidth / 2 + 40' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
-                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2' :x2='1920 / 2 + RoadWidth / 2' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
-                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 40' :y2='1080 / 2 + RoadWidth / 2 + 40 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
-                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2' :y2='1080 / 2 + RoadWidth / 2 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
-                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2 - 40' :x2='(1920 - RoadWidth) / 2 - 40' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
-                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2' :x2='(1920 - RoadWidth) / 2' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
+                    //非机动车斑马线
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.stayArea ? (1080 - RoadWidth) / 2 : (1080 - RoadWidth) / 2 - 30' :y2='RoadTop.stayArea ? (1080 - RoadWidth) / 2 : (1080 - RoadWidth) / 2 - 30' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.stayArea ? (1080 - RoadWidth) / 2 + 25 : (1080 - RoadWidth) / 2' :y2='RoadTop.stayArea ? (1080 - RoadWidth) / 2 + 25 : (1080 - RoadWidth) / 2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 : 1920 / 2 + RoadWidth / 2 + 30' :x2='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 : 1920 / 2 + RoadWidth / 2 + 30' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 - 25 : 1920 / 2 + RoadWidth / 2' :x2='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 - 25 : 1920 / 2 + RoadWidth / 2' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 : 1080 / 2 + RoadWidth / 2 + 30' :y2='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 : 1080 / 2 + RoadWidth / 2 + 30 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 - 25 : 1080 / 2 + RoadWidth / 2' :y2='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 - 25 : 1080 / 2 + RoadWidth / 2 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='RoadRight.stayArea ? (1920 - RoadWidth) / 2 : (1920 - RoadWidth) / 2 - 30' :x2='RoadRight.stayArea ? (1920 - RoadWidth) / 2 : (1920 - RoadWidth) / 2 - 30' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='RoadRight.stayArea ? (1920 - RoadWidth) / 2 + 25 : (1920 - RoadWidth) / 2' :x2='RoadRight.stayArea ? (1920 - RoadWidth) / 2 + 25 : (1920 - RoadWidth) / 2' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -490,23 +493,23 @@
                 "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 3, flag)' />",
                 "<g>",
                     //公路边界线
-                    "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
-                    "<path v-show='RoadTop.boundary.left.has' :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, 2)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
-                    "<path v-show='RoadRight.boundary.right.has' :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
-                    "<path v-show='RoadRight.boundary.left.has' :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
-                    "<path v-show='RoadBottom.boundary.right.has' :d='calcRoadBottomRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
-                    "<path v-show='RoadBottom.boundary.left.has' :d='calcRoadBottomLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
-                    "<path v-show='RoadLeft.boundary.left.has' :d='calcRoadLeftTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 3, false)'/>",
-                    "<path v-show='RoadLeft.boundary.right.has' :d='calcRoadLeftBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 3, true)'/>",
+                    "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(1.4142135623730951, 1.4142135623730951)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show='RoadTop.boundary.left.has' :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-1.4142135623730951, 1.4142135623730951)' @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
+                    "<path v-show='RoadRight.boundary.right.has' :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-1.4142135623730951, 1.4142135623730951)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show='RoadRight.boundary.left.has' :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-1.4142135623730951, -1.4142135623730951)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show='RoadBottom.boundary.right.has' :d='calcRoadBottomRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-1.4142135623730951, -1.4142135623730951)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
+                    "<path v-show='RoadBottom.boundary.left.has' :d='calcRoadBottomLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(1.4142135623730951, -1.4142135623730951)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
+                    "<path v-show='RoadLeft.boundary.left.has' :d='calcRoadLeftTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(1.4142135623730951, 1.4142135623730951)' @click.capture.stop='onRoadBoundaryClick($event, 3, false)'/>",
+                    "<path v-show='RoadLeft.boundary.right.has' :d='calcRoadLeftBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(1.4142135623730951, -1.4142135623730951)' @click.capture.stop='onRoadBoundaryClick($event, 3, true)'/>",
                             
-                    "<path v-show=\"RoadTop.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1\" :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(6, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
-                    "<path v-show=\"RoadTop.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1\" :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-6, 2)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
-                    "<path v-show=\"RoadRight.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1\" :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, 6)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
-                    "<path v-show=\"RoadRight.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1\" :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, -6)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
-                    "<path v-show=\"RoadBottom.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1\" :d='calcRoadBottomRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-6, -2)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
-                    "<path v-show=\"RoadBottom.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1\" :d='calcRoadBottomLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(6, -2)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
-                    "<path v-show=\"RoadLeft.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1\" :d='calcRoadLeftTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, 6)' @click.capture.stop='onRoadBoundaryClick($event, 3, false)'/>",
-                    "<path v-show=\"RoadLeft.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1\" :d='calcRoadLeftBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, -6)' @click.capture.stop='onRoadBoundaryClick($event, 3, true)'/>",
+                    "<path v-show=\"RoadTop.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1\" :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' :transform=\"RoadTop.stayArea ? 'translate(5, 5)' : 'translate(5, 1.4142135623730951)'\" @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show=\"RoadTop.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1\" :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' :transform=\"RoadRight.stayArea ? 'translate(-5, 5)' : 'translate(-5, 1.4142135623730951)'\"  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
+                    "<path v-show=\"RoadRight.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1\" :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" :transform=\"RoadRight.stayArea ? 'translate(-5, 5)' : 'translate(-1.4142135623730951, 5)'\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show=\"RoadRight.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1\" :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" :transform=\"RoadBottom.stayArea ? 'translate(-5, -5)' : 'translate(-1.4142135623730951, -5)'\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show=\"RoadBottom.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1\" :d='calcRoadBottomRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '20, 20' : ''\" :transform=\"RoadBottom.stayArea ? 'translate(-5, -5)' : 'translate(-5, -1.4142135623730951)'\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
+                    "<path v-show=\"RoadBottom.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1\" :d='calcRoadBottomLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '20, 20' : ''\" :transform=\"RoadLeft.stayArea ? 'translate(5, -5)' : 'translate(5, -1.4142135623730951)'\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
+                    "<path v-show=\"RoadLeft.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1\" :d='calcRoadLeftTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' :transform=\"RoadTop.stayArea ? 'translate(5, 5)' : 'translate(1.4142135623730951, 5)'\" @click.capture.stop='onRoadBoundaryClick($event, 3, false)'/>",
+                    "<path v-show=\"RoadLeft.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1\" :d='calcRoadLeftBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' :transform=\"RoadLeft.stayArea ? 'translate(5, -5)' : 'translate(1.4142135623730951, -5)'\" @click.capture.stop='onRoadBoundaryClick($event, 3, true)'/>",
                 "</g>",
                 "<g>",
                     //行人安全暂留区斑马线
@@ -709,7 +712,7 @@
             caleRoadTopLeftNotch: function () {
                 //计算十字路口底色缺口
                 var me = this;
-                var ox = (1920 - me.RoadWidth) / 2;
+                var ox = (1920 - me.RoadWidth) / 2 + 1;
                 var oy = (1080 - me.RoadWidth) / 2 + 1;
                 var top = oy - 125;
                 var left = ox - 125;
@@ -745,10 +748,10 @@
                 var me = this;
                 var left = (1920 - me.RoadWidth) / 2;
                 var rx = left - 125;
-                var ry = 1080 / 2 - me.RoadWidth / 2 - 125;
-                var oy = 1080 / 2 - me.RoadWidth / 2;
-                var out = 'M${left},-499999.5 V${ry} S${left},${oy} ${rx},${oy}'.replace(/(\$\{left\})/g, left).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
-                var inner = 'M${left},-499999.5 V${ry} S${left},${oy} ${rx},${oy}'.replace(/(\$\{left\})/g, left).replace(/(\$\{rx\})/g, rx - 2).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
+                var ry = (1080 - me.RoadWidth) / 2 - 125;
+                var oy = (1080 - me.RoadWidth) / 2;
+                var out = 'M${rx},${oy} S${left},${oy} ${left},${ry} v-499999.5'.replace(/(\$\{left\})/g, left).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
+                var inner = 'M${rx},${oy} S${left},${oy} ${left},${ry} v-499999.5'.replace(/(\$\{left\})/g, left).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
                 if (!me.RoadTop.stayArea) {
                     out = 'M${left},-499999.5 V${oy}'.replace(/(\$\{left\})/g, left).replace(/(\$\{oy\})/g, oy);
                     inner = 'M${left},-499999.5 V${oy}'.replace(/(\$\{left\})/g, left).replace(/(\$\{oy\})/g, oy);
@@ -760,10 +763,11 @@
                 var me = this;
                 var right = (1920 / 2) + (me.RoadWidth / 2);
                 var rx = right + 125;
-                var ry = 1080 / 2 - me.RoadWidth / 2 - 125;
-                var oy = ((1080 / 2) - me.RoadWidth * 0.5);
-                var out = 'M${right},-499999.5 V${ry} S${right},${oy} ${rx},${oy}'.replace(/(\$\{right\})/g, right).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
-                var inner = 'M${right},-499999.5 V${ry} S${right},${oy} ${rx},${oy}'.replace(/(\$\{right\})/g, right).replace(/(\$\{rx\})/g, rx - 2).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
+                var ry = (1080 - me.RoadWidth) / 2 - 125;
+                var oy = (1080 - me.RoadWidth) / 2;
+                //M${right},-499999.5 V${ry} S${right},${oy} ${rx},${oy}
+                var out = 'M${rx},${oy} S${right},${oy} ${right},${ry} v-499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
+                var inner = 'M${rx},${oy} S${right},${oy} ${right},${ry} v-499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
                 if (!me.RoadRight.stayArea) {
                     out = 'M${right},-499999.5 V${oy}'.replace(/(\$\{right\})/g, right).replace(/(\$\{oy\})/g, oy);
                     inner = 'M${right},-499999.5 V${oy}'.replace(/(\$\{right\})/g, right).replace(/(\$\{oy\})/g, oy);
@@ -774,11 +778,11 @@
                 //计算十字路口右方上侧边界线。
                 var me = this;
                 var right = 1920 / 2 + me.RoadWidth / 2;
-                var top = 1080 / 2 - me.RoadWidth / 2;
+                var top = (1080 - me.RoadWidth) / 2;
                 var rx = right + 125;
                 var ry = top - 125;
-                var out = 'M${right},${ry} S${right},${top} ${rx},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
-                var inner = 'M${right},${ry} S${right},${top} ${rx},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry - 3);
+                var out = 'M${rx},${top} S${right},${top} ${right},${ry} M${rx},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
+                var inner = 'M${rx},${top} S${right},${top} ${right},${ry} M${rx},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
                 if (!me.RoadRight.stayArea) {
                     out = 'M${right},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top);
                     inner = 'M${right},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top);
@@ -807,8 +811,8 @@
                 var bottom = 1080 / 2 + me.RoadWidth / 2;
                 var rx = right + 125;
                 var ry = bottom + 125;
-                var out = "M${right},501079.5 V${ry} S${right},${bottom} ${rx},${bottom}".replace(/(\$\{right\})/g, right).replace(/(\$\{bottom\})/g, bottom).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
-                var inner = "M${right},501079.5 V${ry} S${right},${bottom} ${rx},${bottom}".replace(/(\$\{right\})/g, right).replace(/(\$\{bottom\})/g, bottom).replace(/(\$\{rx\})/g, rx + 3).replace(/(\$\{ry\})/g, ry);
+                var out = "M${right},${ry} S${right},${bottom} ${rx},${bottom} M${right},${ry} v499999.5".replace(/(\$\{right\})/g, right).replace(/(\$\{bottom\})/g, bottom).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
+                var inner = "M${right},${ry} S${right},${bottom} ${rx},${bottom} M${right},${ry} v499999.5".replace(/(\$\{right\})/g, right).replace(/(\$\{bottom\})/g, bottom).replace(/(\$\{rx\})/g, rx + 3).replace(/(\$\{ry\})/g, ry);
                 if (!me.RoadBottom.stayArea) {
                     out = "M${right},501079.5 V${bottom}".replace(/(\$\{right\})/g, right).replace(/(\$\{bottom\})/g, bottom);
                     inner = "M${right},501079.5 V${bottom}".replace(/(\$\{right\})/g, right).replace(/(\$\{bottom\})/g, bottom);
@@ -822,8 +826,8 @@
                 var top = 1080 / 2 + me.RoadWidth / 2;
                 var rx = left - 125;
                 var ry = top + 125;
-                var out = "M${left},501079.5 V${ry} S${left},${top} ${rx},${top}".replace(/(\$\{left\})/g, left).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
-                var inner = "M${left},501079.5 V${ry} S${left},${top} ${rx},${top}".replace(/(\$\{left\})/g, left).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx - 3).replace(/(\$\{ry\})/g, ry);
+                var out = "M${left},${ry} S${left},${top} ${rx},${top} M${left},${ry} v499999.5".replace(/(\$\{left\})/g, left).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
+                var inner = "M${left},${ry} S${left},${top} ${rx},${top} M${left},${ry} v499999.5".replace(/(\$\{left\})/g, left).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx - 3).replace(/(\$\{ry\})/g, ry);
                 if (!me.RoadLeft.stayArea) {
                     out = "M${left},501079.5 V${top}".replace(/(\$\{left\})/g, left).replace(/(\$\{top\})/g, top);
                     inner = "M${left},501079.5 V${top}".replace(/(\$\{left\})/g, left).replace(/(\$\{top\})/g, top);
@@ -837,8 +841,8 @@
                 var ox = 1920 / 2 - me.RoadWidth / 2;
                 var rx = ox - 125;
                 var ry = oy - 125;
-                var out = "M-501919.5,${oy} H${rx} S${ox},${oy} ${ox},${ry}".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
-                var inner = "M-501919.5,${oy} H${rx} S${ox},${oy} ${ox},${ry}".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry - 3);
+                var out = "M${rx},${oy} S${ox},${oy} ${ox},${ry} M${rx},${oy} h-499999.5".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
+                var inner = "M${rx},${oy} S${ox},${oy} ${ox},${ry} M${rx},${oy} h-499999.5".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
                 if (!me.RoadTop.stayArea) {
                     out = "M-501919.5,${oy} H${ox}".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox);
                     inner = "M-501919.5,${oy} H${ox}".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox);
@@ -853,7 +857,7 @@
                 var rx = ox - 125;
                 var ry = oy + 125;
                 var out = "M${ox},${ry} S${ox},${oy} ${rx},${oy} h-499999.5".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
-                var inner = "M${ox},${ry} S${ox},${oy} ${rx},${oy} h-499999.5".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry + 3);
+                var inner = "M${ox},${ry} S${ox},${oy} ${rx},${oy} h-499999.5".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
                 if (!me.RoadLeft.stayArea) {
                     out = "M-501919.5,${oy} H${ox}".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox);
                     inner = "M-501919.5,${oy} H${ox}".replace(/(\$\{oy\})/g, oy).replace(/(\$\{ox\})/g, ox);
@@ -949,6 +953,7 @@
             },
             calcRoadTopStopLine: function () {
                 var me = this;
+                var dist = me.RoadTop.nonMotorPedestrian && !me.RoadTop.stayArea ? 80 : 50;
                 var lane = me.RoadTop.Lane.length || 0;
                 var before = !me.RoadTop.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
@@ -957,21 +962,23 @@
                 var x = (1920 - me.RoadWidth) / 2 + before;
                 var y = 1080 / 2 - me.RoadWidth / 2;
 
-                return { p1: { x: x, y: y - 50 }, p2: { x: x + width, y: y - 50 } };
+                return { p1: { x: x, y: y - dist }, p2: { x: x + width, y: y - dist } };
             },
             calcRoadRightStopLine: function () {
                 var me = this;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 80 : 50;
                 var lane = me.RoadRight.Lane.length || 0;
                 var before = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var diff = before + after;
                 var height = !lane ? me.RoadWidth - diff : ((me.RoadRight.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
-                var x = 1920 / 2 + me.RoadWidth / 2 + 50;
+                var x = 1920 / 2 + me.RoadWidth / 2 + dist;
                 var y = (1080 - me.RoadWidth) / 2 + before;
                 return { p1: { x: x, y: y }, p2: { x: x, y: y + height } };
             },
             calcRoadBottomStopLine: function () {
                 var me = this;
+                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 80 : 50;
                 var lane = me.RoadBottom.Lane.length || 0;
                 var before = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
@@ -979,16 +986,17 @@
                 var width = !lane ? me.RoadWidth - diff : ((me.RoadBottom.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
                 var x = 1920 / 2 + me.RoadWidth / 2 - width - before;
                 var y = 1080 / 2 + me.RoadWidth / 2;
-                return { p1: { x: x, y: y + 50 }, p2: { x: x + width, y: y + 50 } };
+                return { p1: { x: x, y: y + dist }, p2: { x: x + width, y: y + dist } };
             },
             calcRoadLeftStopLine: function () {
                 var me = this;
+                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 80 : 50;
                 var lane = me.RoadLeft.Lane.length || 0;
                 var before = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadTop.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var diff = before + after;
                 var height = !lane ? me.RoadWidth - diff : ((me.RoadLeft.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
-                var x = 1920 / 2 - me.RoadWidth / 2 - 50;
+                var x = 1920 / 2 - me.RoadWidth / 2 - dist;
                 var y = 1080 / 2 + me.RoadWidth / 2 - before;
                 return { p1: { x: x, y: y - height }, p2: { x: x, y: y } };
             },
@@ -1209,29 +1217,33 @@
             },
             crossTopMoveTo: function (n) {
                 var me = this;
+                var dist = me.RoadTop.nonMotorPedestrian && !me.RoadTop.stayArea ? 90 : 60;
                 var left = (1920 - me.RoadWidth) / 2;
-                var top = (1080 - me.RoadWidth) / 2 - 60;
+                var top = (1080 - me.RoadWidth) / 2 - dist;
                 var width = me.calcRoadTopLaneWidth;
                 return { x: (n + 1) * width + left, y: top };
             },
             crossRightMoveTo: function (n) {
                 var me = this;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 90 : 60;
                 var top = (1080 - me.RoadWidth) / 2;
-                var left = 1920 / 2 + me.RoadWidth / 2 + 60;
+                var left = 1920 / 2 + me.RoadWidth / 2 + dist;
                 var width = me.calcRoadRightWidth;
                 return { x: left, y: (n + 1) * width + top };
             },
             crossBottomMoveTo: function (n) {
                 var me = this;
-                var top = 1080 / 2 + me.RoadWidth / 2 + 60;
+                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 90 : 60;
+                var top = 1080 / 2 + me.RoadWidth / 2 + dist;
                 var left = 1920 / 2 + me.RoadWidth / 2;
                 var width = me.calcRoadBottomLaneWidth;
                 return { x: left - (n + 1) * width, y: top };
             },
             crossLeftMoveTo: function (n) {
                 var me = this;
+                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 90 : 60;
                 var top = 1080 / 2 + me.RoadWidth / 2;
-                var left = (1920 - me.RoadWidth) / 2 - 60;
+                var left = (1920 - me.RoadWidth) / 2 - dist;
                 var width = me.calcRoadLeftLaneWidth;
                 return { x: left, y: top - (n + 1) * width };
             },
