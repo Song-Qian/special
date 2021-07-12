@@ -348,6 +348,13 @@
                     "<path :d='calcRoadLeftBottomBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='5' />",
                 "</g>",
                 "<g>",
+                    //行人斑马线
+                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 20' :y2='(1080 - RoadWidth) / 2 - 20' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 20' :y2='1080 / 2 + RoadWidth / 2 + 20 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
+                    "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 - 20' :x2='(1920 - RoadWidth) / 2 - 20' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
+                "</g>",
+                "<g>",
                     //机动车斑马线
                     "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 40' :y2='(1080 - RoadWidth) / 2 - 40' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
                     "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2' :y2='(1080 - RoadWidth) / 2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
@@ -357,13 +364,6 @@
                     "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2' :y2='1080 / 2 + RoadWidth / 2 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
                     "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2 - 40' :x2='(1920 - RoadWidth) / 2 - 40' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
                     "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2' :x2='(1920 - RoadWidth) / 2' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
-                "</g>",
-                "<g>",
-                    //行人斑马线
-                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 20' :y2='(1080 - RoadWidth) / 2 - 20' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
-                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 20' :y2='1080 / 2 + RoadWidth / 2 + 20 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
-                    "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 - 20' :x2='(1920 - RoadWidth) / 2 - 20' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -490,14 +490,23 @@
                 "<image v-for='(flag, n) in calcRoadLeftForDownFlag' :x='calcRoadLeftFlagPosition(flag, n).x' :y='calcRoadLeftFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 3, flag)' />",
                 "<g>",
                     //公路边界线
-                    "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
-                    "<path v-show='RoadTop.boundary.left.has' :d='calcRoadTopRightBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(-2, 2)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
-                    "<path v-show='RoadRight.boundary.right.has' :d='calcRoadRightTopBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(-2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
-                    "<path v-show='RoadRight.boundary.left.has' :d='calcRoadRightBottomBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(-2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
-                    "<path v-show='RoadBottom.boundary.right.has' :d='calcRoadBottomRightBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(-2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
-                    "<path v-show='RoadBottom.boundary.left.has' :d='calcRoadBottomLeftBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
-                    "<path v-show='RoadLeft.boundary.left.has' :d='calcRoadLeftTopBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 3, false)'/>",
-                    "<path v-show='RoadLeft.boundary.right.has' :d='calcRoadLeftBottomBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 3, true)'/>",
+                    "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show='RoadTop.boundary.left.has' :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, 2)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
+                    "<path v-show='RoadRight.boundary.right.has' :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show='RoadRight.boundary.left.has' :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show='RoadBottom.boundary.right.has' :d='calcRoadBottomRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
+                    "<path v-show='RoadBottom.boundary.left.has' :d='calcRoadBottomLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
+                    "<path v-show='RoadLeft.boundary.left.has' :d='calcRoadLeftTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 3, false)'/>",
+                    "<path v-show='RoadLeft.boundary.right.has' :d='calcRoadLeftBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 3, true)'/>",
+                            
+                    "<path v-show=\"RoadTop.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1\" :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(6, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show=\"RoadTop.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1\" :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-6, 2)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
+                    "<path v-show=\"RoadRight.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1\" :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, 6)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show=\"RoadRight.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1\" :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, -6)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show=\"RoadBottom.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1\" :d='calcRoadBottomRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-6, -2)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
+                    "<path v-show=\"RoadBottom.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1\" :d='calcRoadBottomLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(6, -2)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
+                    "<path v-show=\"RoadLeft.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1\" :d='calcRoadLeftTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, 6)' @click.capture.stop='onRoadBoundaryClick($event, 3, false)'/>",
+                    "<path v-show=\"RoadLeft.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1\" :d='calcRoadLeftBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, -6)' @click.capture.stop='onRoadBoundaryClick($event, 3, true)'/>",
                 "</g>",
                 "<g>",
                     //行人安全暂留区斑马线
@@ -543,13 +552,17 @@
                         //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有左侧边界白线,
-                        has: { default: true, type: Boolean }
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }
                     },
                     right: {
                         //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
-                        has: { default: true, type: Boolean }
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型
+                        type: { default: 'solid', type: String }
                     }
                 },
                 //default: false, 是否具有非机动车斑马线
@@ -1398,6 +1411,12 @@
                     "<path :d='calcRightRoadBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='5' transform='translate(1.732050807568877, 1.732050807568877)' />",
                 "</g>",
                 "<g>",
+                    //行人斑马线
+                    "<line v-show='RoadLeft.pedestrian' :x1='calcLeftPedestrian.p1.x' :x2='calcLeftPedestrian.p2.x' :y1='calcLeftPedestrian.p1.y' :y2='calcLeftPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='calcRightPedestrian.p1.x' :x2='calcRightPedestrian.p2.x' :y1='calcRightPedestrian.p1.y' :y2='calcRightPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadBottom.pedestrian' :x1='calcBottomPedestrian.p1.x' :x2='calcBottomPedestrian.p2.x' :y1='calcBottomPedestrian.p1.y' :y2='calcBottomPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
+                "</g>",
+                "<g>",
                     //机动车斑马线
                     "<line v-show='RoadLeft.nonMotorPedestrian' :x1='calcLeftNonMotorPedestrian.p1.x' :x2='calcLeftNonMotorPedestrian.p2.x' :y1='calcLeftNonMotorPedestrian.p1.y' :y2='calcLeftNonMotorPedestrian.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
                     "<line v-show='RoadLeft.nonMotorPedestrian' :x1='calcLeftNonMotorPedestrian.p3.x' :x2='calcLeftNonMotorPedestrian.p4.x' :y1='calcLeftNonMotorPedestrian.p3.y' :y2='calcLeftNonMotorPedestrian.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
@@ -1405,12 +1424,6 @@
                     "<line v-show='RoadRight.nonMotorPedestrian' :x1='calcRightNonMotorPedestrian.p3.x' :x2='calcRightNonMotorPedestrian.p4.x' :y1='calcRightNonMotorPedestrian.p3.y' :y2='calcRightNonMotorPedestrian.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
                     "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcBottomNonMotorPedestrian.p1.x' :x2='calcBottomNonMotorPedestrian.p2.x' :y1='calcBottomNonMotorPedestrian.p1.y' :y2='calcBottomNonMotorPedestrian.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
                     "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcBottomNonMotorPedestrian.p3.x' :x2='calcBottomNonMotorPedestrian.p4.x' :y1='calcBottomNonMotorPedestrian.p3.y' :y2='calcBottomNonMotorPedestrian.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
-                "</g>",
-                "<g>",
-                    //行人斑马线
-                    "<line v-show='RoadLeft.pedestrian' :x1='calcLeftPedestrian.p1.x' :x2='calcLeftPedestrian.p2.x' :y1='calcLeftPedestrian.p1.y' :y2='calcLeftPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='calcRightPedestrian.p1.x' :x2='calcRightPedestrian.p2.x' :y1='calcRightPedestrian.p1.y' :y2='calcRightPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
-                    "<line v-show='RoadBottom.pedestrian' :x1='calcBottomPedestrian.p1.x' :x2='calcBottomPedestrian.p2.x' :y1='calcBottomPedestrian.p1.y' :y2='calcBottomPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -1507,12 +1520,19 @@
                 "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 2, flag)' />",
                 "<g>",
                     //公路边界线
-                    "<path v-show='RoadLeft.boundary.left.has' :d='calcTopRoadBoundary.left' fill='none' stroke='#fff' stroke-width='2' transform='translate(0,1.414213562373095)' @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
-                    "<path v-show='RoadLeft.boundary.right.has' :d='calcLeftRoadBoundary.right' fill='none' stroke='#fff' stroke-width='2' transform='translate(1.414213562373095,0)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
-                    "<path v-show='RoadRight.boundary.right.has' :d='calcTopRoadBoundary.right' fill='none' stroke='#fff' stroke-width='2' transform='translate(0,1.414213562373095)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
-                    "<path v-show='RoadRight.boundary.left.has' :d='calcRightRoadBoundary.left' fill='none' stroke='#fff' stroke-width='2' transform='translate(-1.414213562373095,0)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
-                    "<path v-show='RoadBottom.boundary.left.has' :d='calcLeftRoadBoundary.left' fill='none' stroke='#fff' stroke-width='2' transform='translate(1.414213562373095,0)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
-                    "<path v-show='RoadBottom.boundary.right.has' :d='calcRightRoadBoundary.right' fill='none' stroke='#fff' stroke-width='2' transform='translate(-1.414213562373095,0)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
+                    "<path v-show='RoadLeft.boundary.left.has' :d='calcTopRoadBoundary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(0,1.414213562373095)' @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
+                    "<path v-show='RoadLeft.boundary.right.has' :d='calcLeftRoadBoundary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(1.414213562373095,0)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show='RoadRight.boundary.right.has' :d='calcTopRoadBoundary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(0,1.414213562373095)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show='RoadRight.boundary.left.has' :d='calcRightRoadBoundary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-1.414213562373095,0)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show='RoadBottom.boundary.left.has' :d='calcLeftRoadBoundary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(1.414213562373095,0)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
+                    "<path v-show='RoadBottom.boundary.right.has' :d='calcRightRoadBoundary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-1.414213562373095,0)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
+                    
+                    "<path v-show=\"RoadLeft.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1\" :d='calcTopRoadBoundary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(0,5)' @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
+                    "<path v-show=\"RoadLeft.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1\" :d='calcLeftRoadBoundary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(5,-2.23606797749979)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show=\"RoadRight.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1\" :d='calcTopRoadBoundary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(0,5)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show=\"RoadRight.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1\" :d='calcRightRoadBoundary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-5,-2.23606797749979)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show=\"RoadBottom.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1\" :d='calcLeftRoadBoundary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(5,-2.23606797749979)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
+                    "<path v-show=\"RoadBottom.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1\" :d='calcRightRoadBoundary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-5,-2.23606797749979)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
                 "</g>",
                 "<g>",
                     //行人安全暂留区斑马线
@@ -1561,7 +1581,9 @@
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
                         has: { default: true, type: Boolean } 
-                    }
+                    },
+                    // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                    type: { default: 'solid', type: String }
                 },
                 //default: false, 是否具有非机动车斑马线
                 nonMotorPedestrian: { default: false, type: Boolean },
@@ -1595,7 +1617,9 @@
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
                         has: { default: true, type: Boolean } 
-                    }
+                    },
+                    // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                    type: { default: 'solid', type: String }
                 },
                 //default: false, 是否具有非机动车斑马线
                 nonMotorPedestrian: { default: false, type: Boolean },
@@ -1629,7 +1653,9 @@
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
                         has: { default: true, type: Boolean } 
-                    }
+                    },
+                    // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                    type: { default: 'solid', type: String }
                 },
                 //default: false, 是否具有非机动车斑马线
                 nonMotorPedestrian: { default: false, type: Boolean },
@@ -2361,6 +2387,12 @@
                     "<path :d='calcRoadBottomBoundary.outRight' fill='none' stroke='#8e8e8e' stroke-width='5' />",
                 "</g>",
                 "<g>",
+                    //行人斑马线
+                    "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 - 20' :x2='(1920 - RoadWidth) / 2 - 20' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 20' :y2='1080 / 2 + RoadWidth / 2 + 20 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
+                "</g>",
+                "<g>",
                     //机动车斑马线
                     "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2 - 40' :x2='(1920 - RoadWidth) / 2 - 40' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
                     "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2' :x2='(1920 - RoadWidth) / 2' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
@@ -2368,12 +2400,6 @@
                     "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2' :x2='1920 / 2 + RoadWidth / 2' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
                     "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 40' :y2='1080 / 2 + RoadWidth / 2 + 40 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
                     "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2' :y2='1080 / 2 + RoadWidth / 2 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
-                "</g>",
-                "<g>",
-                    //行人斑马线
-                    "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 - 20' :x2='(1920 - RoadWidth) / 2 - 20' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
-                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 20' :y2='1080 / 2 + RoadWidth / 2 + 20 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -2470,12 +2496,19 @@
                 "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 2, flag)' />",
                 "<g>",
                     //公路边界线
-                    "<path v-show='RoadLeft.boundary.left.has' :d='calcRoadLeftBoundary.innterLeft' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, false)'/>",
-                    "<path v-show='RoadLeft.boundary.right.has' :d='calcRoadLeftBoundary.innterRight' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, true)'/>",
-                    "<path v-show='RoadRight.boundary.left.has' :d='calcRoadRightBoundary.innerLeft' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
-                    "<path v-show='RoadRight.boundary.right.has' :d='calcRoadRightBoundary.innerRight' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
-                    "<path v-show='RoadBottom.boundary.left.has' :d='calcRoadBottomBoundary.innerLeft' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
-                    "<path v-show='RoadBottom.boundary.right.has' :d='calcRoadBottomBoundary.innerRight' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
+                    "<path v-show='RoadLeft.boundary.left.has' :d='calcRoadLeftBoundary.innterLeft' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(0, 1)' @click.capture.stop='onRoadBoundaryClick($event, 0, false)'/>",
+                    "<path v-show='RoadLeft.boundary.right.has' :d='calcRoadLeftBoundary.innterRight' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(0, -1)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)'/>",
+                    "<path v-show='RoadRight.boundary.left.has' :d='calcRoadRightBoundary.innerLeft' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(0, 1)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show='RoadRight.boundary.right.has' :d='calcRoadRightBoundary.innerRight' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(0, 1)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show='RoadBottom.boundary.left.has' :d='calcRoadBottomBoundary.innerLeft' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(1, 0)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
+                    "<path v-show='RoadBottom.boundary.right.has' :d='calcRoadBottomBoundary.innerRight' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(-1, 0)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
+                    
+                    "<path v-show=\"RoadLeft.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1\" :d='calcRoadLeftBoundary.innterLeft' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(0, 5)' @click.capture.stop='onRoadBoundaryClick($event, 0, false)'/>",
+                    "<path v-show=\"RoadLeft.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1\" :d='calcRoadLeftBoundary.innterRight' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(0, -5)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)'/>",
+                    "<path v-show=\"RoadRight.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1\" :d='calcRoadRightBoundary.innerLeft' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(0, -5)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show=\"RoadRight.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1\" :d='calcRoadRightBoundary.innerRight' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(0, 5)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show=\"RoadBottom.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1\" :d='calcRoadBottomBoundary.innerLeft' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(5, 0)' @click.capture.stop='onRoadBoundaryClick($event, 2, false)'/>",
+                    "<path v-show=\"RoadBottom.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1\" :d='calcRoadBottomBoundary.innerRight' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '40, 40' : ''\" stroke-width='2' transform='translate(-5, 0)' @click.capture.stop='onRoadBoundaryClick($event, 2, true)'/>",
                 "</g>",
                 "<g>",
                     //行人安全暂留区斑马线
@@ -2513,13 +2546,17 @@
                         //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有左侧边界白线,
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }
                     },
                     right: {
                         //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }
                     }
                 },
                 //default: false, 是否具有非机动车斑马线
@@ -2547,13 +2584,17 @@
                         //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有左侧边界白线,
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }
                     },
                     right: {
                         //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String } 
                     }
                 },
                 //default: false, 是否具有非机动车斑马线
@@ -2581,13 +2622,17 @@
                         //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有左侧边界白线,
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String } 
                     },
                     right: {
                         //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String } 
                     }
                 },
                 //default: false, 是否具有非机动车斑马线
@@ -3095,16 +3140,16 @@
                     "<path :d='calcRoadRightBottomBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='5' />",
                 "</g>",
                 "<g>",
+                    //行人斑马线
+                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 20' :y2='(1080 - RoadWidth) / 2 - 20' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                "</g>",
+                "<g>",
                     //机动车斑马线
                     "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 40' :y2='(1080 - RoadWidth) / 2 - 40' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
                     "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2' :y2='(1080 - RoadWidth) / 2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
                     "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2 + 40' :x2='1920 / 2 + RoadWidth / 2 + 40' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
                     "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2' :x2='1920 / 2 + RoadWidth / 2' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
-                "</g>",
-                "<g>",
-                    //行人斑马线
-                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 20' :y2='(1080 - RoadWidth) / 2 - 20' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -3171,10 +3216,15 @@
                 "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
                 "<g>",
                     //公路边界线
-                    "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
-                    "<path v-show='RoadTop.boundary.left.has' :d='calcRoadTopRightBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(-2, 2)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
-                    "<path v-show='RoadRight.boundary.right.has' :d='calcRoadRightTopBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(-2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
-                    "<path v-show='RoadRight.boundary.left.has' :d='calcRoadRightBottomBoundary.inner' fill='none' stroke='#fff' stroke-width='2' transform='translate(-2, -2)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show='RoadTop.boundary.left.has' :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, 0)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
+                    "<path v-show='RoadRight.boundary.right.has' :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(0, 2)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show='RoadRight.boundary.left.has' :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(5, -2)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                            
+                    "<path v-show=\"RoadTop.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1\" :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(5, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show=\"RoadTop.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1\" :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-5, 0)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
+                    "<path v-show=\"RoadRight.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1\" :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(0, 5)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show=\"RoadRight.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1\" :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(5, -5)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
                 "</g>",
                 "<g>",
                     //行人安全暂留区斑马线
@@ -3206,13 +3256,17 @@
                         //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有左侧边界白线,
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String } 
                     },
                     right: {
                         //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String } 
                     }
                 },
                 //default: false, 是否具有非机动车斑马线
@@ -3240,13 +3294,17 @@
                         //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有左侧边界白线,
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }  
                     },
                     right: {
                         //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String } 
                     }
                 },
                 //default: false, 是否具有非机动车斑马线
@@ -3640,11 +3698,11 @@
                     "</g>",
                 "</g>",
                 "<g v-for='(item, i) in getRoadMap' :key='i'>",
+                    //行人斑马线
+                    "<line v-show='item.pedestrian' :x1='handlerPedestrian(i).p1.x' :x2='handlerPedestrian(i).p2.x' :y1='handlerPedestrian(i).p1.y' :y2='handlerPedestrian(i).p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, i, false)' />",
                     //机动车斑马线
                     "<line v-show='item.nonMotorPedestrian' :x1='handlerNonMotorPedestrian(i).p1.x' :x2='handlerNonMotorPedestrian(i).p2.x' :y1='handlerNonMotorPedestrian(i).p1.y' :y2='handlerNonMotorPedestrian(i).p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, i)' />",
                     "<line v-show='item.nonMotorPedestrian' :x1='handlerNonMotorPedestrian(i).p3.x' :x2='handlerNonMotorPedestrian(i).p4.x' :y1='handlerNonMotorPedestrian(i).p3.y' :y2='handlerNonMotorPedestrian(i).p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, i)' />",
-                    //行人斑马线
-                    "<line v-show='item.pedestrian' :x1='handlerPedestrian(i).p1.x' :x2='handlerPedestrian(i).p2.x' :y1='handlerPedestrian(i).p1.y' :y2='handlerPedestrian(i).p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, i, false)' />",
                     //机动车停止线
                     "<line v-if='item.stopLine' :x1='handlerStopLine(i).p1.x' :x2='handlerStopLine(i).p2.x' :y1='handlerStopLine(i).p1.y' :y2='handlerStopLine(i).p2.y' stroke='#fff' stroke-width='5' @click.capture.stop='onRoadStopLineClick($event, i)'/>",
                     "<lane ",
@@ -3677,8 +3735,10 @@
                     "<image v-for='(flag, n) in handlerForUpwardFlag(item)' :x='handlerFlagPosition(flag, i, n).vertex.x' :y='handlerFlagPosition(flag, i, n).vertex.y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate('+ handlerFlagPosition(flag, i, n).angle +', '+ handlerFlagPosition(flag, i, n).vertex.x +' '+ handlerFlagPosition(flag, i, n).vertex.y +')'\" @click.capture.stop='onRoadFlagClick($event, i, flag)' />",
                     "<image v-for='(flag, n) in handlerForDownFlag(item)' :x='handlerFlagPosition(flag, i, n).vertex.x' :y='handlerFlagPosition(flag, i, n).vertex.y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate('+ handlerFlagPosition(flag, i, n).angle +', '+ handlerFlagPosition(flag, i, n).vertex.x +' '+ handlerFlagPosition(flag, i, n).vertex.y +')'\" @click.capture.stop='onRoadFlagClick($event, i, flag)' />",
                     //公路边界线
-                    "<path v-show='item.boundary.left.has' :d='handlerLeftBoundary(i, -1.414213562373095)' stroke-linecap='round' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, i, false)' />",
-                    "<path v-show='item.boundary.right.has' :d='handlerRightBoundary(i, -1.414213562373095)' stroke-linecap='round' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, i, true)' />",
+                    "<path v-show='item.boundary.left.has' :d='handlerLeftBoundary(i, -1.414213562373095)' stroke-linecap='round' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(item.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(item.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, i, false)' />",
+                    "<path v-show='item.boundary.right.has' :d='handlerRightBoundary(i, -1.414213562373095)' stroke-linecap='round' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(item.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(item.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, i, true)' />",
+                    "<path v-show=\"item.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(item.boundary.left.type) > -1\" :d='handlerLeftBoundary1(i, -1.414213562373095)' stroke-linecap='round' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(item.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(item.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, i, false)' />",
+                    "<path v-show=\"item.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(item.boundary.right.type) > -1\" :d='handlerRightBoundary1(i, -1.414213562373095)' stroke-linecap='round' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(item.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(item.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, i, true)' />",
                     //行人安全暂留区斑马线
                     "<line v-show='item.pedestrian && item.stayArea && item.stayPedestrian' :x1='handlerSafeAreaPedestrian(i).p1.x' :x2='handlerSafeAreaPedestrian(i).p2.x' :y1='handlerSafeAreaPedestrian(i).p1.y' :y2='handlerSafeAreaPedestrian(i).p2.y' stroke='#fff' stroke-width='40' stroke='#fff' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, i, true)'/>",
                     "<path v-show='item.stayArea && item.pedestrian' :d='handlerSafeAreaStay(i)' fill='#0075c5' stroke='#fff' stroke-width='2' style='pointer-events:visiblePainted;' @click='onCrossStayAreaClick($event, i)' />",
@@ -3786,6 +3846,34 @@
                 }
                 return out;
             },
+            handlerLeftBoundary1: function (i, offset) {
+                var me = this;
+                var r = me.calcCircumscribeRadius;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((i * (360 / count)) + ((360 / count) / 2));
+                var ar = a + ((360 / count) / 2);
+                var al = a - ((360 / count) / 2);
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var index = me.getRoadMap.length > i + 1 ? i + 1 : 0;
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + offset, a);
+                var s1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, ar);
+                var s2 = utils.calcRadiusAnyPoint(v.x, v.y, 120, al);
+                var v1 = utils.calcRadiusAnyPoint(s1.x, s1.y, 4, ar + 90);
+                var v2 = utils.calcRadiusAnyPoint(s2.x, s2.y, 4, al - 90);
+                var r1 = utils.calcRadiusAnyPoint(v.x, v.y, 54, a);
+                var v3 = utils.calcRadiusAnyPoint(v2.x, v2.y, 499999.5, al);
+
+                var out = "M${v1x},${v1y} S${r1x},${r1y} ${v2x},${v2y} L${v3x},${v3y}".replace(/\$\{v1x\}/g, v1.x).replace(/\$\{v1y\}/g, v1.y)
+                    .replace(/\$\{v2x\}/g, v2.x).replace(/\$\{v2y\}/g, v2.y).replace(/\$\{r1x\}/g, r1.x).replace(/\$\{r1y\}/g, r1.y)
+                    .replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
+                if (!me.getRoadMap[index].stayArea) {
+                    var r1 = utils.calcRadiusAnyPoint(c.x, c.y, r + offset, a);
+                    var v = utils.calcRadiusAnyPoint(r1.x, r1.y, 4, al - 90);
+                    var v3 = utils.calcRadiusAnyPoint(v.x, v.y, 499999.5, al);
+                    out = "M${vx},${vy} L${v3x},${v3y}".replace(/\$\{vx\}/g, v.x).replace(/\$\{vy\}/g, v.y).replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
+                }
+                return out;
+            },
             handlerRightBoundary: function (i, offset) {
                 var me = this;
                 var r = me.calcCircumscribeRadius;
@@ -3804,6 +3892,33 @@
                     .replace(/\$\{v2x\}/g, v2.x).replace(/\$\{v2y\}/g, v2.y).replace(/\$\{r1x\}/g, r1.x).replace(/\$\{r1y\}/g, r1.y)
                     .replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
                 if(!me.getRoadMap[i].stayArea) {
+                    out = "M${vx},${vy} L${v3x},${v3y}".replace(/\$\{vx\}/g, v.x).replace(/\$\{vy\}/g, v.y).replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
+                }
+                return out;
+            },
+            handlerRightBoundary1: function (i, offset) {
+                var me = this;
+                var r = me.calcCircumscribeRadius;
+                var count = me.getRoadMap && me.getRoadMap.length || 3;
+                var a = -90 + ((i * (360 / count)) - ((360 / count) / 2));
+                var al = a - ((360 / count) / 2);
+                var ar = a + ((360 / count) / 2);
+                var c = { x: 1920 / 2, y: 1080 / 2 };
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + offset, a);
+                var s1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, al);
+                var s2 = utils.calcRadiusAnyPoint(v.x, v.y, 120, ar);
+                var v1 = utils.calcRadiusAnyPoint(s1.x, s1.y, 4, al - 90);
+                var v2 = utils.calcRadiusAnyPoint(s2.x, s2.y, 4, ar + 90);
+                var r1 = utils.calcRadiusAnyPoint(v.x, v.y, 54, a);
+                var v3 = utils.calcRadiusAnyPoint(v1.x, v1.y, 499999.5, ar);
+
+                var out = "M${v1x},${v1y} S${r1x},${r1y} ${v2x},${v2y} L${v3x},${v3y}".replace(/\$\{v1x\}/g, v1.x).replace(/\$\{v1y\}/g, v1.y)
+                    .replace(/\$\{v2x\}/g, v2.x).replace(/\$\{v2y\}/g, v2.y).replace(/\$\{r1x\}/g, r1.x).replace(/\$\{r1y\}/g, r1.y)
+                    .replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
+                if(!me.getRoadMap[i].stayArea) {
+                    var r1 = utils.calcRadiusAnyPoint(c.x, c.y, r + offset, a);
+                    var v = utils.calcRadiusAnyPoint(r1.x, r1.y, 4, ar + 90);
+                    var v3 = utils.calcRadiusAnyPoint(v.x, v.y, 499999.5, ar);
                     out = "M${vx},${vy} L${v3x},${v3y}".replace(/\$\{vx\}/g, v.x).replace(/\$\{vy\}/g, v.y).replace(/\$\{v3x\}/g, v3.x).replace(/\$\{v3y\}/g, v3.y);
                 }
                 return out;
@@ -4118,6 +4233,13 @@
                     "<circle :cx='getCenterIntersection.x' :cy='getCenterIntersection.y' r='15' fill='#fff' />",
                 "</g>",
                 "<g>",
+                    //行人斑马线
+                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.p1.x' :x2='calcPedestrianLength.top.p2.x' :y1='calcPedestrianLength.top.p1.y' :y2='calcPedestrianLength.top.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='calcPedestrianLength.right.p1.x' :x2='calcPedestrianLength.right.p2.x' :y1='calcPedestrianLength.right.p1.y' :y2='calcPedestrianLength.right.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadLeft.pedestrian' :x1='calcPedestrianLength.left.p1.x' :x2='calcPedestrianLength.left.p2.x' :y1='calcPedestrianLength.left.p1.y' :y2='calcPedestrianLength.left.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
+                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.p1.x' :x2='calcPedestrianLength.bottom.p2.x' :y1='calcPedestrianLength.bottom.p1.y' :y2='calcPedestrianLength.bottom.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
+                "</g>",
+                "<g>",
                     //机动车斑马线
                     "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.top.p1.x' :x2='calcNonMotorPedestrianLength.top.p2.x' :y1='calcNonMotorPedestrianLength.top.p1.y' :y2='calcNonMotorPedestrianLength.top.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
                     "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.top.p3.x' :x2='calcNonMotorPedestrianLength.top.p4.x' :y1='calcNonMotorPedestrianLength.top.p3.y' :y2='calcNonMotorPedestrianLength.top.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
@@ -4127,13 +4249,6 @@
                     "<line v-show='RoadLeft.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.left.p3.x' :x2='calcNonMotorPedestrianLength.left.p4.x' :y1='calcNonMotorPedestrianLength.left.p3.y' :y2='calcNonMotorPedestrianLength.left.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
                     "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.bottom.p1.x' :x2='calcNonMotorPedestrianLength.bottom.p2.x' :y1='calcNonMotorPedestrianLength.bottom.p1.y' :y2='calcNonMotorPedestrianLength.bottom.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
                     "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.bottom.p3.x' :x2='calcNonMotorPedestrianLength.bottom.p4.x' :y1='calcNonMotorPedestrianLength.bottom.p3.y' :y2='calcNonMotorPedestrianLength.bottom.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
-                "</g>",
-                "<g>",
-                    //行人斑马线
-                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.p1.x' :x2='calcPedestrianLength.top.p2.x' :y1='calcPedestrianLength.top.p1.y' :y2='calcPedestrianLength.top.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='calcPedestrianLength.right.p1.x' :x2='calcPedestrianLength.right.p2.x' :y1='calcPedestrianLength.right.p1.y' :y2='calcPedestrianLength.right.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
-                    "<line v-show='RoadLeft.pedestrian' :x1='calcPedestrianLength.left.p1.x' :x2='calcPedestrianLength.left.p2.x' :y1='calcPedestrianLength.left.p1.y' :y2='calcPedestrianLength.left.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
-                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.p1.x' :x2='calcPedestrianLength.bottom.p2.x' :y1='calcPedestrianLength.bottom.p1.y' :y2='calcPedestrianLength.bottom.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -4260,14 +4375,23 @@
                 "<image v-for='(flag, n) in calcRoadBottomForDownFlag' :x='calcRoadBottomFlagPosition(flag, n).x' :y='calcRoadBottomFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' :transform=\"'rotate(90, '+ calcRoadBottomFlagPosition(flag, n).x +' '+ calcRoadBottomFlagPosition(flag, n).y +')'\" @click.capture.stop='onRoadFlagClick($event, 3, flag)' />",
                 "<g>",
                     //公路边界线
-                    "<path v-show='RoadTop.boundary.left.has' :d='calcTopRoadBoundary.left' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, false)'/>",
-                    "<path v-show='RoadTop.boundary.right.has' :d='calcTopRoadBoundary.right' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
-                    "<path v-show='RoadRight.boundary.left.has' :d='calcRightRoadBoundary.left' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
-                    "<path v-show='RoadRight.boundary.right.has' :d='calcRightRoadBoundary.right' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
-                    "<path v-show='RoadLeft.boundary.left.has' :d='calcLeftRoadBoudary.left' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, false)' />",
-                    "<path v-show='RoadLeft.boundary.right.has' :d='calcLeftRoadBoudary.right' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, true)' />",
-                    "<path v-show='RoadBottom.boundary.left.has' :d='calcBottomRoadBoudary.left' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 3, false)'/>",
-                    "<path v-show='RoadBottom.boundary.right.has' :d='calcBottomRoadBoudary.right' fill='none' stroke='#fff' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 3, true)'/>",
+                    "<path v-show='RoadTop.boundary.left.has' :d='calcTopRoadBoundary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, false)'/>",
+                    "<path v-show='RoadTop.boundary.right.has' :d='calcTopRoadBoundary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show='RoadRight.boundary.left.has' :d='calcRightRoadBoundary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show='RoadRight.boundary.right.has' :d='calcRightRoadBoundary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show='RoadLeft.boundary.left.has' :d='calcLeftRoadBoudary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, false)' />",
+                    "<path v-show='RoadLeft.boundary.right.has' :d='calcLeftRoadBoudary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, true)' />",
+                    "<path v-show='RoadBottom.boundary.left.has' :d='calcBottomRoadBoudary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 3, false)'/>",
+                    "<path v-show='RoadBottom.boundary.right.has' :d='calcBottomRoadBoudary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 3, true)'/>",
+                            
+                    "<path v-show=\"RoadTop.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1\" :d='calcTopRoadBoundary1' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, false)'/>",
+                    "<path v-show=\"RoadTop.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1\" :d='calcTopRoadBoundary.right' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" transform='translate(4, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show=\"RoadRight.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1\" :d='calcRightRoadBoundary2' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show=\"RoadRight.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1\" :d='calcRightRoadBoundary1' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show=\"RoadLeft.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1\" :d='calcLeftRoadBoudary2' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.left.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, false)' />",
+                    "<path v-show=\"RoadLeft.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1\" :d='calcLeftRoadBoudary1' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadLeft.boundary.right.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 2, true)' />",
+                    "<path v-show=\"RoadBottom.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1\" :d='calcBottomRoadBoudary.left' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.left.type) > -1 ? '20, 20' : ''\" transform='translate(4, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 3, false)'/>",
+                    "<path v-show=\"RoadBottom.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1\" :d='calcBottomRoadBoudary1' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadBottom.boundary.right.type) > -1 ? '20, 20' : ''\" transform='translate(0, 0)' stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 3, true)'/>",
                 "</g>",
                 "<g>",
                     //行人安全暂留区斑马线
@@ -4313,13 +4437,17 @@
                         //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有左侧边界白线,
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }  
                     },
                     right: {
                         //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }  
                     }
                 },
                 //default: false, 是否具有非机动车斑马线
@@ -4347,13 +4475,17 @@
                         //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有左侧边界白线,
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }  
                     },
                     right: {
                         //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }  
                     }
                 },
                 //default: false, 是否具有非机动车斑马线
@@ -4381,13 +4513,17 @@
                         //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有左侧边界白线,
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }  
                     },
                     right: {
                         //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }  
                     }
                 },
                 //default: false, 是否具有非机动车斑马线
@@ -4415,13 +4551,17 @@
                         //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有左侧边界白线,
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }  
                     },
                     right: {
                         //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
                         length: { defualt: 0, type: Number },
                         //deafult: true 是否具有右侧边界白线
-                        has: { default: true, type: Boolean } 
+                        has: { default: true, type: Boolean },
+                        // default: solid, 边界线的绘制类型 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed'
+                        type: { default: 'solid', type: String }  
                     }
                 },
                 //default: false, 是否具有非机动车斑马线
@@ -4568,6 +4708,16 @@
                     .replace(/(\$\{vx\})/g, ov.x + 2.5).replace(/(\$\{vy\})/g, ov.y - 100).replace(/(\$\{ex\})/g, ov.x).replace(/(\$\{ey\})/g, -499999.5);
                 return { right: r, left: l, out: out };
             },
+            calcTopRoadBoundary1: function() {
+                var me = this;
+                var v = me.getTopIntersection;
+                var d1 = utils.calcRadiusAnyPoint(v.x, v.y, 100, -45);
+                var d2 = utils.calcRadiusAnyPoint(d1.x, d1.y, 4, 45);
+                var cv = utils.calcRadiusAnyPoint(v.x, v.y, 42, -67.5);
+                return "M${d1x},${d1y} S${cvx},${cvy} ${vx},${vy} L${ex},${ey}"
+                    .replace(/(\$\{d1x\})/g, d2.x).replace(/(\$\{d1y\})/g, d2.y).replace(/(\$\{cvx\})/g, cv.x).replace(/(\$\{cvy\})/g, cv.y)
+                    .replace(/(\$\{vx\})/g, v.x - 4).replace(/(\$\{vy\})/g, v.y - 100).replace(/(\$\{ex\})/g, v.x - 4).replace(/(\$\{ey\})/g, -499999.5);
+            },
             calcRightRoadBoundary: function() {
                 var me = this;
                 var v1 = me.getTopIntersection;
@@ -4605,6 +4755,34 @@
                 .replace(/(\$\{d3x\})/g, od5.x).replace(/(\$\{d3y\})/g, od5.y).replace(/(\$\{cvx\})/g, or2.x).replace(/(\$\{cvy\})/g, or2.y);
                 
                 return { right: r, left: l, outRight: or, outLeft: ol };
+            },
+            calcRightRoadBoundary1: function() {
+                var me = this;
+                var v1 = me.getTopIntersection;
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 42, -67.5);
+                var d1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 100, -45);
+                var d2 = utils.calcRadiusAnyPoint(d1.x, d1.y, 4, 45);
+                var d3 = utils.calcRadiusAnyPoint(d2.x, d2.y, 499999.5, -45);
+
+                return "M${vx},${vy} S${cvx},${cvy} ${d1x},${d1y} L${d2x},${d2y}"
+                    .replace(/(\$\{vx\})/g, v1.x - 4).replace(/(\$\{vy\})/g, v1.y - 100).replace(/(\$\{cvx\})/g, r1.x).replace(/(\$\{cvy\})/g, r1.y)
+                    .replace(/(\$\{d1x\})/g, d2.x).replace(/(\$\{d1y\})/g, d2.y).replace(/(\$\{d2x\})/g, d3.x).replace(/(\$\{d2y\})/g, d3.y);
+            },
+            calcRightRoadBoundary2: function() {
+                var me = this;
+                var v2 = me.getCrossIntersection;
+                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 46, 0);
+                var r3 = utils.calcRadiusAnyPoint(v2.x, v2.y, 100, 45);
+                var d3 = utils.calcRadiusAnyPoint(r3.x, r3.y, 4, 135);
+                
+                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, 100, -45);
+                var d4 = utils.calcRadiusAnyPoint(r4.x, r4.y, 4, -135);
+
+                var d5 = utils.calcRadiusAnyPoint(d4.x, d4.y, 499999.5, -45);
+                
+                return "M${d1x},${d1y} S${cvx},${cvy} ${d2x},${d2y} L${d3x},${d3y}"
+                    .replace(/(\$\{d1x\})/g, d3.x).replace(/(\$\{d1y\})/g, d3.y).replace(/(\$\{d2x\})/g, d4.x).replace(/(\$\{d2y\})/g, d4.y)
+                    .replace(/(\$\{d3x\})/g, d5.x).replace(/(\$\{d3y\})/g, d5.y).replace(/(\$\{cvx\})/g, r2.x).replace(/(\$\{cvy\})/g, r2.y);
             },
             calcLeftRoadBoudary: function() {
                 var me = this;
@@ -4647,6 +4825,35 @@
 
                 return { left: l, right : r, outRight: or, outLeft: ol };
             },
+            calcLeftRoadBoudary1: function() {
+                var me = this;
+                var v1 = me.getCrossIntersection;
+
+                var r = utils.calcRadiusAnyPoint(v1.x, v1.y, 100, -45);
+                var d1 = utils.calcRadiusAnyPoint(r.x, r.y, 4, -135);
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 46, 0);
+                var r2 = utils.calcRadiusAnyPoint(v1.x, v1.y, 100, 45);
+                var d2 = utils.calcRadiusAnyPoint(r2.x, r2.y, 4, 135);
+                var d3 = utils.calcRadiusAnyPoint(d2.x, d2.y, 499999.5, 45);
+
+                return "M${d1x},${d1y} S${cvx},${cvy} ${d2x},${d2y} L${d3x},${d3y}"
+                .replace(/(\$\{d1x\})/g, d1.x).replace(/(\$\{d1y\})/g, d1.y).replace(/(\$\{d2x\})/g, d2.x).replace(/(\$\{d2y\})/g, d2.y)
+                .replace(/(\$\{d3x\})/g, d3.x).replace(/(\$\{d3y\})/g, d3.y).replace(/(\$\{cvx\})/g, r1.x).replace(/(\$\{cvy\})/g, r1.y);
+            },
+            calcLeftRoadBoudary2: function() {
+                var me = this;
+                var v = me.getBottomIntersection;
+
+                var r1 = utils.calcRadiusAnyPoint(v.x, v.y, 100, 90);
+                var d4 = utils.calcRadiusAnyPoint(r1.x, r1.y, 4, 180);
+                var r2 = utils.calcRadiusAnyPoint(v.x, v.y, 44, 67.5);
+                var r3 = utils.calcRadiusAnyPoint(v.x, v.y, 100, 45);
+                var d5 = utils.calcRadiusAnyPoint(r3.x, r3.y, 4, -45);
+                var d6 = utils.calcRadiusAnyPoint(d5.x, d5.y, 499999.5, 45);
+                return "M${d4x},${d4y} S${cvx},${cvy} ${d5x},${d5y} L${d6x},${d6y}"
+                    .replace(/(\$\{d4x\})/g, d4.x).replace(/(\$\{d4y\})/g, d4.y).replace(/(\$\{d5x\})/g, d5.x).replace(/(\$\{d5y\})/g, d5.y)
+                    .replace(/(\$\{d6x\})/g, d6.x).replace(/(\$\{d6y\})/g, d6.y).replace(/(\$\{cvx\})/g, r2.x).replace(/(\$\{cvy\})/g, r2.y);
+            },
             calcBottomRoadBoudary: function() {
                 var me = this;
                 var v1 = me.getCenterIntersection;
@@ -4670,6 +4877,19 @@
                     .replace(/(\$\{d1x\})/g, od1.x).replace(/(\$\{d1y\})/g, od1.y).replace(/(\$\{d2x\})/g, od2.x +3).replace(/(\$\{d2y\})/g, od2.y)
                     .replace(/(\$\{d3x\})/g, od3.x + 3).replace(/(\$\{d3y\})/g, od3.y).replace(/(\$\{cvx\})/g, or1.x).replace(/(\$\{cvy\})/g, or1.y);
                 return { left: l, right: r, outRight: or }
+            },
+            calcBottomRoadBoudary1: function() {
+                var me = this;
+                var v = me.getBottomIntersection;
+                var r = utils.calcRadiusAnyPoint(v.x, v.y, 100, 45);
+                var d1 = utils.calcRadiusAnyPoint(r.x, r.y, 4, -45);
+                var r1 = utils.calcRadiusAnyPoint(v.x, v.y, 44, 67.5);
+                var r2 = utils.calcRadiusAnyPoint(v.x, v.y, 100, 90);
+                var d2 = utils.calcRadiusAnyPoint(r2.x, r2.y, 4, 180);
+                var d3 = utils.calcRadiusAnyPoint(d2.x, d2.y, 499999.5, 90);
+                return "M${d1x},${d1y} S${cvx},${cvy} ${d2x},${d2y} L${d3x},${d3y}"
+                    .replace(/(\$\{d1x\})/g, d1.x).replace(/(\$\{d1y\})/g, d1.y).replace(/(\$\{d2x\})/g, d2.x).replace(/(\$\{d2y\})/g, d2.y)
+                    .replace(/(\$\{d3x\})/g, d3.x).replace(/(\$\{d3y\})/g, d3.y).replace(/(\$\{cvx\})/g, r1.x).replace(/(\$\{cvy\})/g, r1.y);
             },
             calcRoadTopLaneWidth: function() {
                 var me = this;

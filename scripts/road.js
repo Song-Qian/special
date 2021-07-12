@@ -1225,7 +1225,7 @@
                         "@on-road-lanemark-click=\"$parent.$emit('on-pavement-lanemark-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
                         "@on-road-slowline-click=\"$parent.$emit('on-pavement-slowline-click', arguments[0], n, arguments[1], arguments[2])\" ",
                         "@on-road-lanepark-click=\"$parent.$emit('on-pavement-lanepark-click', arguments[0], n, arguments[1], arguments[2])\" ",
-                        "@on-road-isolation-click=\"$parent.$emit('on-pavement-isolation-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
+                        "@on-road-isolation-click=\"$parent.$emit('on-pavement-isolation-click', arguments[0], n, arguments[1], arguments[2], arguments[3], arguments[4])\" ",
                         "@on-road-boundary-click=\"$parent.$emit('on-pavement-boundary-click', arguments[0], n, arguments[1], arguments[2], arguments[3])\" ",
                         "@on-road-separation-click=\"$parent.$emit('on-pavement-separation-click', arguments[0], n, arguments[1], arguments[2])\" ",
                         "@on-road-pedestrian-stop-click=\"$parent.$emit('on-pedestrian-stop-click', arguments[0], n, arguments[1], 'road')\" ",
