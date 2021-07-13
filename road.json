@@ -35,7 +35,7 @@
 			lane : [
 				{
 					//机动车线类型， solid: 白色实线, dotted: 白色虚线, parterre: 花坛, y_dotted: 黄色虚线, y_solid: 黄色实线, y_double_solid: 双黄实线, y_double_dashed: 双黄虚实线, y_solid_area 黄色禁止区域
-					type : 'solid' | 'dotted' | 'parterre' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dashed' | 'y_solid_area',
+					type : 'solid' | 'dotted' | 'parterre' | 'y-dotted' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' | 'y-solid-area',
                     assist: boolean, // default: false, 是否辅道
                     reverse: boolean, // default: false, 是否逆向车道
                     markright: boolean, // default: true, 所有的mark标记是否在线路右侧

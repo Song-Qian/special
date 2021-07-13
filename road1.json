@@ -53,7 +53,7 @@
 						id: string,  //隔离栏id
 						len: number, //隔离栏长度 (数据交互,无UI效果)
 						//隔离栏样式， 依次是：双黄实线，双黄实虚线，双黄实线+护栏，双黄实虚线+护栏, 花坛
-						type: 'y_double_solid' | 'y_double_dashed' | 'y_barrier_solid' | 'y_barrier_dashed' | 'parterre'
+						type: 'y-double-solid' | 'y-double-dashed' | 'y-barrier-solid' | 'y-barrier-dashed' | 'parterre'
 						isShow: boolean, //是否显示
 						data：[], // 隔离带的数据 (数据交互,无UI效果)
 					}
@@ -64,9 +64,9 @@
 						id: string, //车道序号
 						// 依次是：白色实线,白色虚线,黄色实线,黄色虚线,双黄实线,双黄实虚线,黄色实线+白色虚线,黄色虚线+白色实线,黄白双实线,黄白双虚线,白色实线+黄色虚线,
 						// 白色虚线+黄色实线,白黄双实线,白黄双虚线,白线护栏,黄线护栏,白虚线+护栏,黄虚线+护栏,花坛+白线,花坛+虚线,花坛+黄线,花坛+黄虚线
-						// 'solid' | 'dotted' | 'y_solid' | 'y_dotted' | 'y_double_solid' | 'y_double_dashed' | 'y_w_dashed' | 'y_w_dotted'
-						// 'y_w_double_solid' | 'y_w_double_dashed' | 'w_y_dashed' | 'w_y_dotted' | 'w_y_double_solid' | 'w_y_double_dashed'
-						// 'barrier' | 'y_barrier' | 'barrier_dashed' | 'y_barrier_dashed' | 'parterre' | 'parterre_dashed' | 'y_parterre_solid' | 'y_parterre_dashed'
+						// 'solid' | 'dotted' | 'y-solid' | 'y-dotted' | 'y-double-solid' | 'y-double-dashed' | 'y-w-dashed' | 'y-w-dotted'
+						// 'y-w-double-solid' | 'y-w-double-dashed' | 'w-y-dashed' | 'w-y-dotted' | 'w-y-double-solid' | 'w-y-double-dashed'
+						// 'barrier' | 'y-barrier' | 'barrier-dashed' | 'y-barrier-dashed' | 'parterre' | 'parterre-dashed' | 'y-parterre-solid' | 'y-parterre-dashed'
 						type: 'solid',
 						laneType: 'primary' | 'assist' | 'non-motorized', // default: false, 是否主道、辅道、非机动车道
 						hasBoundary: boolean, // default: true, 是否绘制边线
@@ -135,13 +135,13 @@
 				lane: [
 					{
 						id: string, //车道序号
-						//机动车线类型， solid: 白色实线, dotted: 白色虚线, barrier: 护栏, y_dotted: 黄色虚线, y_solid: 黄色实线, y_double_solid: 双黄实线, y_double_dotted: 双黄虚线, parterre 花坛+白线, parterre_dotted 花坛+虚线, y_parterre_solid 花坛+黄线, y_parterre_dotted 花坛+黄虚线
+						//机动车线类型， solid: 白色实线, dotted: 白色虚线, barrier: 护栏, y-dotted: 黄色虚线, y-solid: 黄色实线, y-double-solid: 双黄实线, y-double-dotted: 双黄虚线, parterre 花坛+白线, parterre-dotted 花坛+虚线, y-parterre-solid 花坛+黄线, y-parterre-dotted 花坛+黄虚线
 						// 依次是：白色实线,白色虚线,黄色实线,黄色虚线,双黄实线,双黄实虚线,黄色实线+白色虚线,黄色虚线+白色实线,黄白双实线,黄白双虚线,白色实线+黄色虚线,
 						// 白色虚线+黄色实线,白黄双实线,白黄双虚线,白线护栏,黄线护栏,白虚线+护栏,黄虚线+护栏,花坛+白线,花坛+虚线,花坛+黄线,花坛+黄虚线
-						// 'solid' | 'dashed' | 'y_solid' | 'y_dashed' | 'y_double_solid' | 'y_double_dashed' | 'y_w_dashed' | 'y_w_dotted'
-						// 'y_w_double_solid' | 'y_w_double_dashed' | 'w_y_dashed' | 'w_y_dotted' | 'w_y_double_solid' | 'w_y_double_dashed'
-						// 'barrier' | 'y_barrier' | 'barrier_dashed' | 'y_barrier_dashed' | 'parterre' | 'parterre_dashed' | 'y_parterre_solid' | 'y_parterre_dashed'
-						type: 'solid' | 'dotted' | 'y_dotted' | 'y_solid' | 'y_double_solid' | 'y_double_dotted' | 'barrier' | 'parterre' | 'parterre_dotted' | 'y_parterre_solid' | 'y_parterre_dotted',
+						// 'solid' | 'dashed' | 'y-solid' | 'y-dashed' | 'y-double-solid' | 'y-double-dashed' | 'y-w-dashed' | 'y-w-dotted'
+						// 'y-w-double-solid' | 'y-w-double-dashed' | 'w-y-dashed' | 'w-y-dotted' | 'w-y-double-solid' | 'w-y-double-dashed'
+						// 'barrier' | 'y-barrier' | 'barrier-dashed' | 'y-barrier-dashed' | 'parterre' | 'parterre-dashed' | 'y-parterre-solid' | 'y-parterre-dashed'
+						type: 'solid' | 'dotted' | 'y-dotted' | 'y-solid' | 'y-double-solid' | 'y-double-dotted' | 'barrier' | 'parterre' | 'parterre-dotted' | 'y-parterre-solid' | 'y-parterre-dotted',
 						laneType: 'primary' | 'non-motorized' | 'assist', // default: false, 是否主道、辅道、非机动车道
 						hasBoundary: boolean, // default: true, 是否绘制边线
 						park: boolean, // default: false, 是否有停车位

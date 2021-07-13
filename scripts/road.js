@@ -153,12 +153,12 @@
     var IsolationRender = function(){
         var template = [
             "<g>",
-                "<line v-if='isSimpleLine' :x1='calcSimpleLinePosition.p1.x' :x2='calcSimpleLinePosition.p2.x' :y1='calcSimpleLinePosition.p1.y' :y2='calcSimpleLinePosition.p2.y' :stroke-dasharray=\"['dotted', 'y_dotted'].indexOf(Type) > -1 ? '20,20' : ''\" :stroke='calcLineColor' stroke-width='3' @click.capture.stop=\"$emit('on-simple-line-click', $event)\" />",
+                "<line v-if='isSimpleLine' :x1='calcSimpleLinePosition.p1.x' :x2='calcSimpleLinePosition.p2.x' :y1='calcSimpleLinePosition.p1.y' :y2='calcSimpleLinePosition.p2.y' :stroke-dasharray=\"['dotted', 'y-dotted'].indexOf(Type) > -1 ? '20,20' : ''\" :stroke='calcLineColor' stroke-width='3' @click.capture.stop=\"$emit('on-simple-line-click', $event)\" />",
                 "<line v-if='isDoubleLine' :x1='calcDoubleLinePosition.top.p1.x' :x2='calcDoubleLinePosition.top.p2.x' :y1='calcDoubleLinePosition.top.p1.y' :y2='calcDoubleLinePosition.top.p2.y' :stroke-dasharray='calcDoublieLineStrokeDasharray[0]' :stroke='calcDoubleLineStrokeColor[0]' :stroke-width='caclDoubleLineStrokeWidth[0]' @click.capture.stop=\"$emit('on-right-line-click', $event)\" />",
                 "<line v-if='isDoubleLine' :x1='calcDoubleLinePosition.bottom.p1.x' :x2='calcDoubleLinePosition.bottom.p2.x' :y1='calcDoubleLinePosition.bottom.p1.y' :y2='calcDoubleLinePosition.bottom.p2.y' :stroke-dasharray='calcDoublieLineStrokeDasharray[1]' :stroke='calcDoubleLineStrokeColor[1]' :stroke-width='caclDoubleLineStrokeWidth[1]' @click.capture.stop=\"$emit('on-left-line-click', $event)\" />",
 
                 "<g v-if='isBarrier' @click.capture.stop=\"$emit('on-barrier-click', $event)\">",
-                    "<line v-if=\"['barrier_dashed', 'y_barrier_dashed'].indexOf(Type) > -1\" x1='0' :x2='Length' :y1='Reverse ? 14 : 1' :y2='Reverse ? 14 : 1' :stroke='calcBarrierColor[0]' :stroke-dasharray=\"['barrier_dashed', 'y_barrier_dashed'].indexOf(Type) > -1 ? '20,20' : ''\" stroke-width='3' />",
+                    "<line v-if=\"['barrier-dashed', 'y-barrier-dashed'].indexOf(Type) > -1\" x1='0' :x2='Length' :y1='Reverse ? 14 : 1' :y2='Reverse ? 14 : 1' :stroke='calcBarrierColor[0]' :stroke-dasharray=\"['barrier-dashed', 'y-barrier-dashed'].indexOf(Type) > -1 ? '20,20' : ''\" stroke-width='3' />",
                     "<line x1='0' :x2='Length' :y1='Reverse ? 5 : 10' :y2='Reverse ? 5 : 10' stroke='#fff' stroke-width='10' />",
                     "<line x1='0' :x2='Length' :y1='Reverse ? 5 : 10' :y2='Reverse ? 5 : 10' stroke='#333' :stroke-dasharray='calcBarrierDasharray[0]'  stroke-width='8' />",
                     "<line x1='0' :x2='Length' :y1='Reverse ? 5 : 10' :y2='Reverse ? 5 : 10' stroke='#333' :stroke-dasharray='calcBarrierDasharray[1]'  stroke-width='6' />",
@@ -166,7 +166,7 @@
                     "<line x1='0' :x2='Length' :y1='Reverse ? 10 : 5' :y2='Reverse ? 10 : 5' :stroke='calcBarrierColor[1]' stroke-width='3' />",
                     "<line x1='0' :x2='Length' :y1='Reverse ? 1.5 : 13.5' :y2='Reverse ? 1.5 : 13.5' :stroke='calcBarrierColor[1]' stroke-width='3' />",
                 "</g>",
-                "<rect v-if='isParterre' x='0' y='0' :width='Length' height='15' :stroke-dasharray=\"['parterre_dashed', 'y_parterre_dashed'].indexOf(Type) > -1 ? '20,20' : ''\" :stroke='calcLineColor' stroke-width='3' fill='url(#parterre)' @click.capture.stop=\"$emit('on-parterre-click', $event)\"></rect>",
+                "<rect v-if='isParterre' x='0' y='0' :width='Length' height='15' :stroke-dasharray=\"['parterre-dashed', 'y-parterre-dashed'].indexOf(Type) > -1 ? '20,20' : ''\" :stroke='calcLineColor' stroke-width='3' fill='url(#parterre)' @click.capture.stop=\"$emit('on-parterre-click', $event)\"></rect>",
             "</g>"
         ];
         return template.join("");
@@ -177,27 +177,27 @@
         props : {
             // solid: 白色实线, 
             // dotted: 白色虚线, 
-            // y_solid: 黄色实线,
-            // y_dotted: 黄色虚线, 
-            // y_double_solid: 双黄实线, 
-            // y_double_dashed: 双黄实虚线,
+            // y-solid: 黄色实线,
+            // y-dotted: 黄色虚线, 
+            // y-double-solid: 双黄实线, 
+            // y-double-dashed: 双黄实虚线,
 
-            // y_w_dashed: 黄色实线+白色虚线,
-            // y_w_double_solid: 黄白双实线,
-            // y_w_double_dashed: 黄白双虚线,
-            // w_y_dashed: 白色实线+黄色虚线,
-            // w_y_double_solid: 白黄双实线,
-            // w_y_double_dashed: 白黄双虚线,
+            // y-w-dashed: 黄色实线+白色虚线,
+            // y-w-double-solid: 黄白双实线,
+            // y-w-double-dashed: 黄白双虚线,
+            // w-y-dashed: 白色实线+黄色虚线,
+            // w-y-double-solid: 白黄双实线,
+            // w-y-double-dashed: 白黄双虚线,
 
             // barrier: 白线护栏,
-            // y_barrier: 黄线护栏
-            // barrier_dashed: 白虚线+护栏
-            // y_barrier_dashed: 黄虚线+护栏
+            // y-barrier: 黄线护栏
+            // barrier-dashed: 白虚线+护栏
+            // y-barrier-dashed: 黄虚线+护栏
 
             // parterre 花坛+白线, 
-            // parterre_dashed 花坛+虚线, 
-            // y_parterre_solid 花坛+黄线, 
-            // y_parterre_dashed 花坛+黄虚线
+            // parterre-dashed 花坛+虚线, 
+            // y-parterre-solid 花坛+黄线, 
+            // y-parterre-dashed 花坛+黄虚线
             Type:  {
                 default: 'solid', 
                 type : String
@@ -215,7 +215,7 @@
             //是否单线
             isSimpleLine: function() {
                 var me = this;
-                return ["solid", "dotted", "y_solid", "y_dotted"].indexOf(me.Type) > -1;
+                return ["solid", "dotted", "y-solid", "y-dotted"].indexOf(me.Type) > -1;
             },
             //单线绘制定位
             calcSimpleLinePosition: function() {
@@ -228,7 +228,7 @@
             //实线、虚线颜色
             calcLineColor: function() {
                 var me = this;
-                var yellow = ["y_solid", "y_dotted", "y_double_solid", "y_double_dashed", "y_parterre_solid", "y_parterre_dashed"];
+                var yellow = ["y-solid", "y-dotted", "y-double-solid", "y-double-dashed", "y-parterre-solid", "y-parterre-dashed"];
                 if (yellow.indexOf(me.Type) > -1) {
                     return "#D6CB0A";
                 }
@@ -237,7 +237,7 @@
             //是否双线
             isDoubleLine: function() {
                 var me = this;
-                return ["y_double_solid", "y_double_dashed", "y_w_dashed", "y_w_double_solid", "y_w_dotted", "y_w_double_dashed", "w_y_dashed", "w_y_dotted", "w_y_double_solid", "w_y_double_dashed"].indexOf(me.Type) > -1;
+                return ["y-double-solid", "y-double-dashed", "y-w-dashed", "y-w-double-solid", "y-w-dotted", "y-w-double-dashed", "w-y-dashed", "w-y-dotted", "w-y-double-solid", "w-y-double-dashed"].indexOf(me.Type) > -1;
             },
             //双线绘制定位
             calcDoubleLinePosition: function() {
@@ -257,10 +257,10 @@
             //计算双线线宽
             caclDoubleLineStrokeWidth: function() {
                 var me = this;
-                if(me.Type === "y_double_solid" || me.Type === "y_double_dashed") {
+                if(me.Type === "y-double-solid" || me.Type === "y-double-dashed") {
                     return [3, 3];
                 }
-                var line = ["y_w_dashed", "y_w_dotted", "y_w_double_solid", "y_w_double_dashed", "w_y_dashed", "w_y_dotted", "w_y_double_solid", "w_y_double_dashed"];
+                var line = ["y-w-dashed", "y-w-dotted", "y-w-double-solid", "y-w-double-dashed", "w-y-dashed", "w-y-dotted", "w-y-double-solid", "w-y-double-dashed"];
                 if(me.Reverse && line.indexOf(me.Type) > -1) {
                     return [5, 3];
                 }
@@ -275,16 +275,16 @@
             calcDoublieLineStrokeDasharray: function() {
                 var me = this;
                 var dasharray = { 
-                    'y_double_solid' : ['', ''], 
-                    'y_double_dashed': ['20,20', ''], 
-                    'y_w_dashed' : ['20,20', ''], 
-                    'y_w_dotted' : ['', '20,20'], 
-                    'y_w_double_solid' : ['', ''], 
-                    'y_w_double_dashed' : ['20,20', '20,20'], 
-                    'w_y_dashed': ['20,20', ''], 
-                    'w_y_dotted' : ['', '20,20'], 
-                    'w_y_double_solid' : ['', ''], 
-                    'w_y_double_dashed' : ['20,20', '20,20'] 
+                    'y-double-solid' : ['', ''], 
+                    'y-double-dashed': ['20,20', ''], 
+                    'y-w-dashed' : ['20,20', ''], 
+                    'y-w-dotted' : ['', '20,20'], 
+                    'y-w-double-solid' : ['', ''], 
+                    'y-w-double-dashed' : ['20,20', '20,20'], 
+                    'w-y-dashed': ['20,20', ''], 
+                    'w-y-dotted' : ['', '20,20'], 
+                    'w-y-double-solid' : ['', ''], 
+                    'w-y-double-dashed' : ['20,20', '20,20'] 
                 };
                 if (me.isDoubleLine && me.Reverse) {
                     return dasharray[me.Type].reverse();
@@ -299,16 +299,16 @@
             calcDoubleLineStrokeColor: function() {
                 var me = this;
                 var color = { 
-                    'y_double_solid' : ['#D6CB0A', '#D6CB0A'], 
-                    'y_double_dashed': ['#D6CB0A', '#D6CB0A'], 
-                    'y_w_dashed' : ['#fff', '#D6CB0A'], 
-                    'y_w_dotted' : ['#fff', '#D6CB0A'], 
-                    'y_w_double_solid' : ['#fff', '#D6CB0A'], 
-                    'y_w_double_dashed' : ['#fff', '#D6CB0A'], 
-                    'w_y_dashed': ['#D6CB0A', '#fff'], 
-                    'w_y_dotted': ['#D6CB0A', '#fff'],
-                    'w_y_double_solid' : ['#D6CB0A', '#fff'], 
-                    'w_y_double_dashed' : ['#D6CB0A', '#fff'] 
+                    'y-double-solid' : ['#D6CB0A', '#D6CB0A'], 
+                    'y-double-dashed': ['#D6CB0A', '#D6CB0A'], 
+                    'y-w-dashed' : ['#fff', '#D6CB0A'], 
+                    'y-w-dotted' : ['#fff', '#D6CB0A'], 
+                    'y-w-double-solid' : ['#fff', '#D6CB0A'], 
+                    'y-w-double-dashed' : ['#fff', '#D6CB0A'], 
+                    'w-y-dashed': ['#D6CB0A', '#fff'], 
+                    'w-y-dotted': ['#D6CB0A', '#fff'],
+                    'w-y-double-solid' : ['#D6CB0A', '#fff'], 
+                    'w-y-double-dashed' : ['#D6CB0A', '#fff'] 
                 };
                 if (me.isDoubleLine && me.Reverse) {
                     return color[me.Type].reverse();
@@ -322,7 +322,7 @@
             //是否护栏
             isBarrier: function() {
                 var me = this;
-                return ["barrier", "y_barrier", "barrier_dashed", "y_barrier_dashed"].indexOf(me.Type) > -1;
+                return ["barrier", "y-barrier", "barrier-dashed", "y-barrier-dashed"].indexOf(me.Type) > -1;
             },
             //计算护栏绘制点
             calcBarrierDasharray: function() {
@@ -342,11 +342,11 @@
             calcBarrierColor: function() {
                 var me = this;
                 var color = ["#fff", "#fff"];
-                if (me.Type === "y_barrier_dashed") {
+                if (me.Type === "y-barrier-dashed") {
                     color[0] = "#D6CB0A";
                 }
 
-                if (me.Type === "y_barrier") {
+                if (me.Type === "y-barrier") {
                     color[1] = "#D6CB0A";
                 }
                 return color;
@@ -354,7 +354,7 @@
             //是否花坛
             isParterre: function() {
                 var me = this;
-                return ["parterre", "parterre_dashed", "y_parterre_solid", "y_parterre_dashed"].indexOf(me.Type) > -1;
+                return ["parterre", "parterre-dashed", "y-parterre-solid", "y-parterre-dashed"].indexOf(me.Type) > -1;
             }
         }
     })
@@ -424,7 +424,7 @@
     var LaneRender = function() {
         var template = [
             "<g class='ivsom-lane' :transform=\"'translate('+ X + ',' + Y +')'\">",
-                "<g v-if=\"['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(Type) === -1\">",
+                "<g v-if=\"['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(Type) === -1\">",
                     "<rect x='0' y='0' width='1300' :height='Width' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" @click.capture.stop=\"$emit('on-lane-select', $event)\" />",
                     "<rect v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(i)' :x='calcFirstMarkArea(i).x' :y='calcFirstMarkArea(i).y' :width='calcFirstMarkArea(i).width' :height='calcFirstMarkArea(i).height' class='ivsom-lane-mark' :fill=\"LaneType !== 'non-motorized' && Privileged ? '#9D1B87' : '#333'\" stroke='#fff' stroke-width='1' stroke-dasharray='5,5' @click.capture.stop=\"$emit('on-lane-mark-select', $event, i - 1)\" />",
 					"<text v-for='i in calcMarkTotal' v-show='calcLaneMarkVisible(i)' :x='calcFirstMarkArea(i).x + calcFirstMarkArea(i).width / 2' :y='Reverse ? calcFirstMarkArea(i).height * 0.6 : calcFirstMarkArea(i).y + calcFirstMarkArea(i).height * 0.6' text-anchor='middle' fill='#fff'>{{ Reverse ? 12 - i + 1 + '#' : i + '#'}}</text>",
@@ -453,7 +453,7 @@
                     "@on-barrier-click=\"$emit('on-lane-isolation-click', arguments[0], Type, 'none')\" ",
                     "@on-parterre-click=\"$emit('on-lane-isolation-click', arguments[0], Type, 'none')\" ",
                     "></isolation>",
-                "<line v-for='(item, i) in calcLaneMark' v-show=\"['uturn', 'straight-uturn', 'left-uturn'].indexOf(item.mark) > -1 && ['solid', 'y_solid', 'y_double_solid', 'y_w_double_solid', 'w_y_double_solid', 'parterre', 'y_parterre_solid'].indexOf(Type) > -1\" :x1='calcMarkPosition(item).x' :x2='calcMarkPosition(item).x + Math.min(50, Width - 10)' :y1='!Reverse ? Width : 0' :y2='!Reverse ? Width : 0' stroke-dasharray='5,5' stroke='#333' :stroke-width='calcUturnGap.width' :transform='calcUturnGap.transform' />",
+                "<line v-for='(item, i) in calcLaneMark' v-show=\"['uturn', 'straight-uturn', 'left-uturn'].indexOf(item.mark) > -1 && ['solid', 'y-solid', 'y-double-solid', 'y-w-double-solid', 'w-y-double-solid', 'parterre', 'y-parterre-solid'].indexOf(Type) > -1\" :x1='calcMarkPosition(item).x' :x2='calcMarkPosition(item).x + Math.min(50, Width - 10)' :y1='!Reverse ? Width : 0' :y2='!Reverse ? Width : 0' stroke-dasharray='5,5' stroke='#333' :stroke-width='calcUturnGap.width' :transform='calcUturnGap.transform' />",
             "</g>"
         ];
         return template.join("");
@@ -527,7 +527,7 @@
         computed: {
             calcIsolationPosition: function () {
                 var me = this;
-                var x = 0, y = ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(me.Type) === -1 ? me.Width - 15 : 0;
+                var x = 0, y = ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(me.Type) === -1 ? me.Width - 15 : 0;
                 if (me.Reverse) {
                     return "translate(0,0)";
                 }
@@ -558,7 +558,7 @@
             },
             calcUturnGap: function () {
                 var me = this;
-                if (['y_double_solid', 'w_y_double_solid', 'y_w_double_solid'].indexOf(me.Type) > -1) {
+                if (['y-double-solid', 'w-y-double-solid', 'y-w-double-solid'].indexOf(me.Type) > -1) {
                     return { width: 13, transform: !me.Reverse ? 'translate(0, -5)' : 'translate(0, 5)' }
                 }
                 return { width: 5, transform: !me.Reverse ? 'translate(0, -1)' : 'translate(0, 1)' }
@@ -572,7 +572,7 @@
             },
             calcLaneSlow: function () {
                 var me = this;
-                if (me.LaneType !== 'non-motorized' && ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(me.Type) === -1 && me.Slow && me.Slow.isShow) {
+                if (me.LaneType !== 'non-motorized' && ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(me.Type) === -1 && me.Slow && me.Slow.isShow) {
                     me.Slow.total = me.Slow.total || 0;
                     return me.Slow;
                 }
@@ -856,7 +856,7 @@
                 if(!lane) {
                     return me.calcUpwardRoadWidth;
                 }
-                var pLen = me.Upward.lane.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) !== -1 }).length;
+                var pLen = me.Upward.lane.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) !== -1 }).length;
                 return (me.calcUpwardRoadWidth - pLen * 15) / (lane - pLen);
             },
             //上行车道边界线
@@ -866,19 +866,19 @@
                 var isShow = me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow;
                 var isLine = me.Upward && me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow;
                 if (type === 'prohibit' && isLine && isShow) {
-                    return 'y_w_double_solid'
+                    return 'y-w-double-solid'
                 }
 
                 if (type === 'stay' && isLine && isShow) {
-                    return  'y_w_dotted'
+                    return  'y-w-dotted'
                 }
 
                 if (type === 'prohibit' && isShow) {
-                    return 'y_solid'
+                    return 'y-solid'
                 }
 
                 if (type === 'stay' && isShow) {
-                    return  'y_dotted'
+                    return  'y-dotted'
                 }
 
                 if (isLine) {
@@ -894,19 +894,19 @@
                 var isShow = me.Down && me.Down.frame && me.Down.frame.boundary && me.Down.frame.boundary.isShow;
                 var isLine = me.Down && me.Down.frame && me.Down.frame.line && me.Down.frame.line.isShow;
                 if (type === 'prohibit' && isLine && isShow) {
-                    return 'y_w_double_solid'
+                    return 'y-w-double-solid'
                 }
 
                 if (type === 'stay' && isLine && isShow) {
-                    return 'y_w_dotted'
+                    return 'y-w-dotted'
                 }
 
                 if (type === 'prohibit' && isShow) {
-                    return 'y_solid'
+                    return 'y-solid'
                 }
 
                 if (type === 'stay' && isShow) {
-                    return 'y_dotted'
+                    return 'y-dotted'
                 }
 
                 if (isLine) {
@@ -944,7 +944,7 @@
                 if(!lane) {
                     return me.calcDownRoadWidth;
                 }
-                var pLen = me.Down.lane.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) !== -1 }).length;
+                var pLen = me.Down.lane.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) !== -1 }).length;
                 return (me.calcDownRoadWidth - pLen * 15) / (lane - pLen);
             },
             //下行车道数量
@@ -974,7 +974,7 @@
                 for (var index in me.Upward.lane) {
                     if (
                         me.Upward.lane[index] && me.Upward.lane[index].laneType !== "non-motorized" && 
-                        ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(me.Upward.lane[index].type) === -1
+                        ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(me.Upward.lane[index].type) === -1
                     ) {
                         i = index;
                         break;
@@ -982,12 +982,12 @@
                 }
 
                 var offset = lane.splice(0, i);
-                var a = offset.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) !== -1 }).length
-                var b = offset.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) === -1 }).length
+                var a = offset.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) !== -1 }).length
+                var b = offset.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) === -1 }).length
                 w += a * 15 + b * me.calcUpwardLaneWidth;
                 var height = lane.splice(0, sum);
-                var c = height.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) !== -1 }).length
-                var d = height.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) === -1 }).length
+                var c = height.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) !== -1 }).length
+                var d = height.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) === -1 }).length
                 var h = c * 15 + d * me.calcUpwardLaneWidth;
 
                 var m1 = (Math.cos(0 * Math.PI / 180) * 0.2).toFixed(6);
@@ -1021,7 +1021,7 @@
                     for (var index in lane) {
                         if (
                             lane[index] && lane[index].laneType !== "non-motorized"&& 
-                            ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(lane[index].type) === -1
+                            ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(lane[index].type) === -1
                         ) {
                             i = index;
                             break;
@@ -1029,12 +1029,12 @@
                     }
                     lane = lane.concat([]);
                     var offset = lane.splice(0, i);
-                    var a = offset.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) !== -1 }).length
-                    var b = offset.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) === -1 }).length
+                    var a = offset.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) !== -1 }).length
+                    var b = offset.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) === -1 }).length
                     w += a * 15 + b * me.calcDownLaneWidth;
                     var height = lane.splice(0, sum);
-                    var c = height.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) !== -1 }).length
-                    var d = height.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) === -1 }).length
+                    var c = height.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) !== -1 }).length
+                    var d = height.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) === -1 }).length
                     var h = c * 15 + d * me.calcDownLaneWidth;
 
                     var m1 = (Math.cos(180 * Math.PI / 180) * 0.2).toFixed(6);
@@ -1094,8 +1094,8 @@
                 }
                 var lane = me.Upward.lane.concat([]);
                 var newLane = lane.splice(0, i);
-                var a = newLane.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) !== -1 }).length
-                var b = newLane.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) === -1 }).length
+                var a = newLane.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) !== -1 }).length
+                var b = newLane.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) === -1 }).length
                 w += a * 15 + b * me.calcUpwardLaneWidth;
                 return { x : me.X, y : me.Y + w }
             },
@@ -1115,8 +1115,8 @@
                 }
                 var lane = me.Down.lane.concat([]);
                 var newLane = lane.splice(0, i);
-                var a = newLane.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) !== -1 }).length
-                var b = newLane.filter(function(it) { return ['parterre', 'parterre_dashed', 'y_parterre_solid', 'y_parterre_dashed'].indexOf(it.type) === -1 }).length
+                var a = newLane.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) !== -1 }).length
+                var b = newLane.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) === -1 }).length
                 w += a * 15 + b * me.calcDownLaneWidth;
                 return { x : me.X, y : me.Y + w + me.calcUpwardRoadWidth }
             },
