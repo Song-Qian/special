@@ -352,21 +352,21 @@
                 "</g>",
                 "<g>",
                     //行人斑马线
-                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.nonMotorPedestrian && !RoadTop.stayArea ? (1080 - RoadWidth) / 2 - 55 : (1080 - RoadWidth) / 2 - 25' :y2='RoadTop.nonMotorPedestrian && !RoadTop.stayArea ? (1080 - RoadWidth) / 2 - 55 : (1080 - RoadWidth) / 2 - 25' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 55 : 1920 / 2 + RoadWidth / 2 + 25' :x2='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 55 : 1920 / 2 + RoadWidth / 2 + 25' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
-                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='RoadBottom.nonMotorPedestrian && !RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 55 : 1080 / 2 + RoadWidth / 2 + 25' :y2='RoadBottom.nonMotorPedestrian && !RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 55 : 1080 / 2 + RoadWidth / 2 + 25 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
-                    "<line v-show='RoadLeft.pedestrian' :x1='RoadLeft.nonMotorPedestrian && !RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 55 : (1920 - RoadWidth) / 2 - 25' :x2='RoadLeft.nonMotorPedestrian && !RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 55 : (1920 - RoadWidth) / 2 - 25' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
+                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.nonMotorPedestrian && !RoadTop.stayArea ? (1080 - RoadWidth) / 2 - 60 : (1080 - RoadWidth) / 2 - 30' :y2='RoadTop.nonMotorPedestrian && !RoadTop.stayArea ? (1080 - RoadWidth) / 2 - 60 : (1080 - RoadWidth) / 2 - 30' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 60 : 1920 / 2 + RoadWidth / 2 + 30' :x2='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 60 : 1920 / 2 + RoadWidth / 2 + 30' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='RoadBottom.nonMotorPedestrian && !RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 60 : 1080 / 2 + RoadWidth / 2 + 30' :y2='RoadBottom.nonMotorPedestrian && !RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 60 : 1080 / 2 + RoadWidth / 2 + 30 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
+                    "<line v-show='RoadLeft.pedestrian' :x1='RoadLeft.nonMotorPedestrian && !RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 60 : (1920 - RoadWidth) / 2 - 30' :x2='RoadLeft.nonMotorPedestrian && !RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 60 : (1920 - RoadWidth) / 2 - 30' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
                 "</g>",
                 "<g>",
                     //非机动车斑马线
-                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.stayArea ? (1080 - RoadWidth) / 2 : (1080 - RoadWidth) / 2 - 30' :y2='RoadTop.stayArea ? (1080 - RoadWidth) / 2 : (1080 - RoadWidth) / 2 - 30' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
-                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.stayArea ? (1080 - RoadWidth) / 2 + 25 : (1080 - RoadWidth) / 2' :y2='RoadTop.stayArea ? (1080 - RoadWidth) / 2 + 25 : (1080 - RoadWidth) / 2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
-                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 : 1920 / 2 + RoadWidth / 2 + 30' :x2='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 : 1920 / 2 + RoadWidth / 2 + 30' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
-                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 - 25 : 1920 / 2 + RoadWidth / 2' :x2='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 - 25 : 1920 / 2 + RoadWidth / 2' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
-                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 : 1080 / 2 + RoadWidth / 2 + 30' :y2='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 : 1080 / 2 + RoadWidth / 2 + 30 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
-                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 - 25 : 1080 / 2 + RoadWidth / 2' :y2='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 - 25 : 1080 / 2 + RoadWidth / 2 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
-                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='RoadRight.stayArea ? (1920 - RoadWidth) / 2 : (1920 - RoadWidth) / 2 - 30' :x2='RoadRight.stayArea ? (1920 - RoadWidth) / 2 : (1920 - RoadWidth) / 2 - 30' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
-                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='RoadRight.stayArea ? (1920 - RoadWidth) / 2 + 25 : (1920 - RoadWidth) / 2' :x2='RoadRight.stayArea ? (1920 - RoadWidth) / 2 + 25 : (1920 - RoadWidth) / 2' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.stayArea ? (1080 - RoadWidth) / 2 - 5 : (1080 - RoadWidth) / 2 - 35' :y2='RoadTop.stayArea ? (1080 - RoadWidth) / 2 - 5 : (1080 - RoadWidth) / 2 - 35' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.stayArea ? (1080 - RoadWidth) / 2 + 25 : (1080 - RoadWidth) / 2 - 5' :y2='RoadTop.stayArea ? (1080 - RoadWidth) / 2 + 25 : (1080 - RoadWidth) / 2 - 5' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 5: 1920 / 2 + RoadWidth / 2 + 35' :x2='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 5 : 1920 / 2 + RoadWidth / 2 + 35' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 - 25 : 1920 / 2 + RoadWidth / 2 + 5' :x2='RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 - 25 : 1920 / 2 + RoadWidth / 2 + 5' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 5 : 1080 / 2 + RoadWidth / 2 + 35' :y2='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 5 : 1080 / 2 + RoadWidth / 2 + 35 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 - 25 : 1080 / 2 + RoadWidth / 2 + 5' :y2='RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 - 25 : 1080 / 2 + RoadWidth / 2 + 5' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 5 : (1920 - RoadWidth) / 2 - 35' :x2='RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 5 : (1920 - RoadWidth) / 2 - 35' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='RoadLeft.stayArea ? (1920 - RoadWidth) / 2 + 25 : (1920 - RoadWidth) / 2 - 5' :x2='RoadLeft.stayArea ? (1920 - RoadWidth) / 2 + 25 : (1920 - RoadWidth) / 2 - 5' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 3)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -953,7 +953,7 @@
             },
             calcRoadTopStopLine: function () {
                 var me = this;
-                var dist = me.RoadTop.nonMotorPedestrian && !me.RoadTop.stayArea ? 80 : 50;
+                var dist = me.RoadTop.nonMotorPedestrian && !me.RoadTop.stayArea ? 85 : 55;
                 var lane = me.RoadTop.Lane.length || 0;
                 var before = !me.RoadTop.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
@@ -966,7 +966,7 @@
             },
             calcRoadRightStopLine: function () {
                 var me = this;
-                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 80 : 50;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 85 : 55;
                 var lane = me.RoadRight.Lane.length || 0;
                 var before = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
@@ -978,7 +978,7 @@
             },
             calcRoadBottomStopLine: function () {
                 var me = this;
-                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 80 : 50;
+                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 85 : 55;
                 var lane = me.RoadBottom.Lane.length || 0;
                 var before = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
@@ -990,7 +990,7 @@
             },
             calcRoadLeftStopLine: function () {
                 var me = this;
-                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 80 : 50;
+                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 85 : 55;
                 var lane = me.RoadLeft.Lane.length || 0;
                 var before = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadTop.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
@@ -1429,7 +1429,7 @@
                     "<line v-show='RoadBottom.pedestrian' :x1='calcBottomPedestrian.p1.x' :x2='calcBottomPedestrian.p2.x' :y1='calcBottomPedestrian.p1.y' :y2='calcBottomPedestrian.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
                 "</g>",
                 "<g>",
-                    //机动车斑马线
+                    //非机动车斑马线
                     "<line v-show='RoadLeft.nonMotorPedestrian' :x1='calcLeftNonMotorPedestrian.p1.x' :x2='calcLeftNonMotorPedestrian.p2.x' :y1='calcLeftNonMotorPedestrian.p1.y' :y2='calcLeftNonMotorPedestrian.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
                     "<line v-show='RoadLeft.nonMotorPedestrian' :x1='calcLeftNonMotorPedestrian.p3.x' :x2='calcLeftNonMotorPedestrian.p4.x' :y1='calcLeftNonMotorPedestrian.p3.y' :y2='calcLeftNonMotorPedestrian.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
                     "<line v-show='RoadRight.nonMotorPedestrian' :x1='calcRightNonMotorPedestrian.p1.x' :x2='calcRightNonMotorPedestrian.p2.x' :y1='calcRightNonMotorPedestrian.p1.y' :y2='calcRightNonMotorPedestrian.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
@@ -1890,11 +1890,12 @@
             calcRoadLeftStopLine: function() {
                 var me = this;
                 var v1 = me.getLeftIntersection;
+                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 115 : 75;
                 var lane = me.RoadLeft.Lane && me.RoadLeft.Lane.length || 0;
                 var before = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var width = lane <= 2 ? me.RoadWidth - after - before : ((me.RoadLeft.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
-                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, -150);
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, -150);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, before, -60);
                 var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, width, -60);
                 return { p1 : p1, p2 : p2 };
@@ -1903,11 +1904,12 @@
             calcRoadRightStopLine: function() {
                 var me = this;
                 var v1 = me.getTopIntersection;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 115 : 75;
                 var lane = me.RoadRight.Lane && me.RoadRight.Lane.length || 0;
                 var before = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var width = lane <= 2 ? me.RoadWidth - after - before : ((me.RoadRight.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
-                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, -30);
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, -30);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, before, 60);
                 var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, width, 60);
                 return { p1 : p1, p2 : p2 };
@@ -1916,11 +1918,12 @@
             calcRoadBottomStopLine: function() {
                 var me = this;
                 var v1 = me.getRightIntersection;
+                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 115 : 75;
                 var lane = me.RoadBottom.Lane && me.RoadBottom.Lane.length || 0;
                 var before = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var width = lane <= 2 ? me.RoadWidth - after - before : ((me.RoadBottom.Lane.filter(function (it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
-                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, 90);
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, 90);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, before, 180);
                 var p2 = utils.calcRadiusAnyPoint(p1.x, p1.y, width, 180);
                 return { p1 : p1, p2 : p2 };
@@ -2032,16 +2035,17 @@
                 var me = this;
                 var v1 = me.getLeftIntersection;
                 var v2 = me.getTopIntersection;
+                var dist = me.RoadLeft.stayArea ? 25 : 65;
                 var lw = !me.RoadLeft.stayArea ? 0 : me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
                 var rw = !me.RoadRight.stayArea ? 0 : me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
                 // var bw = !me.RoadBottom.stayArea && !me.RoadLeft.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
-                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 60, -150);
-                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 60, -150);
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, -150);
+                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, dist, -150);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, lw, -60);
                 var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, rw, 120);
                 
-                var r3 = utils.calcRadiusAnyPoint(v1.x, v1.y, 20, -150);
-                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, 20, -150);
+                var r3 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist - 30, -150);
+                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, dist - 30, -150);
                 var p3 = utils.calcRadiusAnyPoint(r3.x, r3.y, lw, -60);
                 var p4 = utils.calcRadiusAnyPoint(r4.x, r4.y, rw, 120);
                 return { p1 : p1, p2 : p2, p3 : p3, p4 : p4 };
@@ -2051,15 +2055,16 @@
                 var me = this;
                 var v1 = me.getTopIntersection;
                 var v2 = me.getRightIntersection;
+                var dist = me.RoadRight.stayArea ? 25 : 65;
                 var rw = !me.RoadRight.stayArea ? 0 : me.RoadRight.Lane && me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
                 var bw = !me.RoadBottom.stayArea ? 0 : me.RoadRight.Lane && me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
-                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 60, -30);
-                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 60, -30);
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, -30);
+                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, dist, -30);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, rw, 60);
                 var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, bw, -120);
                 
-                var r3 = utils.calcRadiusAnyPoint(v1.x, v1.y, 20, -30);
-                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, 20, -30);
+                var r3 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist - 30, -30);
+                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, dist - 30, -30);
                 var p3 = utils.calcRadiusAnyPoint(r3.x, r3.y, rw, 60);
                 var p4 = utils.calcRadiusAnyPoint(r4.x, r4.y, bw, -120);
                 return { p1 : p1, p2 : p2, p3 : p3, p4 : p4 };
@@ -2069,16 +2074,17 @@
                 var me = this;
                 var v1 = me.getRightIntersection;
                 var v2 = me.getLeftIntersection;
+                var dist = me.RoadBottom.stayArea ? 25 : 65;
                 var bw = !me.RoadBottom.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
                 var lw = !me.RoadLeft.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
-                var rw = !me.RoadRight.stayArea && !me.RoadBottom.stayArea ? 0 : me.RoadRight.Lane &&me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
-                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 60, 90);
-                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 60, 90);
+                // var rw = !me.RoadRight.stayArea && !me.RoadBottom.stayArea ? 0 : me.RoadRight.Lane &&me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, 90);
+                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, dist, 90);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, bw, 180);
                 var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, lw, 0);
                 
-                var r3 = utils.calcRadiusAnyPoint(v1.x, v1.y, 20, 90);
-                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, 20, 90);
+                var r3 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist - 30, 90);
+                var r4 = utils.calcRadiusAnyPoint(v2.x, v2.y, dist - 30, 90);
                 var p3 = utils.calcRadiusAnyPoint(r3.x, r3.y, bw, 180);
                 var p4 = utils.calcRadiusAnyPoint(r4.x, r4.y, lw, 0);
                 return { p1 : p1, p2 : p2, p3 : p3, p4 : p4 };
@@ -2088,11 +2094,12 @@
                 var me = this;
                 var v1 = me.getLeftIntersection;
                 var v2 = me.getTopIntersection;
+                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 90 : 50;
                 var lw = !me.RoadLeft.stayArea ? 0 : me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
                 var rw = !me.RoadRight.stayArea ? 0 : me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
                 var bw = !me.RoadBottom.stayArea && !me.RoadLeft.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
-                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 40, -150);
-                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 40, -150);
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, -150);
+                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, dist, -150);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, lw, -60);
                 var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, rw, 120);
                 var ah = utils.calcTriangleHeight(30, 90);
@@ -2105,11 +2112,12 @@
                 var me = this;
                 var v1 = me.getTopIntersection;
                 var v2 = me.getRightIntersection;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 90 : 50;
                 var rw = !me.RoadRight.stayArea ? 0 : me.RoadRight.Lane && me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
                 var bw = !me.RoadBottom.stayArea ? 0 : me.RoadRight.Lane && me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
                 var lw = !me.RoadLeft.stayArea && !me.RoadRight.stayArea ? 0 : me.RoadLeft.Lane && me.RoadLeft.Lane.length <= 2 ? 50 : me.calcRoadLeftLaneWidth;
-                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 40, -30);
-                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 40, -30);
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, -30);
+                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, dist, -30);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, rw, 60);
                 var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, bw, -120);
                 var ah = utils.calcTriangleHeight(30, 90);
@@ -2122,11 +2130,12 @@
                 var me = this;
                 var v1 = me.getRightIntersection;
                 var v2 = me.getLeftIntersection;
+                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 90 : 50;
                 var bw = !me.RoadBottom.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
                 var lw = !me.RoadLeft.stayArea ? 0 : me.RoadBottom.Lane && me.RoadBottom.Lane.length <= 2 ? 50 : me.calcRoadBottomLaneWidth;
                 var rw = !me.RoadRight.stayArea && !me.RoadBottom.stayArea ? 0 : me.RoadRight.Lane &&me.RoadRight.Lane.length <= 2 ? 50 : me.calcRoadRightLaneWidth;
-                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 40, 90);
-                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, 40, 90);
+                var r1 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, 90);
+                var r2 = utils.calcRadiusAnyPoint(v2.x, v2.y, dist, 90);
                 var p1 = utils.calcRadiusAnyPoint(r1.x, r1.y, bw, 180);
                 var p2 = utils.calcRadiusAnyPoint(r2.x, r2.y, lw, 0);
                 var ah = utils.calcTriangleHeight(30, 90);
@@ -2219,22 +2228,25 @@
             },
             roadLeftMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 120 : 80;
                 var v = me.getLeftIntersection;
-                var d = utils.calcRadiusAnyPoint(v.x, v.y, 80, -150);
+                var d = utils.calcRadiusAnyPoint(v.x, v.y, dist, -150);
                 var width = me.calcRoadLeftLaneWidth;
                 return utils.calcRadiusAnyPoint(d.x, d.y, ((n + 1) * width), -60);
             },
             roadRightMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 120 : 80;
                 var v = me.getTopIntersection;
-                var d = utils.calcRadiusAnyPoint(v.x, v.y, 80, -30);
+                var d = utils.calcRadiusAnyPoint(v.x, v.y, dist, -30);
                 var width = me.calcRoadRightLaneWidth;
                 return utils.calcRadiusAnyPoint(d.x, d.y, (n + 1) * width, 60);
             },
             roadBottomMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 120 : 80;
                 var v = me.getRightIntersection;
-                var d = utils.calcRadiusAnyPoint(v.x, v.y, 80, 90);
+                var d = utils.calcRadiusAnyPoint(v.x, v.y, dist, 90);
                 var width = me.calcRoadBottomLaneWidth;
                 return utils.calcRadiusAnyPoint(d.x, d.y, (n + 1) * width, 180);
             },
@@ -2400,18 +2412,18 @@
                 "</g>",
                 "<g>",
                     //行人斑马线
-                    "<line v-show='RoadLeft.pedestrian' :x1='(1920 - RoadWidth) / 2 - 20' :x2='(1920 - RoadWidth) / 2 - 20' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
-                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 20' :y2='1080 / 2 + RoadWidth / 2 + 20 ' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
+                    "<line v-show='RoadLeft.pedestrian' :x1='RoadLeft.nonMotorPedestrian && !RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 60 : (1920 - RoadWidth) / 2 - 30' :x2='RoadLeft.nonMotorPedestrian && !RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 60 : (1920 - RoadWidth) / 2 - 30' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='RoadRight.nonMotorPedestrian && !RoadBottom.stayArea ? 1920 / 2 + RoadWidth / 2 + 60 : 1920 / 2 + RoadWidth / 2 + 30' :x2='RoadRight.nonMotorPedestrian && !RoadBottom.stayArea ? 1920 / 2 + RoadWidth / 2 + 60 : 1920 / 2 + RoadWidth / 2 + 30' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='RoadBottom.nonMotorPedestrian && !RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 60 : 1080 / 2 + RoadWidth / 2 + 30' :y2='RoadBottom.nonMotorPedestrian && !RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 60 : 1080 / 2 + RoadWidth / 2 + 30' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 2, false)' />",
                 "</g>",
                 "<g>",
                     //机动车斑马线
-                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2 - 40' :x2='(1920 - RoadWidth) / 2 - 40' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
-                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='(1920 - RoadWidth) / 2' :x2='(1920 - RoadWidth) / 2' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
-                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2 + 40' :x2='1920 / 2 + RoadWidth / 2 + 40' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
-                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2' :x2='1920 / 2 + RoadWidth / 2' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
-                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2 + 40' :y2='1080 / 2 + RoadWidth / 2 + 40 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
-                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='1080 / 2 + RoadWidth / 2' :y2='1080 / 2 + RoadWidth / 2 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='!RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 35 : (1920 - RoadWidth) / 2 - 5' :x2='!RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 35 : (1920 - RoadWidth) / 2 - 5' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadLeft.nonMotorPedestrian' :x1='!RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 5 : (1920 - RoadWidth) / 2 + 25' :x2='!RoadLeft.stayArea ? (1920 - RoadWidth) / 2 - 5 : (1920 - RoadWidth) / 2 + 25' :y1='calcPedestrianLength.left.y1' :y2='calcPedestrianLength.left.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='!RoadBottom.stayArea ? 1920 / 2 + RoadWidth / 2 + 35 : 1920 / 2 + RoadWidth / 2 + 5' :x2='!RoadBottom.stayArea ? 1920 / 2 + RoadWidth / 2 + 35 : 1920 / 2 + RoadWidth / 2 + 5' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='!RoadBottom.stayArea ? 1920 / 2 + RoadWidth / 2 + 5 : 1920 / 2 + RoadWidth / 2 - 25' :x2='!RoadBottom.stayArea ? 1920 / 2 + RoadWidth / 2 + 5 : 1920 / 2 + RoadWidth / 2 - 25' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='!RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 35 : 1080 / 2 + RoadWidth / 2 + 5' :y2='!RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 35 : 1080 / 2 + RoadWidth / 2 + 5 ' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
+                    "<line v-show='RoadBottom.nonMotorPedestrian' :x1='calcPedestrianLength.bottom.x1' :x2='calcPedestrianLength.bottom.x2' :y1='!RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 5 : 1080 / 2 + RoadWidth / 2 - 25' :y2='!RoadBottom.stayArea ? 1080 / 2 + RoadWidth / 2 + 5 : 1080 / 2 + RoadWidth / 2 - 25' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;'  @click.capture.stop='onRoadNonMotorPedestrianClick($event, 2)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -2785,24 +2797,27 @@
             },
             calcRoadLeftStopLine: function() {
                 var me = this;
+                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 85 : 55;
                 var lane = me.RoadLeft.Lane.length || 0;
                 var diff = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var height = !lane ? me.RoadWidth - diff : ((me.RoadLeft.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - diff;
-                var x = 1920 / 2 - me.RoadWidth / 2 - 50;
+                var x = 1920 / 2 - me.RoadWidth / 2 - dist;
                 var y = 1080 / 2 + me.RoadWidth / 2 - diff;
                 return { p1: { x : x, y : y - height }, p2: { x : x, y : y } };
             },
             calcRoadRightStopLine: function() {
                 var me = this;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadBottom.stayArea ? 85 : 55;
                 var lane = me.RoadRight.Lane.length || 0;
                 var diff = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var height = !lane ? me.RoadWidth - diff : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane));
-                var x = 1920 / 2 + me.RoadWidth / 2 + 50;
+                var x = 1920 / 2 + me.RoadWidth / 2 + dist;
                 var y = (1080 - me.RoadWidth) / 2;
                 return { p1: { x : x, y : y }, p2: { x : x, y : y + height } };
             },
             calcRoadBottomStopLine: function() {
                 var me = this;
+                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 85 : 55;
                 var lane = me.RoadBottom.Lane.length || 0;
                 var before = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var after = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
@@ -2810,7 +2825,7 @@
                 var width = !lane ? me.RoadWidth - diff : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
                 var x = 1920 / 2 + me.RoadWidth / 2 - before;
                 var y = 1080 / 2 + me.RoadWidth / 2;
-                return { p1 : { x: x, y: y + 50 }, p2: { x: x - width, y: y + 50 }};
+                return { p1 : { x: x, y: y + dist }, p2: { x: x - width, y: y + dist }};
             },
             calcPedestrianLength: function() {
                 var me = this;
@@ -2976,21 +2991,24 @@
             },
             roadLeftMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 90 : 60;
                 var v = { x : (1920 - me.RoadWidth) / 2, y : 1080 / 2 + me.RoadWidth / 2 };
                 var width = me.calcRoadLeftLaneWidth;
-                return { x : v.x - 60, y :  v.y - ((n + 1) * width)}
+                return { x : v.x - dist, y :  v.y - ((n + 1) * width)}
             },
             roadRightMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadBottom.stayArea ? 90 : 60;
                 var v = { x : 1920 / 2 + me.RoadWidth / 2, y : 1080 / 2 - me.RoadWidth / 2 };
                 var width = me.calcRoadRightLaneWidth;
-                return { x : v.x + 60, y: v.y + ((n + 1) * width) }
+                return { x : v.x + dist, y: v.y + ((n + 1) * width) }
             },
             roadBottomMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 90 : 60;
                 var v = { x : 1920 / 2 + me.RoadWidth / 2, y : 1080 / 2 + me.RoadWidth / 2 };
                 var width = me.calcRoadBottomLaneWidth;
-                return { x : v.x - ((n + 1) * width), y: v.y + 60 }
+                return { x : v.x - ((n + 1) * width), y: v.y + dist }
             },
             onRoadNonMotorPedestrianClick: function (e, no) {
                 //路口机动车斑马线点击事件
@@ -3146,22 +3164,22 @@
                     "<circle :cx='1920 / 2' :cy='1080 / 2' r='15' fill='#fff'>",
                 "</g>",
                 "<g>",
-                    "<path :d='calcRoadTopLeftBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='5' />",
-                    "<path :d='calcRoadTopRightBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='5' />",
-                    "<path :d='calcRoadRightTopBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='5' />",
-                    "<path :d='calcRoadRightBottomBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='5' />",
+                    "<path :d='calcRoadTopLeftBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='3' />",
+                    "<path :d='calcRoadTopRightBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='3' />",
+                    "<path :d='calcRoadRightTopBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='3' />",
+                    "<path :d='calcRoadRightBottomBoundary.out' fill='none' stroke='#8e8e8e' stroke-width='3' />",
                 "</g>",
                 "<g>",
                     //行人斑马线
-                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 20' :y2='(1080 - RoadWidth) / 2 - 20' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
-                    "<line v-show='RoadRight.pedestrian' :x1='1920 / 2 + RoadWidth / 2 + 20' :x2='1920 / 2 + RoadWidth / 2 + 20' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
+                    "<line v-show='RoadTop.pedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.nonMotorPedestrian && !RoadRight.stayArea ? (1080 - RoadWidth) / 2 - 60 : (1080 - RoadWidth) / 2 - 30' :y2='RoadTop.nonMotorPedestrian && !RoadRight.stayArea ? (1080 - RoadWidth) / 2 - 60 : (1080 - RoadWidth) / 2 - 30' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 0, false)' />",
+                    "<line v-show='RoadRight.pedestrian' :x1='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 60 : 1920 / 2 + RoadWidth / 2 + 30' :x2='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 60 : 1920 / 2 + RoadWidth / 2 + 30' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 1, false)' />",
                 "</g>",
                 "<g>",
                     //机动车斑马线
-                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2 - 40' :y2='(1080 - RoadWidth) / 2 - 40' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
-                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='(1080 - RoadWidth) / 2' :y2='(1080 - RoadWidth) / 2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
-                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2 + 40' :x2='1920 / 2 + RoadWidth / 2 + 40' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
-                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='1920 / 2 + RoadWidth / 2' :x2='1920 / 2 + RoadWidth / 2' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.nonMotorPedestrian && !RoadRight.stayArea ? (1080 - RoadWidth) / 2 - 35 : (1080 - RoadWidth) / 2 - 5' :y2='RoadTop.nonMotorPedestrian && !RoadRight.stayArea ? (1080 - RoadWidth) / 2 - 35 : (1080 - RoadWidth) / 2 - 5' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcPedestrianLength.top.x1' :x2='calcPedestrianLength.top.x2' :y1='RoadTop.nonMotorPedestrian && !RoadRight.stayArea ? (1080 - RoadWidth) / 2 - 5 : (1080 - RoadWidth) / 2 + 25' :y2='RoadTop.nonMotorPedestrian && !RoadRight.stayArea ? (1080 - RoadWidth) / 2 - 5 : (1080 - RoadWidth) / 2 + 25' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 35 : 1920 / 2 + RoadWidth / 2 + 5' :x2='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ? 1920 / 2 + RoadWidth / 2 + 35 : 1920 / 2 + RoadWidth / 2 + 5' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
+                    "<line v-show='RoadRight.nonMotorPedestrian' :x1='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ?  1920 / 2 + RoadWidth / 2 + 5 : 1920 / 2 + RoadWidth / 2 - 25' :x2='RoadRight.nonMotorPedestrian && !RoadRight.stayArea ?  1920 / 2 + RoadWidth / 2 + 5 : 1920 / 2 + RoadWidth / 2 - 25' :y1='calcPedestrianLength.right.y1' :y2='calcPedestrianLength.right.y2' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
                 "</g>",
                 "<g>",
                     //机动车停止线
@@ -3228,15 +3246,15 @@
                 "<image v-for='(flag, n) in calcRoadRightForDownFlag' :x='calcRoadRightFlagPosition(flag, n).x' :y='calcRoadRightFlagPosition(flag, n).y' width='110' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop='onRoadFlagClick($event, 1, flag)' />",
                 "<g>",
                     //公路边界线
-                    "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(2, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
-                    "<path v-show='RoadTop.boundary.left.has' :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-2, 0)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
-                    "<path v-show='RoadRight.boundary.right.has' :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(0, 2)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
-                    "<path v-show='RoadRight.boundary.left.has' :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(5, -2)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show='RoadTop.boundary.right.has' :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" transform=\"translate(1, 0)\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show='RoadTop.boundary.left.has' :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" transform=\"translate(-1, 1)\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
+                    "<path v-show='RoadRight.boundary.right.has' :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" transform=\"translate(-1, 1)\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show='RoadRight.boundary.left.has' :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" transform=\"translate(0, -1)\" stroke-width='2' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
                             
-                    "<path v-show=\"RoadTop.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1\" :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(5, 2)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
-                    "<path v-show=\"RoadTop.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1\" :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-5, 0)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
-                    "<path v-show=\"RoadRight.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1\" :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(0, 5)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
-                    "<path v-show=\"RoadRight.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1\" :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(5, -5)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
+                    "<path v-show=\"RoadTop.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1\" :d='calcRoadTopLeftBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(5, 0)' @click.capture.stop='onRoadBoundaryClick($event, 0, true)' />",
+                    "<path v-show=\"RoadTop.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1\" :d='calcRoadTopRightBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadTop.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-5, 5)'  @click.capture.stop='onRoadBoundaryClick($event, 0, false)' />",
+                    "<path v-show=\"RoadRight.boundary.right.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1\" :d='calcRoadRightTopBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.right.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(-5, 5)' @click.capture.stop='onRoadBoundaryClick($event, 1, true)' />",
+                    "<path v-show=\"RoadRight.boundary.left.has && ['y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1\" :d='calcRoadRightBottomBoundary.inner' fill='none' :stroke=\"['y_dotted', 'y_solid', 'y_double_solid', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '#d6cb0a' : '#fff'\" :stroke-dasharray=\"['dotted', 'y_dotted', 'y_double_dashed'].indexOf(RoadRight.boundary.left.type) > -1 ? '20, 20' : ''\" stroke-width='2' transform='translate(0, -5)' @click.capture.stop='onRoadBoundaryClick($event, 1, false)'/>",
                 "</g>",
                 "<g>",
                     //行人安全暂留区斑马线
@@ -3388,10 +3406,10 @@
                 var me = this;
                 var right = (1920 / 2) + (me.RoadWidth / 2);
                 var rx = right + 125;
-                var ry = 1080 / 2 - me.RoadWidth / 2 - 125;
-                var oy = ((1080 / 2) - me.RoadWidth * 0.5);
-                var out = 'M${right},-499999.5 V${ry} S${right},${oy} ${rx},${oy}'.replace(/(\$\{right\})/g, right).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
-                var inner = 'M${right},-499999.5 V${ry} S${right},${oy} ${rx},${oy}'.replace(/(\$\{right\})/g, right).replace(/(\$\{rx\})/g, rx - 2).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
+                var ry = (1080 - me.RoadWidth) / 2 - 125;
+                var oy = (1080 - me.RoadWidth) / 2;
+                var out = 'M${rx},${oy} S${right},${oy} ${right},${ry} v-499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
+                var inner = 'M${rx},${oy} S${right},${oy} ${right},${ry} v-499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{rx\})/g, rx - 2).replace(/(\$\{ry\})/g, ry).replace(/(\$\{oy\})/g, oy);
                 if(!me.RoadRight.stayArea) {
                     out = 'M${right},-499999.5 V${oy}'.replace(/(\$\{right\})/g, right).replace(/(\$\{oy\})/g, oy);
                     inner = 'M${right},-499999.5 V${oy}'.replace(/(\$\{right\})/g, right).replace(/(\$\{oy\})/g, oy);
@@ -3405,8 +3423,8 @@
                 var top = 1080 / 2 - me.RoadWidth / 2;
                 var rx = right + 125;
                 var ry = top - 125;
-                var out = 'M${right},${ry} S${right},${top} ${rx},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
-                var inner = 'M${right},${ry} S${right},${top} ${rx},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry - 3);
+                var out = 'M${rx},${top} S${right},${top} ${right},${ry} M${rx},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry);
+                var inner = 'M${rx},${top} S${right},${top} ${right},${ry} M${rx},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top).replace(/(\$\{rx\})/g, rx).replace(/(\$\{ry\})/g, ry - 3);
                 if (!me.RoadRight.stayArea) {
                     out = 'M${right},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top);
                     inner = 'M${right},${top} h499999.5'.replace(/(\$\{right\})/g, right).replace(/(\$\{top\})/g, top);
@@ -3458,6 +3476,7 @@
             },
             calcRoadTopStopLine: function() {
                 var me = this;
+                var dist = me.RoadTop.nonMotorPedestrian && !me.RoadRight.stayArea ? 85 : 55;
                 var lane = me.RoadTop.Lane.length || 0;
                 var before = 0;
                 var after = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
@@ -3465,14 +3484,15 @@
                 var width = !lane ? me.RoadWidth - diff : ((me.RoadTop.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
                 var x = (1920 - me.RoadWidth) / 2 + before;
                 var y = 1080 / 2 - me.RoadWidth / 2;
-                return { p1 : { x: x, y: y - 50 }, p2: { x: x + width, y: y - 50 }};
+                return { p1 : { x: x, y: y - dist }, p2: { x: x + width, y: y - dist }};
             },
             calcRoadRightStopLine: function() {
                 var me = this;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 85 : 55;
                 var lane = me.RoadRight.Lane.length || 0;
                 var before = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.RoadWidth / lane;
                 var height = !lane ? me.RoadWidth - before : ((me.RoadRight.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
-                var x = 1920 / 2 + me.RoadWidth / 2 + 50;
+                var x = 1920 / 2 + me.RoadWidth / 2 + dist;
                 var y = (1080 - me.RoadWidth) / 2 + before;
                 return { p1: { x : x, y : y }, p2: { x : x, y : y + height } };
             },
@@ -3527,15 +3547,17 @@
         methods: {
             crossTopMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadTop.nonMotorPedestrian && !me.RoadRight.stayArea ? 90 : 60;
                 var left = (1920 - me.RoadWidth) / 2;
-                var top = (1080 - me.RoadWidth) / 2 - 60;
+                var top = (1080 - me.RoadWidth) / 2 - dist;
                 var width = me.calcRoadTopLaneWidth;
                 return { x : (n + 1) * width + left, y: top };
             },
             crossRightMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 90 : 60;
                 var top = (1080 - me.RoadWidth) / 2;
-                var left = 1920 / 2 + me.RoadWidth / 2 + 60;
+                var left = 1920 / 2 + me.RoadWidth / 2 + dist;
                 var width = me.calcRoadRightWidth;
                 return { x : left, y : (n + 1) * width + top };
             },
@@ -3692,7 +3714,7 @@
                 var top = (1080 / 2 ) + (me.RoadWidth / 2) + 20;
                 var left = (1920 / 2) + (me.RoadWidth / 2) + 300;
                 return { x: left + i * 120, y: top + r * 90 };
-            },
+            }
         }
     })
 
@@ -3961,6 +3983,7 @@
             handlerNonMotorPedestrian: function (i) {
                 var me = this;
                 var next = i + 1 >= me.getRoadMap.length ? 0 : i + 1;
+                var dist = me.getRoadMap[i] && me.getRoadMap[i].nonMotorPedestrian && !me.getRoadMap[i].stayArea ? -25 : -25;
                 var before = !me.getRoadMap[i].stayArea ? 0 : me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length <= 2 ? 50 : me.handlerRoadWidth(i);
                 var after = !me.getRoadMap[next].stayArea ? 0 : me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length <= 2 ? 50 : me.handlerRoadWidth(i);
 
@@ -3968,8 +3991,8 @@
                 var a = -90 + (i * (360 / count));
                 var r = me.calcCircumscribeRadius;
                 var c = { x: 1920 / 2, y: 1080 / 2 };
-                var v = utils.calcRadiusAnyPoint(c.x, c.y, r, a);
-                var v1 = utils.calcRadiusAnyPoint(c.x, c.y, r + 40, a);
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + dist, a);
+                var v1 = utils.calcRadiusAnyPoint(c.x, c.y, r + dist - 30, a);
                 var p1 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - before, a - 90);
                 var p2 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - after, a + 90);
                 var p3 = utils.calcRadiusAnyPoint(v1.x, v1.y, me.RoadWidth / 2 - before, a - 90);
@@ -3979,6 +4002,7 @@
             handlerPedestrian: function (i) {
                 var me = this;
                 var next = i + 1 >= me.getRoadMap.length ? 0 : i + 1;
+                var dist = me.getRoadMap[i] && me.getRoadMap[i].nonMotorPedestrian && !me.getRoadMap[i].stayArea ? 0 : 0;
                 var before = !me.getRoadMap[i].stayArea ? 0 : me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length <= 2 ? 50 : me.handlerRoadWidth(i);
                 var after = !me.getRoadMap[next].stayArea ? 0 : me.getRoadMap[i].Lane && me.getRoadMap[i].Lane.length <= 2 ? 50 : me.handlerRoadWidth(i);
 
@@ -3986,7 +4010,7 @@
                 var a = -90 + (i * (360 / count));
                 var r = me.calcCircumscribeRadius;
                 var c = { x: 1920 / 2, y: 1080 / 2 };
-                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + 20, a);
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + dist, a);
                 var v1 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - before, a - 90);
                 var v2 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - after, a + 90);
                 return { p1: v1, p2: v2 };
@@ -4047,26 +4071,28 @@
             handlerStopLine: function (i) { 
                 var me = this;
                 var lane = me.getRoadMap[i] && me.getRoadMap[i].Lane.length || 0;
+                var dist = me.getRoadMap[i] && me.getRoadMap[i].nonMotorPedestrian && !me.getRoadMap[i].stayArea ? 25 : 25;
                 var diff = !me.getRoadMap[i].stayArea ? 0 : lane <= 2 ? 50 : Number((me.RoadWidth / lane).toFixed(5));
                 var len = !lane ? me.RoadWidth - (diff * 2) : ((me.getRoadMap[i].Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane));
                 var count = me.getRoadMap && me.getRoadMap.length || 3;
                 var a = -90 + (i * (360 / count));
                 var r = me.calcCircumscribeRadius;
                 var c = { x: 1920 / 2, y: 1080 / 2 };
-                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + 50, a);
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + dist, a);
                 var v1 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2 - diff, a - 90);
                 var v2 = utils.calcRadiusAnyPoint(v1.x, v1.y, me.getRoadMap[i].stayArea ? (len - diff) : len, a + 90);
                 return { p1: v1, p2: v2 };
             },
             handlerLanePosition: function (i, k) {
                 var me = this;
+                var dist = me.getRoadMap[i] && me.getRoadMap[i].nonMotorPedestrian && !me.getRoadMap[i].stayArea ? 30 : 30;
                 var lane = me.getRoadMap[i] && me.getRoadMap[i].Lane.length || 0;
                 var count = me.getRoadMap && me.getRoadMap.length || 3;
                 var w = Number((me.RoadWidth / lane).toFixed(5));
                 var a = -90 + (i * (360 / count));
                 var r = me.calcCircumscribeRadius;
                 var c = { x: 1920 / 2, y: 1080 / 2 };
-                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + 60, a);
+                var v = utils.calcRadiusAnyPoint(c.x, c.y, r + dist, a);
                 var v1 = utils.calcRadiusAnyPoint(v.x, v.y, me.RoadWidth / 2, a - 90);
                 var v2 = utils.calcRadiusAnyPoint(v1.x, v1.y, (k + 1) * w, a + 90);
                 return { vertex : v2, angle: -90 + a }
@@ -4252,7 +4278,7 @@
                     "<line v-show='RoadBottom.pedestrian' :x1='calcPedestrianLength.bottom.p1.x' :x2='calcPedestrianLength.bottom.p2.x' :y1='calcPedestrianLength.bottom.p1.y' :y2='calcPedestrianLength.bottom.p2.y' stroke='#fff' stroke-width='40' stroke-dasharray='5,5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadPedestrianClick($event, 3, false)' />",
                 "</g>",
                 "<g>",
-                    //机动车斑马线
+                    //非机动车斑马线
                     "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.top.p1.x' :x2='calcNonMotorPedestrianLength.top.p2.x' :y1='calcNonMotorPedestrianLength.top.p1.y' :y2='calcNonMotorPedestrianLength.top.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
                     "<line v-show='RoadTop.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.top.p3.x' :x2='calcNonMotorPedestrianLength.top.p4.x' :y1='calcNonMotorPedestrianLength.top.p3.y' :y2='calcNonMotorPedestrianLength.top.p4.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 0)' />",
                     "<line v-show='RoadRight.nonMotorPedestrian' :x1='calcNonMotorPedestrianLength.right.p1.x' :x2='calcNonMotorPedestrianLength.right.p2.x' :y1='calcNonMotorPedestrianLength.right.p1.y' :y2='calcNonMotorPedestrianLength.right.p2.y' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onRoadNonMotorPedestrianClick($event, 1)' />",
@@ -4934,7 +4960,8 @@
             calcRoadTopStopLine: function() {
                 var me = this;
                 var v = me.getTopIntersection;
-                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, -90);
+                var dist = me.RoadTop.nonMotorPedestrian && !me.RoadRight.stayArea ? 175 : 115;
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, dist, -90);
                 var v2 = { x : v1.x - me.RoadWidth, y : v1.y };
                 var lane = me.RoadTop.Lane && me.RoadTop.Lane.length || 0;
                 var after = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : 0;
@@ -4944,7 +4971,8 @@
             calcRoadRightStopLine: function() {
                 var me = this;
                 var v = me.getTopIntersection;
-                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, -45);
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 175 : 115;
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, dist, -45);
                 var lane = me.RoadRight.Lane && me.RoadRight.Lane.length || 0;
                 var before = !me.RoadRight.stayArea ? 0 : lane <= 2 ? 50 : me.calcRoadRightLaneWidth;
                 var after = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.calcRoadRightLaneWidth;
@@ -4956,7 +4984,8 @@
             calcRoadLeftStopLine: function() {
                 var me = this;
                 var v = me.getCrossIntersection;
-                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, 45);
+                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 175 : 115;
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, dist, 45);
                 var lane = me.RoadLeft.Lane && me.RoadLeft.Lane.length || 0;
                 var before = !me.RoadLeft.stayArea ? 0 : lane <= 2 ? 50 : me.calcRoadLeftLaneWidth;
                 var after = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.calcRoadLeftLaneWidth;
@@ -4968,7 +4997,8 @@
             calcRoadBottomStopLine: function() {
                 var me = this;
                 var v = me.getBottomIntersection;
-                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, 120, 90);
+                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 175 : 115;
+                var v1 = utils.calcRadiusAnyPoint(v.x, v.y, dist, 90);
                 var lane = me.RoadBottom.Lane && me.RoadBottom.Lane.length || 0;
                 var before = !me.RoadBottom.stayArea ? 0 : lane <= 2 ? 50 : me.calcRoadBottomLaneWidth;
                 var w = lane <= 2 ? me.RoadWidth - before : ((me.RoadBottom.Lane.filter(function(it) { return !it.reverse }).length || 0) * (me.RoadWidth / lane)) - before;
@@ -4983,12 +5013,16 @@
                 var v = me.getTopIntersection;
                 var v1 = me.getCrossIntersection;
                 var v2 = me.getBottomIntersection;
-                var vt = utils.calcRadiusAnyPoint(v.x, v.y, 80, -90);
-                var vr = utils.calcRadiusAnyPoint(v.x, v.y, 60, -45);
-                var vr1 = utils.calcRadiusAnyPoint(v.x, v.y, 100, -45);
-                var vl = utils.calcRadiusAnyPoint(v1.x, v1.y, 60, 45);
-                var vl1 = utils.calcRadiusAnyPoint(v1.x, v1.y, 100, 45);
-                var vb = utils.calcRadiusAnyPoint(v2.x, v2.y, 80, 90);
+                var dist1 = me.RoadTop.nonMotorPedestrian && !me.RoadRight.stayArea ? 125 : 65;
+                var dist2 = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 125 : 65;
+                var dist3 = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 125 : 65;
+                var dist4 = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 125 : 65;
+                var vt = utils.calcRadiusAnyPoint(v.x, v.y, dist1, -90);
+                var vr = utils.calcRadiusAnyPoint(v.x, v.y, dist2, -45);
+                var vr1 = utils.calcRadiusAnyPoint(v.x, v.y, dist2 - 30, -45);
+                var vl = utils.calcRadiusAnyPoint(v1.x, v1.y, dist3, 45);
+                var vl1 = utils.calcRadiusAnyPoint(v1.x, v1.y, dist3 - 30, 45);
+                var vb = utils.calcRadiusAnyPoint(v2.x, v2.y, dist4, 90);
                 var before_td = !me.RoadRight.stayArea ? 0 : topLane - 2 <= 0 ? 50 : (me.RoadWidth / topLane);
                 var before_rd = !me.RoadRight.stayArea ? 0 : rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane;
                 var after_rd = !me.RoadLeft.stayArea ? 0 : rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane;
@@ -4997,16 +5031,16 @@
                 var before_bd = !me.RoadBottom.stayArea ? 0 : bottomLane - 2 <= 0 ? 50 : (me.RoadWidth / bottomLane);
                 return {
                     top : {
-                        p1: { x : vt.x - before_td, y : vt.y - 20 },
-                        p2: { x: topLane - 2 <= 0 ? vt.x - me.RoadWidth : vt.x - me.RoadWidth, y: vt.y - 20 },
-                        p3: { x: vt.x - before_td, y: vt.y + 20 },
-                        p4: { x: topLane - 2 <= 0 ? vt.x - me.RoadWidth : vt.x - me.RoadWidth, y: vt.y + 20 }
+                        p1: { x : vt.x - before_td, y : vt.y },
+                        p2: { x: topLane - 2 <= 0 ? vt.x - me.RoadWidth : vt.x - me.RoadWidth, y: vt.y },
+                        p3: { x: vt.x - before_td, y: vt.y + 30 },
+                        p4: { x: topLane - 2 <= 0 ? vt.x - me.RoadWidth : vt.x - me.RoadWidth, y: vt.y + 30 }
                     },
                     right: {
                         p1 : utils.calcRadiusAnyPoint(vr.x, vr.y, before_rd, 45),
                         p2 : utils.calcRadiusAnyPoint(vr.x, vr.y, me.RoadWidth - after_rd, 45),
                         p3 : utils.calcRadiusAnyPoint(vr1.x, vr1.y, before_rd, 45),
-                        p4 : utils.calcRadiusAnyPoint(vr1.x, vr1.y, me.RoadWidth - after_rd, 45),
+                        p4 : utils.calcRadiusAnyPoint(vr1.x, vr1.y, me.RoadWidth - after_rd, 45)
                     },
                     left : {
                         p1 : utils.calcRadiusAnyPoint(vl.x, vl.y, before_ld, 135),
@@ -5015,10 +5049,10 @@
                         p4 : utils.calcRadiusAnyPoint(vl1.x, vl1.y, me.RoadWidth - after_ld, 135)
                     },
                     bottom: {
-                        p1 : { x : vb.x - before_bd, y : vb.y + 20 },
-                        p2 : { x : bottomLane - 2 <= 0 ? vb.x - me.RoadWidth : vb.x - me.RoadWidth, y : vb.y + 20 },
-                        p3 : { x : vb.x - before_bd, y : vb.y - 20 },
-                        p4 : { x : bottomLane - 2 <= 0 ? vb.x - me.RoadWidth : vb.x - me.RoadWidth, y : vb.y - 20 },
+                        p1 : { x : vb.x - before_bd, y : vb.y },
+                        p2 : { x : bottomLane - 2 <= 0 ? vb.x - me.RoadWidth : vb.x - me.RoadWidth, y : vb.y },
+                        p3 : { x : vb.x - before_bd, y : vb.y - 30 },
+                        p4 : { x : bottomLane - 2 <= 0 ? vb.x - me.RoadWidth : vb.x - me.RoadWidth, y : vb.y - 30 }
                     }
                 }
             },
@@ -5031,10 +5065,14 @@
                 var v = me.getTopIntersection;
                 var v1 = me.getCrossIntersection;
                 var v2 = me.getBottomIntersection;
-                var vt = utils.calcRadiusAnyPoint(v.x, v.y, 80, -90);
-                var vr = utils.calcRadiusAnyPoint(v.x, v.y, 80, -45);
-                var vl = utils.calcRadiusAnyPoint(v1.x, v1.y, 80, 45);
-                var vb = utils.calcRadiusAnyPoint(v2.x, v2.y, 80, 90);
+                var dist1 = me.RoadTop.nonMotorPedestrian && !me.RoadRight.stayArea ? 150 : 90;
+                var dist2 = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 150 : 90;
+                var dist3 = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 150 : 90;
+                var dist4 = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 150 : 90;
+                var vt = utils.calcRadiusAnyPoint(v.x, v.y, dist1, -90);
+                var vr = utils.calcRadiusAnyPoint(v.x, v.y, dist2, -45);
+                var vl = utils.calcRadiusAnyPoint(v1.x, v1.y, dist3, 45);
+                var vb = utils.calcRadiusAnyPoint(v2.x, v2.y, dist4, 90);
                 var before_td = !me.RoadRight.stayArea ? 0 : topLane - 2 <= 0 ? 50 : (me.RoadWidth / topLane);
                 var before_rd = !me.RoadRight.stayArea ? 0 : rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane;
                 var after_rd = !me.RoadLeft.stayArea ? 0 : rightLane - 2 <= 0 ? 50 : me.RoadWidth / rightLane;
@@ -5282,30 +5320,34 @@
             },
             crossTopMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadTop.nonMotorPedestrian && !me.RoadRight.stayArea ? 180 : 120;
                 var v = me.getTopIntersection;
                 var left = v.x - me.RoadWidth;
-                var top = v.y - 120;
+                var top = v.y - dist;
                 var width = me.calcRoadTopLaneWidth;
                 return { x : (n + 1) * width + left, y: top };
             },
             crossRightMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadRight.nonMotorPedestrian && !me.RoadRight.stayArea ? 180 : 120;
                 var v1 = me.getTopIntersection;
-                var v = utils.calcRadiusAnyPoint(v1.x, v1.y, 120, -45);
+                var v = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, -45);
                 var diff = (n + 1) * me.calcRoadRightLaneWidth;
                 return utils.calcRadiusAnyPoint(v.x, v.y, diff, 45);
             },
             crossLeftMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadLeft.nonMotorPedestrian && !me.RoadLeft.stayArea ? 180 : 120;
                 var v1 = me.getCrossIntersection;
-                var v = utils.calcRadiusAnyPoint(v1.x, v1.y, 120, 45);
+                var v = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, 45);
                 var diff = (n + 1) * me.calcRoadLeftLaneWidth;
                 return utils.calcRadiusAnyPoint(v.x, v.y, diff, 135);
             },
             crossBottomMoveTo: function(n) {
                 var me = this;
+                var dist = me.RoadBottom.nonMotorPedestrian && !me.RoadBottom.stayArea ? 180 : 120;
                 var v1 = me.getBottomIntersection;
-                var v = utils.calcRadiusAnyPoint(v1.x, v1.y, 120, 90);
+                var v = utils.calcRadiusAnyPoint(v1.x, v1.y, dist, 90);
                 var diff = (n + 1) * me.calcRoadBottomLaneWidth;
                 return utils.calcRadiusAnyPoint(v.x, v.y, diff, 180);
             },
