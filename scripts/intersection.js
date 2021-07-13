@@ -106,7 +106,9 @@
                 "<rect v-if=\"type === 'parterre'\" x='5' y='0' width='90' height='499999.5' fill='#359f40' @click.capture.stop='onParterreClick' />",
                 "<line v-if=\"type === 'parterre'\" x1='25' x2='25' y1='0' y2='499999.5' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onParterreLineClick($event, true)' />",
                 "<line v-if=\"type === 'parterre'\" x1='75' x2='75' y1='0' y2='499999.5' stroke='#fff' stroke-width='5' style='pointer-events:visibleStroke;' @click.capture.stop='onParterreLineClick($event, false)'/>",
-                "<rect v-if=\"type === 'diversion'\" x='5' y='0' width='90' height='499999.5' fill='#fff' stroke-width='5' stroke='#fff' />",
+                "<line v-if=\"type === 'diversion'\" x1='7.5' x2='7.5' y1='0' y2='499999.5' fill='#fff' stroke='#fff' stroke-width='15' stroke-linecap='round' />",
+                "<line v-if=\"type === 'diversion'\" x1='92.5' x2='92.5' y1='0' y2='499999.5' fill='#fff' stroke='#fff' stroke-width='15' stroke-linecap='round' />",
+                "<path v-if=\"type === 'diversion'\" :d='calcDiversionPath' fill='none' stroke='#fff' stroke-width='20' stroke-linecap='round' />",
                 "<circle v-if=\"['parterre', 'y-solid-area'].indexOf(type) > -1 && hasSafeArea\" cx='50' cy='-80' r='42.5' fill='#0075c5' stroke='#fff' stroke-width='5' @click.capture.stop='onParterreSafeAreaClick' />",
                 "<rect v-if=\"['parterre', 'y-solid-area'].indexOf(type) > -1 && hasSafeArea\" x='7.5' y='-80' width='85' height='80' fill='#0075c5' stroke='#fff' stroke-width='5' @click.capture.stop='onParterreSafeAreaClick' />",
                 "<path v-if=\"type !== 'parterre' && type != 'y-solid-area' \" v-for='(item, i) in calcLaneMark' :d='item.path' fill='#fff' :stroke-width='item.highlight ? 3 : 0' :stroke=\"item.highlight ? '#ff0000' : '#333'\" @click.capture.stop='onLaneMarkClick($event, i)' />",
@@ -200,6 +202,11 @@
                     return landmarks;
                 }
                 return [];
+            },
+            calcDiversionPath: function () {
+                return new Array(500000 / 100).fill("0").map(function (_, i) {
+                    return " M10,${top}, L50,${down} 90,${top} ".replace(/\$\{top\}/g, i * 100).replace(/\$\{down\}/g, i * 100 + 50);
+                }).join("");
             }
         },
         methods: {
