@@ -362,8 +362,8 @@
     var LaneTextRender = function () {
         return [
             "<g :transform='calcMatrix'>",
-                "<line v-show='Line' x1='5' x2='5' y1='0' y2='120' stroke-dasharray='10,5' :stroke='Color' stroke-width='5' :fill='Color' />",
-                "<line v-show='Line' x1='45' x2='45' y1='0' y2='120' stroke-dasharray='10,5' :stroke='Color' stroke-width='5' :fill='Color' />",
+                "<line v-show='Line' x1='2.5' x2='2.5' y1='0' y2='120' stroke-dasharray='10,5' :stroke='Color' stroke-width='5' :fill='Color' />",
+                "<line v-show='Line' x1='47.5' x2='47.5' y1='0' y2='120' stroke-dasharray='10,5' :stroke='Color' stroke-width='5' :fill='Color' />",
                 "<text x='0' y='0' :fill='Color' text-anchor='start' rotate='-90' transform='rotate(90 25,60) translate(-10, 75)' :textLength='120' style='font-family: Times New Roman;font-size: 30px;'>{{ Value }}</text>",
             "</g>"
         ].join("")
@@ -612,8 +612,8 @@
                 var me = this;
                 if (!!me.Text || me.Bus) {
                     var x = me.Reverse ? 120 : 1300 - 120;
-                    var offset = Math.min(50, me.Width - 10) / 2 + 5;
-                    var y = me.Reverse ?  me.Width / 2 - offset : me.Width / 2 + offset;
+                    var offset = Math.min(50, me.Width - 10);
+                    var y = me.Reverse ? (me.Width - Math.min(50, me.Width - 10)) / 2 : (me.Width - Math.min(50, me.Width - 10)) / 2 + offset;
                     var text = me.Bus ? "公交车站" : me.Text.substr(0, 8);
                     return { x: x, y: y, text: text.split('').reverse().join('') }
                 }
