@@ -760,11 +760,11 @@
                     ":transform=\"'translate('+ X + ',' + (Y + RoadWidth - 15) +')'\" ",
                     ":type='calcDownIsolation' ",
                     ":reverse='false' ",
-                    "@on-simple-line-click=\"$emit('on-road-boundary-click', arguments[0], calcUpwardIsolation, 'none', false)\" ",
-                    "@on-right-line-click=\"$emit('on-road-boundary-click', arguments[0], calcUpwardIsolation, 'right', false)\" ",
-                    "@on-left-line-click=\"$emit('on-road-boundary-click', arguments[0], calcUpwardIsolation, 'left', false)\" ",
-                    "@on-barrier-click=\"$emit('on-road-boundary-click', arguments[0], calcUpwardIsolation, 'none', false)\" ",
-                    "@on-parterre-click=\"$emit('on-road-boundary-click', arguments[0], calcUpwardIsolation, 'none', false)\" ",
+                    "@on-simple-line-click=\"$emit('on-road-boundary-click', arguments[0], calcDownIsolation, 'none', false)\" ",
+                    "@on-right-line-click=\"$emit('on-road-boundary-click', arguments[0], calcDownIsolation, 'right', false)\" ",
+                    "@on-left-line-click=\"$emit('on-road-boundary-click', arguments[0], calcDownIsolation, 'left', false)\" ",
+                    "@on-barrier-click=\"$emit('on-road-boundary-click', arguments[0], calcDownIsolation, 'none', false)\" ",
+                    "@on-parterre-click=\"$emit('on-road-boundary-click', arguments[0], calcDownIsolation, 'none', false)\" ",
                     "></isolation>",
                 "<lane ",
                     "v-for='(item, i) in Upward.lane' ",
@@ -829,7 +829,7 @@
                     "@on-pedestrian-stop-click=\"$emit('on-road-pedestrian-stop-click', $event, arguments[0])\" ",
                     "@on-pedestrian-click=\"$emit('on-road-pedestrian-click', $event)\" ",
                     "></pedestrians>",
-                "<rect :x='X - 5' :y='(1080 - RoadWidth) / 2' width='1310' :height='RoadWidth / 2' v-show='editState.isUpward && editState.laneIndex == LaneIndex' stroke='red' stroke-width='6' fill='none' stroke-dasharray='10 10'>",
+                "<rect :x='X - 5' :y='(1080 - RoadWidth) / 2' width='1310' :height='Down ? RoadWidth / 2 : RoadWidth' v-show='editState.isUpward && editState.laneIndex == LaneIndex' stroke='red' stroke-width='6' fill='none' stroke-dasharray='10 10'>",
                     "<animate attributeType='css' attributeName='opacity' from='0' to='1' dur='1s' repeatCount='indefinite' />",
                 "</rect>",
                 "<rect :x='X - 5' :y='1080 / 2' width='1310' :height='RoadWidth / 2' v-show='!editState.isUpward && editState.laneIndex == LaneIndex' stroke='red' stroke-width='6' fill='none' stroke-dasharray='10 10'>",
@@ -954,9 +954,9 @@
             //下行车道边界线
             calcDownIsolation: function() {
                 var me = this;
-                var type = me.Down && me.Down.frame && me.Down.frame.boundary && me.Down.frame.boundary.type;
-                var isShow = me.Down && me.Down.frame && me.Down.frame.boundary && me.Down.frame.boundary.isShow;
-                var isLine = me.Down && me.Down.frame && me.Down.frame.line && me.Down.frame.line.isShow;
+                var type = (me.Down && me.Down.frame && me.Down.frame.boundary && me.Down.frame.boundary.type) || (!me.Down && me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.type);
+                var isShow = (me.Down && me.Down.frame && me.Down.frame.boundary && me.Down.frame.boundary.isShow) || (!me.Down && me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow);
+                var isLine = (me.Down && me.Down.frame && me.Down.frame.line && me.Down.frame.line.isShow) || (!me.Down && me.Upward && me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow);
                 if (type === 'prohibit' && isLine && isShow) {
                     return 'y-w-double-solid'
                 }

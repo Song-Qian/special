@@ -1,5 +1,5 @@
 {
-	RoadMode : 'A' | 'Y' | 'K' | 'T' | 'O', //路口模式 A:十字路口', Y:Y字路口, K:K字路口, T:T字路口, O: 转盘路口,
+	RoadMode : 'A' | 'Y' | 'K' | 'T' | 'L' | 'O', //路口模式 A:十字路口', Y:Y字路口, K:K字路口, T:T字路口, O: 转盘路口,
 	RoadWidth: number, //路面宽
 	//路口顺序，从北向开始计算，顺时针对应路口
 	Roads: [
@@ -11,13 +11,16 @@
             boundary:  {
                 left: {
                     length: number, //deafult: 0 左侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
-                    has: boolean //deafult: true 是否具有左侧边界白线,
+                    has: boolean, //deafult: true 是否具有左侧边界白线,
+					type: 'solid' | 'dotted' | 'y-dotted' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' //default: solid, 边界线的绘制类型, 
                 },
                 right: {
                     length: number, //deafult: 0 右侧边界白线的长度，前端支持此属性，但无UI表现,仅限数据交互使用。
-                    has: boolean //deafult: true 是否具有右侧边界白线,
+                    has: boolean, //deafult: true 是否具有右侧边界白线,
+					type: 'solid' | 'dotted' | 'y-dotted' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' //default: solid, 边界线的绘制类型, 
                 }
             },
+			nonMotorPedestrian: false, //default: false, 是否具有非机动车斑马线
 			pedestrian: boolean, //deafult: true 是否具有人行班马线
 			stayArea: boolean, //default: true 是否具有人行暂留区
 			stopLine: boolean, //default: true 是否具有机动车停止线
@@ -34,8 +37,8 @@
 			//车道,自右向左绘制(顺时针)
 			lane : [
 				{
-					//机动车线类型， solid: 白色实线, dotted: 白色虚线, parterre: 花坛, y_dotted: 黄色虚线, y_solid: 黄色实线, y_double_solid: 双黄实线, y_double_dashed: 双黄虚实线, y_solid_area 黄色禁止区域
-					type : 'solid' | 'dotted' | 'parterre' | 'y-dotted' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' | 'y-solid-area',
+					//机动车线类型， solid: 白色实线, dotted: 白色虚线, parterre: 花坛, y_dotted: 黄色虚线, y_solid: 黄色实线, y_double_solid: 双黄实线, y_double_dashed: 双黄虚实线, y_solid_area 黄色禁止区域, diversion 导流线
+					type : 'solid' | 'dotted' | 'parterre' | 'y-dotted' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' | 'y-solid-area' | 'diversion',
                     assist: boolean, // default: false, 是否辅道
                     reverse: boolean, // default: false, 是否逆向车道
                     markright: boolean, // default: true, 所有的mark标记是否在线路右侧
@@ -47,13 +50,6 @@
                             mark: 'left' | 'straight' | 'right' | 'straight-right' | 'straight-left' | 'uturn' | 'straight-uturn' | 'left-right' | 'left-uturn'
                         }
                     ]
-					// landmark: 'left' | 'straight' | 'right', 
-					// speedmark: number, // default : 0 机动车速度标识牌 0不显示
-					// stopmark: boolean, default: false 是否显示禁止机动车标识牌 false不显示
-					// drivemark: boolean, default: false 是否显示机动车标识牌 false不显示
-					// nondrivemark: boolean, default: false 是否显示非机动车标识牌 false不显示
-					// fastdrivemark: boolean, default: false 是否显示快车道标识片 false 不显示
-					// 待扩展...
 				},
 				...
 			]
