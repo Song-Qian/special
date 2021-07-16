@@ -4,8 +4,11 @@
   "description": "前端特效页面",
   "main": "index.js",
   "scripts": {
-    "dev": "http-server --port 8001 ./"
+    "dev": "cross-env http-server --port 8001 ./"
   },
   "author": "SongQian",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
 }

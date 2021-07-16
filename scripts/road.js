@@ -730,8 +730,8 @@
             "<g>",
                 "<image v-for='(flag, n) in getUpwardFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n, true)\" />",
                 "<image v-for='(flag, n) in getDownFlag' :x='calcFlagListPosition(flag, n).x' :y='calcFlagListPosition(flag, n).y' width='120' height='80' style='cursor: pointer;' :xlink:href='flag.icon' @click.capture.stop=\"$emit('on-lane-flag', n, false)\" />",
-                "<text :x='X + 1300 / 2' :y='Y - 10' font-size='24' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='#fff'>{{ Pedestrian.name }}</text>",
-                "<text :x='X + 1300 / 2' :y='Y + RoadWidth + 15' font-size='24' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='#fff'>{{ Pedestrian.name }}</text>",
+                // "<text :x='X + 1300 / 2' :y='Y - 10' font-size='24' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='#fff'>{{ Pedestrian.name }}</text>",
+                "<text :x='X + 1300 / 2' :y='Y + RoadWidth + 15' font-size='24' style='dominant-baseline:middle;text-anchor:middle; font-weight: bold;' fill='#fff'>{{ Name }}</text>",
                 "<isolation ",
                     ":length='1300' ",
                     ":transform=\"'translate('+ X + ',' + Y +')'\" ",
@@ -851,6 +851,10 @@
             }
         },
         props: {
+            Name: {
+                default: '',
+                type: String
+            },
             Upward : {
                 default: null,
                 type: Object
@@ -1254,27 +1258,29 @@
                     "</g>",
                 "</defs>",
                 "<rect :x='getPavementPosition.x' :y='getPavementPosition.y' :width='getPavementLength' :height='RoadWidth' fill='#333' />",
-                "<pedestrians ",
-                    "v-for='(item, n) in getPedestrians' ",
-                    ":id='item.id' ",
-                    ":x='item.x' ",
-                    ":y='item.y' ",
-                    ":len='item.len' ",
-                    ":width='item.width' ",
-                    ":area='item.area' ",
-                    ":upward-name='getUpwardPedestriansName(n + 1, item)' ",
-                    ":down-name='getDownPedestriansName(n, item)' ",
-                    ":is-show='item.isShow' ",
-                    ":height='RoadWidth' ",
-                    ":offset='{ x: getPavementPosition.x + (1380 * (n + 1) - 80), y: getPavementPosition.y }' ",
-                    "@on-pedestrian-stop-click=\"$parent.$emit('on-pedestrian-stop-click', $event, n, arguments[0], 'pedestrian')\" ",
-                    "@on-pedestrian-click=\"$parent.$emit('on-pedestrian-click', $event, n, 'pedestrian')\" ",
-                    "></pedestrians>",
+                // "<pedestrians ",
+                //     "v-for='(item, n) in getPedestrians' ",
+                //     ":id='item.id' ",
+                //     ":x='item.x' ",
+                //     ":y='item.y' ",
+                //     ":len='item.len' ",
+                //     ":width='item.width' ",
+                //     ":area='item.area' ",
+                //     ":upward-name='item.name' ",
+                //     ":down-name='item.name' ",
+                //     ":is-show='item.isShow' ",
+                //     ":height='RoadWidth' ",
+                //     ":offset='{ x: getPavementPosition.x + (1310 * (n + 1) - 10), y: getPavementPosition.y }' ",
+                //     "@on-pedestrian-stop-click=\"$parent.$emit('on-pedestrian-stop-click', $event, n, arguments[0], 'pedestrian')\" ",
+                //     "@on-pedestrian-click=\"$parent.$emit('on-pedestrian-click', $event, n, 'pedestrian')\" ",
+                //     "></pedestrians>",
+                "<text v-for='(item, n) in getSegmentation' v-show='item.isShow' :x='getPavementPosition.x + (1310 * (n + 1))' :y='getPavementPosition.y + RoadWidth + 15' font-size='24' fill='#D6CB0A' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold;' >{{ item.name }}</text>",
                 "<g>",
                     "<road-section ",
                         "v-for='(item, n) in Roads' ",
                         ":upward='item.upward' ",
                         ":down='item.down' ",
+                        ":name='item.name' ",
                         ":pedestrian='item.pedestrian' ",
                         ":flag-list='item.flagList' ",
                         ":road-width='RoadWidth'",
@@ -1295,10 +1301,24 @@
                         "@on-road-pedestrian-stop-click=\"$parent.$emit('on-pedestrian-stop-click', arguments[0], n, arguments[1], 'road')\" ",
                         "@on-road-pedestrian-click=\"$parent.$emit('on-pedestrian-click', arguments[0], n, 'road')\" ",
                         "></road-section>",
-                    "<text :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 - RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:end; font-weight:bold;' fill='#fff'>{{ getUpwardIntersectionBeforeText }}</text>",
-                    "<text :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 + RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:end; font-weight:bold;' fill='#fff'>{{ getDownIntersectionBeforeText }}</text>",
-                    "<text :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 - RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:start; font-weight:bold;' fill='#fff'>{{ getUpwardIntersectionAfterText }}</text>",
-                    "<text :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 + RoadWidth / 4' font-size='28' style='dominant-baseline:middle;text-anchor:start; font-weight:bold;' fill='#fff'>{{ getDownIntersectionAfterText }}</text>",
+                    "<text fill='#D6CB0A' :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 + RoadWidth / 2 + 20' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold; text-align: center;'>{{ startCrossName }}</text>",
+                    "<text fill='#D6CB0A' :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 + RoadWidth / 2 + 20' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold; text-align: center;'>{{ endCrossName }}</text>",
+                    "<text fill='#fff' font-size='24' style='dominant-baseline:middle;text-anchor:end; font-weight:bold; text-align: center;'>",
+                        "<tspan :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 - RoadWidth / 4 - 15'>{{ name }}</tspan>",
+                        "<tspan :x='(1920 / 2 - getPavementLength / 2) - 10' :dx='-Math.abs(name.length - 2) * 24 / 2' :y='1080 / 2 - RoadWidth / 4 + 15'>下行</tspan>",
+                    "</text>",
+                    "<text font-size='24' style='dominant-baseline:middle;text-anchor:end; font-weight:bold;' fill='#fff'>",
+                        "<tspan :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 + RoadWidth / 4 - 15'>{{ name }}</tspan>",
+                        "<tspan :x='(1920 / 2 - getPavementLength / 2) - 10' :dx='-Math.abs(name.length - 2) * 24 / 2' :y='1080 / 2 + RoadWidth / 4 + 15'>上行</tspan>",
+                    "</text>",
+                    "<text font-size='24' style='dominant-baseline:middle;text-anchor:start; font-weight:bold;' fill='#fff'>",
+                        "<tspan :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 - RoadWidth / 4 - 15'>{{ name }}</tspan>",
+                        "<tspan :x='(1920 / 2 + getPavementLength / 2) + 10' :dx='Math.abs(name.length - 2) * 24 / 2' :y='1080 / 2 - RoadWidth / 4 + 15'>下行</tspan>",
+                    "</text>",
+                    "<text font-size='24' style='dominant-baseline:middle;text-anchor:start; font-weight:bold;' fill='#fff'>",
+                        "<tspan :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 + RoadWidth / 4 - 15'>{{ name }}</tspan>",
+                        "<tspan :x='(1920 / 2 + getPavementLength / 2) + 10' :dx='Math.abs(name.length - 2) * 24 / 2' :y='1080 / 2 + RoadWidth / 4 + 15'>上行</tspan>",
+                    "</text>",
                 "</g>",
             "</g>"
         ];
@@ -1307,13 +1327,14 @@
 
     var Pavement = Vue.extend({
         template: PavementRender.apply(this),
+        inject: ["name", "segmentation", "startCrossName", "endCrossName"],
         props: {
-            Pedestrian : {
-                default : function() {
-                    return [];
-                },
-                type: Array
-            },
+            // Pedestrian : {
+            //     default : function() {
+            //         return [];
+            //     },
+            //     type: Array
+            // },
             Roads : {
                 default : function() {
                     return [];
@@ -1328,31 +1349,19 @@
             getPavementLength: function() {
                 var me = this;
                 var size = me.Roads && me.Roads.length || 1;
-                return 1380 * size - 80;
+                return 1310 * size - 10;
             },
             getPavementPosition: function() {
                 var me = this;
                 return { x : 1920 / 2 - me.getPavementLength / 2, y : 1080/2 - me.RoadWidth / 2 };
             },
-            getPedestrians: function() {
+            // getPedestrians: function () {
+            //     var me = this;
+            //     return me.Pedestrian && me.Pedestrian.splice(0, me.Roads.length - 1) || [];
+            // },
+            getSegmentation: function () {
                 var me = this;
-                return me.Pedestrian && me.Pedestrian.splice(0, me.Roads.length - 1) || [];
-            },
-            getUpwardIntersectionBeforeText: function () {
-                var me = this;
-                return me.Roads && me.Roads[0].upward && me.Roads[0].upward.name || "";
-            },
-            getUpwardIntersectionAfterText: function () {
-                var me = this;
-                return me.Roads && me.Roads[me.Roads.length - 1].upward && me.Roads[me.Roads.length - 1].upward.name || "";
-            },
-            getDownIntersectionBeforeText: function () {
-                var me = this;
-                return me.Roads && me.Roads[0].down && me.Roads[0].down.name || "";
-            },
-            getDownIntersectionAfterText: function () {
-                var me = this;
-                return me.Roads && me.Roads[me.Roads.length - 1].down && me.Roads[me.Roads.length - 1].down.name || "";
+                return me.segmentation && me.segmentation.splice(0, me.Roads.length - 1) || [];
             }
         },
         components: {
@@ -1360,35 +1369,9 @@
             "RoadSection": RoadSection
         },
         methods: {
-            getRoadSectionPosition: function(i) {
+            getRoadSectionPosition: function (i) {
                 var me = this;
-                return { x : me.getPavementPosition.x + i * 1380, y : me.getPavementPosition.y };
-            },
-            getUpwardPedestriansName: function (i, item) {
-                var me = this;
-                var intersection = me.Roads && me.Roads[i] && me.Roads[i] || null;
-                if (intersection && intersection.pedestrian && intersection.pedestrian.name) {
-                    return intersection.pedestrian.name + " 到 " + item.name;
-                }
-
-                if (intersection && intersection.upward && intersection.upward.name) {
-                    return intersection.upward.name + " 到 " + item.name;
-                }
-
-                return item.name;
-            },
-            getDownPedestriansName: function (i, item) {
-                var me = this;
-                var intersection = me.Roads && me.Roads[i] && me.Roads[i] || null;
-                if (intersection && intersection.pedestrian && intersection.pedestrian.name) {
-                    return intersection.pedestrian.name + " 到 " + item.name;
-                }
-
-                if (intersection && intersection.down && intersection.down.name) {
-                    return intersection.down.name + " 到 " + item.name;
-                }
-
-                return item.name;
+                return { x: me.getPavementPosition.x + i * 1310, y: me.getPavementPosition.y };
             }
         }
     })
@@ -1397,7 +1380,7 @@
         var template = [
             "<svg ref='image' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' class='ivsom-road' version='1.1' viewBox='0 0 1920 1080' preserveAspectRatio='none meet' style='width:100%; height:100%;  background-color: #111;' @mousedown.stop='onEnabledDrag' @mouseup.stop='onDragDrop' @mouseleave.stop='onDragDrop' @mousemove.stop='onDragMove' @mousewheel.prevent.stop='onScaleView'>",
                 "<pavement ",
-                    ":pedestrian='Pedestrian || []' ",
+                    // ":pedestrian='Pedestrian || []' ",
                     ":roads='Roads || []' ",
                     ":road-width='RoadWidth || 600' ",
                     ":style=\"{ transformOrigin: 'center center', transform: getMatrix }\" ",
@@ -1423,16 +1406,20 @@
         provide: function() {
             var me = this;
             return {
-                'editState' : me.getEditableState
+                'editState': me.getEditableState,
+                'name': me.Name,
+                'startCrossName': me.StartCrossName,
+                'endCrossName': me.EndCrossName,
+                'segmentation' : me.Segmentation
             }
         },
         props: {
-            Pedestrian : {
-                default : function() {
-                    return [];
-                },
-                type: Array
-            },
+            // Pedestrian : {
+            //     default : function() {
+            //         return [];
+            //     },
+            //     type: Array
+            // },
             Roads : {
                 default : function() {
                     return [];
@@ -1446,6 +1433,22 @@
             RoadWidth : {
                 default: 600,
                 type: Number
+            },
+            Name: {
+                default: '',
+                type: String
+            },
+            StartCrossName: {
+                default: '',
+                type: String
+            },
+            EndCrossName: {
+                default: '',
+                type: String
+            },
+            Segmentation: {
+                default: [],
+                type: Array
             }
         },
         data: function() {
