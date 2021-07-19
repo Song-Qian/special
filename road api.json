@@ -1,24 +1,37 @@
 {
-	name : string, //路段名称
+	name : string, //路段名称（如：光谷一路）
+	StartCrossName: string, //路段起点交叉路段名称（如：高新大道）
+	EndCrossName: string, //路段终点交叉路段名称（如：高新二路）
 	id : string, //路段编号
 	roadWidth: number, //路面宽
 	angle: number, //角度
 	//路段斑马线
-	pedestrian: [
-		{ 
-			id : string, //斑马线id
-			x : number, //坐标x (数据交互,无UI效果)
-			y : number, //坐标y (数据交互,无UI效果)
-			len : number, //斑马线长度 (数据交互,无UI效果)
-			width: number, //斑马线宽度 (数据交互,无UI效果)
-			area : number, //斑马线面积 (数据交互,无UI效果)
-			isShow: boolean, //是否显示
-		},
-		... 同上，斑马线数量会影响小路段数量
+	// pedestrian: [
+	// 	{ 
+	// 		id : string, //斑马线id
+	// 		x : number, //坐标x (数据交互,无UI效果)
+	// 		y : number, //坐标y (数据交互,无UI效果)
+	// 		len : number, //斑马线长度 (数据交互,无UI效果)
+	// 		width: number, //斑马线宽度 (数据交互,无UI效果)
+	// 		area : number, //斑马线面积 (数据交互,无UI效果)
+	// 		isShow: boolean, //是否显示
+	// 	},
+	// 	... 同上，斑马线数量会影响小路段数量
+	// ],
+	//分段点
+	segmentation : [
+		{
+			id : string, // 分段点id
+			name: string, // 分段点名称（如：微创光电）
+			x: number //坐标
+			y: number //坐标
+			isShow: boolean //是否显示分段点名称
+		}
 	],
     //小路段
 	roads: [
 		{
+			name : string, //路段名称（如：光谷一路【高新大道 - 天成美雅】)
 			//上行车道
 			upward: {
 				//框架

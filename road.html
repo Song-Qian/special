@@ -24,10 +24,13 @@
             <button style="border: 1px solid #409EFF; background-color: #409EFF; padding: 5px 15px; box-sizing: border-box; border-radius: 5px; color: #fff; position: fixed; top: 20px; right: 20px; cursor: pointer;" @click="downSvgImage">获取base64</button>
             <road 
                 ref="road"
-                :pedestrian='pedestrian' 
                 :roads='roads' 
                 :angle.sync='angle' 
                 :road-width='roadWidth'
+                :name='name'
+                :segmentation='segmentation'
+                :start-cross-name='StartCrossName'
+                :end-cross-name='EndCrossName'
                 @on-pedestrian-stop-click='onPedestrianStop'
                 @on-pedestrian-click='onPedestrianClick'
                 @on-pavement-lanemark-section='onLaneMarkSection'
@@ -60,173 +63,187 @@
                         return {
                             base64: "",
                             id : '1232131', //路段编号
-                            name : 'xxx大道', //路段名称
+                            name : '光谷一路', //路段名称
+                            StartCrossName: '高新大道',
+                            EndCrossName: '高新二路',
                             roadWidth: 600, //路面宽
                             angle: 0, //角度
                             //路段斑马线
-                            pedestrian: [
-                                /**
-                                 * { 
-                                 *   id : string, //斑马线id
-                                 *   x : number, //坐标x (数据交互,无UI效果)
-                                 *   y : number, //坐标y (数据交互,无UI效果)
-                                 *   len : number, //斑马线长度 (数据交互,无UI效果)
-                                 *   width: number, //斑马线宽度 (数据交互,无UI效果)
-                                 *   area : number, //斑马线面积 (数据交互,无UI效果)
-                                 *   isShow: boolean, //是否显示
-                                 * }
-                                 * */
-                                { id: '1', name: '腊台山路', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
-                                { id: '2', name: '康福路', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
-                                { id: '3', name: '雄楚大道高架', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true }
+                            // pedestrian: [
+                            //     /**
+                            //      * { 
+                            //      *   id : string, //斑马线id
+                            //      *   x : number, //坐标x (数据交互,无UI效果)
+                            //      *   y : number, //坐标y (数据交互,无UI效果)
+                            //      *   len : number, //斑马线长度 (数据交互,无UI效果)
+                            //      *   width: number, //斑马线宽度 (数据交互,无UI效果)
+                            //      *   area : number, //斑马线面积 (数据交互,无UI效果)
+                            //      *   isShow: boolean, //是否显示
+                            //      * }
+                            //      * */
+                            //     { id: '1', name: '不要此字段', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
+                            //     { id: '2', name: '不要此字段', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
+                            //     { id: '3', name: '不要此字段', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true }
+                            // ],
+                            segmentation : [
+                                { id: '1', name: '天成美雅', x: 123.543115313, y: 37.645484543548, isShow: true },
+                                { id: '2', name: '微创光电', x: 123.543115313, y: 37.645484543548, isShow: true },
+                                { id: '3', name: '佳源花都', x: 123.543115313, y: 37.645484543548, isShow: true }
                             ],
                             //小路段
                             roads: [
                                 {
-                                    upward: {
-                                        name : '民族大道',
-                                        frame: {
-                                            //边界线的样式，prohibit 禁止停车 stay 暂停
-                                            boundary: { id: '123', type: 'stay', len : 10, isShow: true },
-                                            //边线
-                                            line: { id: '123', len: 20, isShow: true },
-                                            //禁区
-                                            penalty: { id: '123', occupy: 2, isShow: true },
-                                            //减速丘标线
-                                            slow: { id: '123', isShow: true, total: 3 },
-                                            // 上行与下行车道隔离带, 依次是：白色实线,白色虚线,黄色实线,黄色虚线,双黄实线,双黄实虚线,黄色实线+白色虚线,黄色虚线+白色实线,黄白双实线,黄白双虚线,白色实线+黄色虚线,
-                                            // 白色虚线+黄色实线,白黄双实线,白黄双虚线,白线护栏,黄线护栏,白虚线+护栏,黄虚线+护栏,花坛+白线,花坛+虚线,花坛+黄线,花坛+黄虚线
-                                            // 'solid' | 'dashed' | 'y-solid' | 'y-dashed' | 'y-double-solid' | 'y-double-dashed' | 'y-w-dashed' | 'y-w-dotted'
-                                            // 'y-w-double-solid' | 'y-w-double-dashed' | 'w-y-dashed' | 'w-y-dotted' | 'w-y-double-solid' | 'w-y-double-dashed'
-                                            // 'barrier' | 'y-barrier' | 'barrier-dashed' | 'y-barrier-dashed' | 'parterre' | 'parterre-dashed' | 'y-parterre-solid' | 'y-parterre-dashed'
-                                            separation: { id: '123', len: 20, type: 'y-double-solid', isShow: false, data: [] }
-                                        },
-                                        //上行车道列表
-                                        lane: [
-                                            {
-                                                id: '1', //车道序号
-                                                //'solid' | 'dashed' | 'y-dashed' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' | 'barrier' | 'parterre' | 'parterre-dashed' | 'y-parterre-solid' | 'y-parterre-dashed',
-                                                //机动车线类型， solid: 白色实线, dashed: 白色虚线, barrier: 护栏, y-dashed: 黄色虚线, y-solid: 黄色实线, y-double-solid: 双黄实线, y-double-dashed: 双黄虚线, parterre 花坛+白线, parterre-dashed 花坛+虚线, y-parterre-solid 花坛+黄线, y-parterre-dashed 花坛+黄虚线
-                                                type: 'solid',
-                                                //'primary' | 'non-motorized' | 'assist'
-                                                // default: 'primary', 是否主道、辅道、非机动车道
-                                                laneType: 'non-motorized',
-                                                hasBoundary: true, // default: true, 是否绘制边线
-                                                park: true, // default: false, 是否有停车位
-                                                parkTotal: 15, // default : 0, 停车位数量
-                                                bus: true, // default: false, 是否有公交
-                                                privileged: false, // default: false, 是否专用车道
-                                                text: '', //道路文字
-                                                //车道中的地标
-                                                //default: 
-                                                //	'straight' 机动路方向路标， 
-                                                //  left: 左转 
-                                                //  right: 右转 
-                                                //  straight: 直行
-                                                //  straight-right: 直行右转
-                                                //  straight-left: 直行左转
-                                                //  uturn :　调头
-                                                //  straight-uturn: 直行调头
-                                                //  left-right: 左右转
-                                                //  left-uturn：左侧调头
-                                                //  pedestrian 斑马预告线
-                                                //  slow 减速让行线
-                                                //  distance 车距确认
-                                                //  non-motorized 非机动车
-                                                lanemark: [
-                                                    { id : '1', seq : 1, mark: 'non-motorized' },
-                                                    { id : '2', seq : 2, mark: 'non-motorized' }
-                                                ]
-                                            },
-                                            {
-                                                id: '2', //车道序号
-                                                //'solid' | 'dotted' | 'y-dashed' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' | 'barrier' | 'parterre' | 'parterre-dashed' | 'y-parterre-solid' | 'y-parterre-dashed',
-                                                //机动车线类型， solid: 白色实线, dashed: 白色虚线, barrier: 护栏, y-dashed: 黄色虚线, y-solid: 黄色实线, y-double-solid: 双黄实线, y-double-dashed: 双黄虚线, parterre 花坛+白线, parterre-dashed 花坛+虚线, y-parterre-solid 花坛+黄线, y-parterre-dashed 花坛+黄虚线
-                                                type: 'solid',
-                                                //'primary' | 'non-motorized' | 'assist'
-                                                // default: 'primary', 是否主道、辅道、非机动车道
-                                                laneType: 'primary',
-                                                hasBoundary: true, // default: true, 是否绘制边线
-                                                park: false, // default: false, 是否有停车位
-                                                parkTotal: 15, // default : 0, 停车位数量
-                                                bus: true, // default: false, 是否有公交
-                                                privileged: true, // default: false, 是否专用车道
-                                                text: '', //道路文字
-                                                //车道中的地标
-                                                //default: 
-                                                //	'straight' 机动路方向路标， 
-                                                //  left: 左转 
-                                                //  right: 右转 
-                                                //  straight: 直行
-                                                //  straight-right: 直行右转
-                                                //  straight-left: 直行左转
-                                                //  uturn :　调头
-                                                //  straight-uturn: 直行调头
-                                                //  left-right: 左右转
-                                                //  left-uturn：左侧调头
-                                                //  pedestrian 斑马预告线
-                                                //  slow 减速让行线
-                                                //  distance 车距确认
-                                                //  non-motorized 非机动车
-                                                lanemark: [
-                                                    { id : '1', seq : 1, mark: 'distance' },
-                                                    { id : '3', seq : 3, mark: 'straight-right' },
-                                                    { id : '4', seq : 4, mark: 'pedestrian' },
-                                                    { id : '5', seq : 5, mark: 'pedestrian' },
-                                                    { id : '6', seq : 6, mark: 'straight-right' },
-                                                    { id : '7', seq : 7, mark: 'straight-right' },
-                                                    { id : '8', seq : 8, mark: 'slow' },
-                                                    { id : '9', seq : 9, mark: 'slow' },
-                                                    { id : '10', seq : 10, mark: 'straight-right' }
-                                                ]
-                                            },
-                                            {
-                                                id: '3', //车道序号
-                                                //'solid' | 'dotted' | 'y-dashed' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' | 'barrier' | 'parterre' | 'parterre-dashed' | 'y-parterre-solid' | 'y-parterre-dashed',
-                                                //机动车线类型， solid: 白色实线, dashed: 白色虚线, barrier: 护栏, y-dashed: 黄色虚线, y-solid: 黄色实线, y-double-solid: 双黄实线, y-double-dashed: 双黄虚线, parterre 花坛+白线, parterre-dashed 花坛+虚线, y-parterre-solid 花坛+黄线, y-parterre-dashed 花坛+黄虚线
-                                                type: 'solid',
-                                                //'primary' | 'non-motorized' | 'assist'
-                                                // default: 'primary', 是否主道、辅道、非机动车道
-                                                laneType: 'primary',
-                                                hasBoundary: true, // default: true, 是否绘制边线
-                                                park: false, // default: false, 是否有停车位
-                                                parkTotal: 15, // default : 0, 停车位数量
-                                                bus: true, // default: false, 是否有公交
-                                                privileged: true, // default: false, 是否专用车道
-                                                text: '', //道路文字
-                                                //车道中的地标
-                                                //default: 
-                                                //	'straight' 机动路方向路标， 
-                                                //  left: 左转 
-                                                //  right: 右转 
-                                                //  straight: 直行
-                                                //  straight-right: 直行右转
-                                                //  straight-left: 直行左转
-                                                //  uturn :　调头
-                                                //  straight-uturn: 直行调头
-                                                //  left-right: 左右转
-                                                //  left-uturn：左侧调头
-                                                //  pedestrian 斑马预告线
-                                                //  slow 减速让行线
-                                                //  distance 车距确认
-                                                //  non-motorized 非机动车
-                                                lanemark: [
-                                                    { id : '1', seq : 1, mark: 'distance' },
-                                                    { id : '3', seq : 3, mark: 'straight-right' },
-                                                    { id : '4', seq : 4, mark: 'pedestrian' },
-                                                    { id : '5', seq : 5, mark: 'pedestrian' },
-                                                    { id : '6', seq : 6, mark: 'straight-right' },
-                                                    { id : '7', seq : 7, mark: 'straight-right' },
-                                                    { id : '8', seq : 8, mark: 'slow' },
-                                                    { id : '9', seq : 9, mark: 'slow' },
-                                                    { id : '10', seq : 10, mark: 'straight-right' }
-                                                ]
-                                            }
-                                        ]
-                                    },
+                                    name : '光谷一路【高新大道 - 天成美雅】',
+                                    upward : null,
+                                    // upward: {
+                                    //     frame: {
+                                    //         //边界线的样式，prohibit 禁止停车 stay 暂停
+                                    //         boundary: { id: '123', type: 'stay', len : 10, isShow: true },
+                                    //         //边线
+                                    //         line: { id: '123', len: 20, isShow: true },
+                                    //         //禁区
+                                    //         penalty: { id: '123', occupy: 2, isShow: true },
+                                    //         //减速丘标线
+                                    //         slow: { id: '123', isShow: true, total: 3 },
+                                    //         // 上行与下行车道隔离带, 依次是：白色实线,白色虚线,黄色实线,黄色虚线,双黄实线,双黄实虚线,黄色实线+白色虚线,黄色虚线+白色实线,黄白双实线,黄白双虚线,白色实线+黄色虚线,
+                                    //         // 白色虚线+黄色实线,白黄双实线,白黄双虚线,白线护栏,黄线护栏,白虚线+护栏,黄虚线+护栏,花坛+白线,花坛+虚线,花坛+黄线,花坛+黄虚线
+                                    //         // 'solid' | 'dashed' | 'y-solid' | 'y-dashed' | 'y-double-solid' | 'y-double-dashed' | 'y-w-dashed' | 'y-w-dotted'
+                                    //         // 'y-w-double-solid' | 'y-w-double-dashed' | 'w-y-dashed' | 'w-y-dotted' | 'w-y-double-solid' | 'w-y-double-dashed'
+                                    //         // 'barrier' | 'y-barrier' | 'barrier-dashed' | 'y-barrier-dashed' | 'parterre' | 'parterre-dashed' | 'y-parterre-solid' | 'y-parterre-dashed'
+                                    //         separation: { id: '123', len: 20, type: 'y-double-solid', isShow: false, data: [] }
+                                    //     },
+                                    //     //上行车道列表
+                                    //     lane: [
+                                    //         {
+                                    //             id: '1', //车道序号
+                                    //             //'solid' | 'dashed' | 'y-dashed' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' | 'barrier' | 'parterre' | 'parterre-dashed' | 'y-parterre-solid' | 'y-parterre-dashed',
+                                    //             //机动车线类型， solid: 白色实线, dashed: 白色虚线, barrier: 护栏, y-dashed: 黄色虚线, y-solid: 黄色实线, y-double-solid: 双黄实线, y-double-dashed: 双黄虚线, parterre 花坛+白线, parterre-dashed 花坛+虚线, y-parterre-solid 花坛+黄线, y-parterre-dashed 花坛+黄虚线
+                                    //             type: 'solid',
+                                    //             //'primary' | 'non-motorized' | 'assist'
+                                    //             // default: 'primary', 是否主道、辅道、非机动车道
+                                    //             laneType: 'primary',
+                                    //             hasBoundary: true, // default: true, 是否绘制边线
+                                    //             park: true, // default: false, 是否有停车位
+                                    //             parkTotal: 15, // default : 0, 停车位数量
+                                    //             bus: true, // default: false, 是否有公交
+                                    //             privileged: false, // default: false, 是否专用车道
+                                    //             text: '', //道路文字
+                                    //             //车道中的地标
+                                    //             //default: 
+                                    //             //	'straight' 机动路方向路标， 
+                                    //             //  left: 左转 
+                                    //             //  right: 右转 
+                                    //             //  straight: 直行
+                                    //             //  straight-right: 直行右转
+                                    //             //  straight-left: 直行左转
+                                    //             //  uturn :　调头
+                                    //             //  straight-uturn: 直行调头
+                                    //             //  left-right: 左右转
+                                    //             //  left-uturn：左侧调头
+                                    //             //  pedestrian 斑马预告线
+                                    //             //  slow 减速让行线
+                                    //             //  distance 车距确认
+                                    //             //  non-motorized 非机动车
+                                    //             lanemark: [
+                                    //                 { id : '1', seq : 1, mark: 'straight-uturn' },
+                                    //                 { id : '3', seq : 3, mark: 'uturn' },
+                                    //                 { id : '4', seq : 4, mark: 'left-uturn' },
+                                    //                 { id : '5', seq : 5, mark: 'straight-uturn' },
+                                    //                 { id : '6', seq : 6, mark: 'uturn' },
+                                    //                 { id : '7', seq : 7, mark: 'left-uturn' },
+                                    //                 { id : '8', seq : 8, mark: 'straight-uturn' },
+                                    //                 { id : '9', seq : 9, mark: 'uturn' },
+                                    //                 { id : '10', seq : 10, mark: 'left-uturn' }
+                                    //             ]
+                                    //         },
+                                    //         {
+                                    //             id: '2', //车道序号
+                                    //             //'solid' | 'dotted' | 'y-dashed' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' | 'barrier' | 'parterre' | 'parterre-dashed' | 'y-parterre-solid' | 'y-parterre-dashed',
+                                    //             //机动车线类型， solid: 白色实线, dashed: 白色虚线, barrier: 护栏, y-dashed: 黄色虚线, y-solid: 黄色实线, y-double-solid: 双黄实线, y-double-dashed: 双黄虚线, parterre 花坛+白线, parterre-dashed 花坛+虚线, y-parterre-solid 花坛+黄线, y-parterre-dashed 花坛+黄虚线
+                                    //             type: 'solid',
+                                    //             //'primary' | 'non-motorized' | 'assist'
+                                    //             // default: 'primary', 是否主道、辅道、非机动车道
+                                    //             laneType: 'primary',
+                                    //             hasBoundary: true, // default: true, 是否绘制边线
+                                    //             park: false, // default: false, 是否有停车位
+                                    //             parkTotal: 15, // default : 0, 停车位数量
+                                    //             bus: true, // default: false, 是否有公交
+                                    //             privileged: true, // default: false, 是否专用车道
+                                    //             text: '', //道路文字
+                                    //             //车道中的地标
+                                    //             //default: 
+                                    //             //	'straight' 机动路方向路标， 
+                                    //             //  left: 左转 
+                                    //             //  right: 右转 
+                                    //             //  straight: 直行
+                                    //             //  straight-right: 直行右转
+                                    //             //  straight-left: 直行左转
+                                    //             //  uturn :　调头
+                                    //             //  straight-uturn: 直行调头
+                                    //             //  left-right: 左右转
+                                    //             //  left-uturn：左侧调头
+                                    //             //  pedestrian 斑马预告线
+                                    //             //  slow 减速让行线
+                                    //             //  distance 车距确认
+                                    //             //  non-motorized 非机动车
+                                    //             lanemark: [
+                                    //                 { id : '1', seq : 1, mark: 'straight-uturn' },
+                                    //                 { id : '3', seq : 3, mark: 'uturn' },
+                                    //                 { id : '4', seq : 4, mark: 'left-uturn' },
+                                    //                 { id : '5', seq : 5, mark: 'straight-uturn' },
+                                    //                 { id : '6', seq : 6, mark: 'uturn' },
+                                    //                 { id : '7', seq : 7, mark: 'left-uturn' },
+                                    //                 { id : '8', seq : 8, mark: 'straight-uturn' },
+                                    //                 { id : '9', seq : 9, mark: 'uturn' },
+                                    //                 { id : '10', seq : 10, mark: 'left-uturn' }
+                                    //             ]
+                                    //         },
+                                    //         {
+                                    //             id: '3', //车道序号
+                                    //             //'solid' | 'dotted' | 'y-dashed' | 'y-solid' | 'y-double-solid' | 'y-double-dashed' | 'barrier' | 'parterre' | 'parterre-dashed' | 'y-parterre-solid' | 'y-parterre-dashed',
+                                    //             //机动车线类型， solid: 白色实线, dashed: 白色虚线, barrier: 护栏, y-dashed: 黄色虚线, y-solid: 黄色实线, y-double-solid: 双黄实线, y-double-dashed: 双黄虚线, parterre 花坛+白线, parterre-dashed 花坛+虚线, y-parterre-solid 花坛+黄线, y-parterre-dashed 花坛+黄虚线
+                                    //             type: 'solid',
+                                    //             //'primary' | 'non-motorized' | 'assist'
+                                    //             // default: 'primary', 是否主道、辅道、非机动车道
+                                    //             laneType: 'primary',
+                                    //             hasBoundary: true, // default: true, 是否绘制边线
+                                    //             park: false, // default: false, 是否有停车位
+                                    //             parkTotal: 15, // default : 0, 停车位数量
+                                    //             bus: true, // default: false, 是否有公交
+                                    //             privileged: true, // default: false, 是否专用车道
+                                    //             text: '', //道路文字
+                                    //             //车道中的地标
+                                    //             //default: 
+                                    //             //	'straight' 机动路方向路标， 
+                                    //             //  left: 左转 
+                                    //             //  right: 右转 
+                                    //             //  straight: 直行
+                                    //             //  straight-right: 直行右转
+                                    //             //  straight-left: 直行左转
+                                    //             //  uturn :　调头
+                                    //             //  straight-uturn: 直行调头
+                                    //             //  left-right: 左右转
+                                    //             //  left-uturn：左侧调头
+                                    //             //  pedestrian 斑马预告线
+                                    //             //  slow 减速让行线
+                                    //             //  distance 车距确认
+                                    //             //  non-motorized 非机动车
+                                    //             lanemark: [
+                                    //                 { id : '1', seq : 1, mark: 'straight-uturn' },
+                                    //                 { id : '3', seq : 3, mark: 'uturn' },
+                                    //                 { id : '4', seq : 4, mark: 'left-uturn' },
+                                    //                 { id : '5', seq : 5, mark: 'straight-uturn' },
+                                    //                 { id : '6', seq : 6, mark: 'uturn' },
+                                    //                 { id : '7', seq : 7, mark: 'left-uturn' },
+                                    //                 { id : '8', seq : 8, mark: 'straight-uturn' },
+                                    //                 { id : '9', seq : 9, mark: 'uturn' },
+                                    //                 { id : '10', seq : 10, mark: 'left-uturn' }
+                                    //             ]
+                                    //         }
+                                    //     ]
+                                    // },
                                     //下行车道, down === null, 则是单行道
                                     down: {
-                                        name : '民族大道',
                                         //框架
                                         frame: {
                                             //边界线的样式，prohibit 禁止停车 stay 暂停
@@ -256,15 +273,15 @@
                                                 text: '', //道路文字
                                                 //车道中的地标
                                                 lanemark: [
-                                                    { id : '1', seq : 1, mark: 'distance' },
-                                                    { id : '3', seq : 3, mark: 'straight-right' },
-                                                    { id : '4', seq : 4, mark: 'pedestrian' },
-                                                    { id : '5', seq : 5, mark: 'pedestrian' },
-                                                    { id : '6', seq : 6, mark: 'straight-right' },
-                                                    { id : '7', seq : 7, mark: 'straight-right' },
-                                                    { id : '8', seq : 8, mark: 'slow' },
-                                                    { id : '9', seq : 9, mark: 'slow' },
-                                                    { id : '10', seq : 10, mark: 'straight-right' }
+                                                    { id : '1', seq : 1, mark: 'straight-uturn' },
+                                                    { id : '3', seq : 3, mark: 'uturn' },
+                                                    { id : '4', seq : 4, mark: 'left-uturn' },
+                                                    { id : '5', seq : 5, mark: 'straight-uturn' },
+                                                    { id : '6', seq : 6, mark: 'uturn' },
+                                                    { id : '7', seq : 7, mark: 'left-uturn' },
+                                                    { id : '8', seq : 8, mark: 'straight-uturn' },
+                                                    { id : '9', seq : 9, mark: 'uturn' },
+                                                    { id : '10', seq : 10, mark: 'left-uturn' }
                                                 ]
                                             },
                                             {
@@ -283,20 +300,20 @@
                                                 text: '', //道路文字
                                                 //车道中的地标
                                                 lanemark: [
-                                                    { id : '1', seq : 1, mark: 'distance' },
-                                                    { id : '3', seq : 3, mark: 'straight-right' },
-                                                    { id : '4', seq : 4, mark: 'pedestrian' },
-                                                    { id : '5', seq : 5, mark: 'pedestrian' },
-                                                    { id : '6', seq : 6, mark: 'straight-right' },
-                                                    { id : '7', seq : 7, mark: 'straight-right' },
-                                                    { id : '8', seq : 8, mark: 'slow' },
-                                                    { id : '9', seq : 9, mark: 'slow' },
-                                                    { id : '10', seq : 10, mark: 'straight-right' }
+                                                    { id : '1', seq : 1, mark: 'straight-uturn' },
+                                                    { id : '3', seq : 3, mark: 'uturn' },
+                                                    { id : '4', seq : 4, mark: 'left-uturn' },
+                                                    { id : '5', seq : 5, mark: 'straight-uturn' },
+                                                    { id : '6', seq : 6, mark: 'uturn' },
+                                                    { id : '7', seq : 7, mark: 'left-uturn' },
+                                                    { id : '8', seq : 8, mark: 'straight-uturn' },
+                                                    { id : '9', seq : 9, mark: 'uturn' },
+                                                    { id : '10', seq : 10, mark: 'left-uturn' }
                                                 ]
                                             }
                                         ]
                                     },
-                                    pedestrian: { id: '0x0001', name: '纺织大学', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
+                                    pedestrian: { id: '0x0001', x: 123.543115313, y: 37.645484543548, len: 90, width: 0.5, area: 45, isShow: true },
                                     flagList: [
                                         {
                                             id : '0x0001', //标牌ID
@@ -397,7 +414,7 @@
                     methods: {
                         //路面点击事件
                         onLanePavementClick: function(e, pavement, lane, isUpward) {
-                            app.$refs.road.setEditablePavement(pavement, isUpward);
+                            // app.$refs.road.setEditablePavement(pavement, isUpward);
                         },
                         //斑马线左右两侧停车线点击事件
                         onPedestrianStop: function(e, index, isLeft, type) {

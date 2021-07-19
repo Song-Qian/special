@@ -622,9 +622,9 @@
             calcUturnGap: function () {
                 var me = this;
                 if (['y-double-solid', 'w-y-double-solid', 'y-w-double-solid'].indexOf(me.Type) > -1) {
-                    return { width: 13, transform: !me.Reverse ? 'translate(0, -5)' : 'translate(0, 5)' }
+                    return { width: 12, transform: me.Reverse ? 'translate(0, 6)' : 'translate(0, -6)' }
                 }
-                return { width: 5, transform: !me.Reverse ? 'translate(0, -1)' : 'translate(0, 1)' }
+                return { width: 4, transform: me.Reverse ? 'translate(0, 2)' : 'translate(0, -2)' }
             },
             calcLaneMark: function () {
                 var me = this;
@@ -744,7 +744,7 @@
                     "@on-parterre-click=\"$emit('on-road-boundary-click', arguments[0], calcUpwardIsolation, 'none', true)\" ",
                     "></isolation>",
                 "<isolation ",
-                    "v-if='Upward.frame && Upward.frame.separation && Upward.frame.separation.isShow' ",
+                    "v-if='Upward && Upward.frame && Upward.frame.separation && Upward.frame.separation.isShow' ",
                     ":length='1300' ",
                     ":transform=\"'translate('+ X + ',' + (Y + calcUpwardRoadWidth + (Upward.frame && Upward.frame.separation && Upward.frame.separation.isShow ? 15 : 0)) +')'\" ",
                     ":type='Upward.frame.separation.type' ",
@@ -767,7 +767,7 @@
                     "@on-parterre-click=\"$emit('on-road-boundary-click', arguments[0], calcDownIsolation, 'none', false)\" ",
                     "></isolation>",
                 "<lane ",
-                    "v-for='(item, i) in Upward.lane' ",
+                    "v-for='(item, i) in calcUpwardLane' ",
                     ":x='calcUpwardLanePosition(i).x' ",
                     ":y='calcUpwardLanePosition(i).y' ",
                     ":width='calcUpwardLaneWidth' ",
@@ -892,35 +892,39 @@
             //是否单向道
             isUnidirectional: function() {
                 var me = this;
-                return !me.Down;
+                return !me.Down || !me.Upward;
             },
             //上行车道路面总宽
             calcUpwardRoadWidth: function() {
                 var me = this;
                 var w = 0;
-                if (me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow) {
                     w = 15;
                 }
                 
-                if (me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow) {
                     w = 15;
                 }
 
-                if (me.Upward.frame && me.Upward.frame.separation && me.Upward.frame.separation.isShow && !me.isUnidirectional) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.separation && me.Upward.frame.separation.isShow && !me.isUnidirectional) {
                     w += 15 * 0.5;
                 }
 
-                if(me.isUnidirectional) {
+                if(me.Upward && me.isUnidirectional) {
                     w += 15;
                     return me.RoadWidth - w;
                 }
 
-                return me.RoadWidth / 2 - w;
+                if (!me.isUnidirectional) {
+                    return me.RoadWidth / 2 - w;
+                }
+
+                return 0;
             },
             //上行车道宽度
             calcUpwardLaneWidth: function() {
                 var me = this;
-                var lane = me.Upward.lane && me.Upward.lane.length;
+                var lane = me.Upward && me.Upward.lane && me.Upward.lane.length;
                 if(!lane) {
                     return me.calcUpwardRoadWidth;
                 }
@@ -953,14 +957,18 @@
                     return 'solid'
                 }
 
+                if (!me.Upward && me.Down) {
+                    return me.calcDownIsolation;
+                }
+
                 return '';
             },
             //下行车道边界线
             calcDownIsolation: function() {
                 var me = this;
-                var type = (me.Down && me.Down.frame && me.Down.frame.boundary && me.Down.frame.boundary.type) || (!me.Down && me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.type);
-                var isShow = (me.Down && me.Down.frame && me.Down.frame.boundary && me.Down.frame.boundary.isShow) || (!me.Down && me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow);
-                var isLine = (me.Down && me.Down.frame && me.Down.frame.line && me.Down.frame.line.isShow) || (!me.Down && me.Upward && me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow);
+                var type = (me.Down && me.Down.frame && me.Down.frame.boundary && me.Down.frame.boundary.type);
+                var isShow = (me.Down && me.Down.frame && me.Down.frame.boundary && me.Down.frame.boundary.isShow);
+                var isLine = (me.Down && me.Down.frame && me.Down.frame.line && me.Down.frame.line.isShow);
                 if (type === 'prohibit' && isLine && isShow) {
                     return 'y-w-double-solid'
                 }
@@ -980,6 +988,10 @@
                 if (isLine) {
                     return 'solid'
                 }
+
+                if (!me.Down && me.Upward) {
+                    return me.calcDownIsolation;
+                }
                 
                 return '';
             },
@@ -995,15 +1007,20 @@
                     w = 15;
                 }
 
-                if (me.Upward.frame && me.Upward.frame.separation && me.Upward.frame.separation.isShow && !me.isUnidirectional) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.separation && me.Upward.frame.separation.isShow && !me.isUnidirectional) {
                     w += 15 * 0.5;
                 }
 
-                if(me.isUnidirectional) {
-                    return 0;
+                if(me.Down && me.isUnidirectional) {
+                    w += 15;
+                    return me.RoadWidth - w;
                 }
 
-                return me.RoadWidth / 2 - w;
+                if (!me.isUnidirectional) {
+                    return me.RoadWidth / 2 - w;
+                }
+
+                return 0;
             },
             //下行车道宽度
             calcDownLaneWidth: function() {
@@ -1015,6 +1032,11 @@
                 var pLen = me.Down.lane.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) !== -1 }).length;
                 return (me.calcDownRoadWidth - pLen * 15) / (lane - pLen);
             },
+            //上行车道数量
+            calcUpwardLane: function () {
+                var me = this;
+                return !!me.Upward ? me.Upward.lane : []
+            },
             //下行车道数量
             calcDownLane: function() {
                 var me = this;
@@ -1023,23 +1045,23 @@
             //计算上行禁区大小
             calcUpwardPenaltyMatrix: function() {
                 var me = this;
-                var sum = me.Upward.frame && me.Upward.frame.penalty && me.Upward.frame.penalty.occupy || 0;
-                var lane = me.Upward.lane && me.Upward.lane.concat([]) || [];
+                var sum = me.Upward && me.Upward.frame && me.Upward.frame.penalty && me.Upward.frame.penalty.occupy || 0;
+                var lane = me.Upward && me.Upward.lane && me.Upward.lane.concat([]) || [];
                 var i = 0;
                 var w = 0;
-                if (me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow) {
                     w = 15;
                 }
                 
-                if (me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow) {
                     w = 15;
                 }
                 
-                if (sum && me.Upward.frame.penalty.occupy > lane.length) {
+                if (sum && me.Upward && me.Upward.frame.penalty.occupy > lane.length) {
                     sum = lane.length;
                 }
 
-                for (var index in me.Upward.lane) {
+                for (var index in me.calcUpwardLane) {
                     if (
                         me.Upward.lane[index] && me.Upward.lane[index].laneType !== "non-motorized" && 
                         ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(me.Upward.lane[index].type) === -1
@@ -1153,11 +1175,11 @@
             calcUpwardLanePosition: function(i) {
                 var me = this;
                 var w = 0;
-                if (me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow) {
                     w = 15;
                 }
                 
-                if (me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow) {
                     w = 15;
                 }
                 var lane = me.Upward.lane.concat([]);
@@ -1170,21 +1192,26 @@
             calcDownLanePosition: function(i) {
                 var me = this;
                 var w = 0;
-                if (me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.boundary && me.Upward.frame.boundary.isShow) {
                     w = 15;
                 }
                 
-                if (me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.line && me.Upward.frame.line.isShow) {
                     w = 15;
                 }
 
-                if (me.Upward.frame && me.Upward.frame.separation && me.Upward.frame.separation.isShow && !me.isUnidirectional) {
+                if (me.Upward && me.Upward.frame && me.Upward.frame.separation && me.Upward.frame.separation.isShow && !me.isUnidirectional) {
                     w += 15;
                 }
+
+                if (me.Down && me.isUnidirectional) {
+                    w += 15;
+                }
+
                 var lane = me.Down.lane.concat([]);
                 var newLane = lane.splice(0, i);
                 var a = newLane.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) !== -1 }).length
-                var b = newLane.filter(function(it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) === -1 }).length
+                var b = newLane.filter(function (it) { return ['parterre', 'parterre-dashed', 'y-parterre-solid', 'y-parterre-dashed'].indexOf(it.type) === -1 }).length
                 w += a * 15 + b * me.calcDownLaneWidth;
                 return { x : me.X, y : me.Y + w + me.calcUpwardRoadWidth }
             },
@@ -1301,23 +1328,23 @@
                         "@on-road-pedestrian-stop-click=\"$parent.$emit('on-pedestrian-stop-click', arguments[0], n, arguments[1], 'road')\" ",
                         "@on-road-pedestrian-click=\"$parent.$emit('on-pedestrian-click', arguments[0], n, 'road')\" ",
                         "></road-section>",
-                    "<text fill='#D6CB0A' :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 + RoadWidth / 2 + 20' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold; text-align: center;'>{{ startCrossName }}</text>",
-                    "<text fill='#D6CB0A' :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 + RoadWidth / 2 + 20' font-size='18' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold; text-align: center;'>{{ endCrossName }}</text>",
-                    "<text fill='#fff' font-size='24' style='dominant-baseline:middle;text-anchor:end; font-weight:bold; text-align: center;'>",
-                        "<tspan :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 - RoadWidth / 4 - 15'>{{ name }}</tspan>",
-                        "<tspan :x='(1920 / 2 - getPavementLength / 2) - 10' :dx='-Math.abs(name.length - 2) * 24 / 2' :y='1080 / 2 - RoadWidth / 4 + 15'>下行</tspan>",
+                    "<text fill='#D6CB0A' :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 + RoadWidth / 2 + 20' font-size='24' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold; text-align: center;'>{{ startCrossName }}</text>",
+                    "<text fill='#D6CB0A' :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 + RoadWidth / 2 + 20' font-size='24' style='dominant-baseline:middle;text-anchor:middle; font-weight:bold; text-align: center;'>{{ endCrossName }}</text>",
+                    "<text v-if='hasDownUnidirectional' fill='#fff' font-size='24' style='dominant-baseline:middle;text-anchor:end; font-weight:bold; text-align: center;'>",
+                        "<tspan :x='(1920 / 2 - getPavementLength / 2) - 10' :y='hasUnidirectional ? 1080 / 2 - 15 : 1080 / 2 - RoadWidth / 4 - 15'>{{ name }}</tspan>",
+                        "<tspan fill='#D6CB0A' :x='(1920 / 2 - getPavementLength / 2) - 10' :dx='-Math.abs(name.length - 2) * 24 / 2' :y='hasUnidirectional ? 1080 / 2 + 15 : 1080 / 2 - RoadWidth / 4 + 15'>下行</tspan>",
                     "</text>",
-                    "<text font-size='24' style='dominant-baseline:middle;text-anchor:end; font-weight:bold;' fill='#fff'>",
-                        "<tspan :x='(1920 / 2 - getPavementLength / 2) - 10' :y='1080 / 2 + RoadWidth / 4 - 15'>{{ name }}</tspan>",
-                        "<tspan :x='(1920 / 2 - getPavementLength / 2) - 10' :dx='-Math.abs(name.length - 2) * 24 / 2' :y='1080 / 2 + RoadWidth / 4 + 15'>上行</tspan>",
+                    "<text v-if='hasUpwardUnidirectional' font-size='24' style='dominant-baseline:middle;text-anchor:end; font-weight:bold;' fill='#fff'>",
+                        "<tspan :x='(1920 / 2 - getPavementLength / 2) - 10' :y='hasUnidirectional ? 1080 / 2 - 15 : 1080 / 2 + RoadWidth / 4 - 15'>{{ name }}</tspan>",
+                        "<tspan fill='#D6CB0A' :x='(1920 / 2 - getPavementLength / 2) - 10' :dx='-Math.abs(name.length - 2) * 24 / 2' :y='hasUnidirectional ? 1080 / 2 + 15 : 1080 / 2 + RoadWidth / 4 + 15'>上行</tspan>",
                     "</text>",
-                    "<text font-size='24' style='dominant-baseline:middle;text-anchor:start; font-weight:bold;' fill='#fff'>",
-                        "<tspan :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 - RoadWidth / 4 - 15'>{{ name }}</tspan>",
-                        "<tspan :x='(1920 / 2 + getPavementLength / 2) + 10' :dx='Math.abs(name.length - 2) * 24 / 2' :y='1080 / 2 - RoadWidth / 4 + 15'>下行</tspan>",
+                    "<text v-if='hasDownUnidirectional' font-size='24' style='dominant-baseline:middle;text-anchor:start; font-weight:bold;' fill='#fff'>",
+                        "<tspan :x='(1920 / 2 + getPavementLength / 2) + 10' :y='hasUnidirectional ? 1080 / 2 - 15 : 1080 / 2 - RoadWidth / 4 - 15'>{{ name }}</tspan>",
+                        "<tspan fill='#D6CB0A' :x='(1920 / 2 + getPavementLength / 2) + 10' :dx='Math.abs(name.length - 2) * 24 / 2' :y='hasUnidirectional ? 1080 / 2 + 15 : 1080 / 2 - RoadWidth / 4 + 15'>下行</tspan>",
                     "</text>",
-                    "<text font-size='24' style='dominant-baseline:middle;text-anchor:start; font-weight:bold;' fill='#fff'>",
-                        "<tspan :x='(1920 / 2 + getPavementLength / 2) + 10' :y='1080 / 2 + RoadWidth / 4 - 15'>{{ name }}</tspan>",
-                        "<tspan :x='(1920 / 2 + getPavementLength / 2) + 10' :dx='Math.abs(name.length - 2) * 24 / 2' :y='1080 / 2 + RoadWidth / 4 + 15'>上行</tspan>",
+                    "<text v-if='hasUpwardUnidirectional' font-size='24' style='dominant-baseline:middle;text-anchor:start; font-weight:bold;' fill='#fff'>",
+                        "<tspan :x='(1920 / 2 + getPavementLength / 2) + 10' :y='hasUnidirectional ? 1080 / 2 - 15 : 1080 / 2 + RoadWidth / 4 - 15'>{{ name }}</tspan>",
+                        "<tspan fill='#D6CB0A' :x='(1920 / 2 + getPavementLength / 2) + 10' :dx='Math.abs(name.length - 2) * 24 / 2' :y='hasUnidirectional ? 1080 / 2 + 15 : 1080 / 2 + RoadWidth / 4 + 15'>上行</tspan>",
                     "</text>",
                 "</g>",
             "</g>"
@@ -1354,6 +1381,22 @@
             getPavementPosition: function() {
                 var me = this;
                 return { x : 1920 / 2 - me.getPavementLength / 2, y : 1080/2 - me.RoadWidth / 2 };
+            },
+            hasUpwardUnidirectional: function () {
+                var me = this;
+                return me.Roads.every(function (it, _) {
+                    return !it.upward;
+                })
+            },
+            hasDownUnidirectional: function () {
+                var me = this;
+                return me.Roads.every(function (it, _) {
+                    return !it.down;
+                })
+            },
+            hasUnidirectional: function () {
+                var me = this;
+                return me.hasUpwardUnidirectional || me.hasDownUnidirectional;
             },
             // getPedestrians: function () {
             //     var me = this;
